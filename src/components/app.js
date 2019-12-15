@@ -1,4 +1,9 @@
-import React, {Component} from 'react';
+import React, {Component} from 'react'
+import './app.css'
+import Header from './header'
+import Main from './main'
+import Footer from './footer'
+
 
 class App extends Component {
 
@@ -6,16 +11,33 @@ class App extends Component {
         super(props)
 
         this.state = {
-            screen: ''
+            screen: 'index'
         }
     }
 
     render() {
         return (
             <div className='app'>
-            
+
+                <Header
+                    screen={this.state.screen}
+                />
+
+                <Main />
+
+                <Footer
+                    screen={this.state.screen}
+                    switchScreen={this.switchScreen.bind(this)}
+                />
+
             </div>
         )
+    }
+
+    switchScreen(e) {
+        this.setState({
+            screen: e.target.value
+        })
     }
 }
 

@@ -1,0 +1,7 @@
+.main {
+    width: 100%;
+    max-width: inherit;
+    min-height: 646px;
+    background-color: #fff;
+    padding: 78px 5px;
+}
