@@ -13,7 +13,7 @@ const Header = (props) => {
             text = 'Календарь'; break;
         case 'exercise':
             text = 'Описания тренировок'; break;
-        case 'login':
+        case 'user':
             text = 'Аккаунт'; break;
         default:
             text = 'Where is i'; break;

@@ -4,7 +4,7 @@ import Button from './button'
 
 const Footer = (props) => {
 
-    const footerTitles = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['login', 'Аккаунт']];
+    const footerTitles = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']];
     const isCurrent = (screen, item) => {
         if (screen === item) return 'markers-list__button markers-list__button--current';
         return 'markers-list__button';

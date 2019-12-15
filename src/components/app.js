@@ -23,7 +23,9 @@ class App extends Component {
                     screen={this.state.screen}
                 />
 
-                <Main />
+                <Main
+                    state={this.state}
+                />
 
                 <Footer
                     screen={this.state.screen}
