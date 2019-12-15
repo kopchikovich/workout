@@ -1,6 +1,6 @@
 .app {
     width: 100%;
-    max-width: 800px;
+    max-width: var(--max-width);
     margin: 0 auto;
     background-color: #999;
     font-family: Verdana, Tahoma, sans-serif;

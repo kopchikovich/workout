@@ -2,8 +2,8 @@
     width: 100%;
     max-width: inherit;
     height: 78px;
-    background-color: #f55;
-    color: #fff;
+    background-color: var(--second-bg-color);
+    color: var(--main-bg-color);
     position: fixed;
     bottom: 0;
     z-index: 1
@@ -26,7 +26,7 @@
     text-decoration: underline;
 }
 .markers-list li {
-    border-right: 1px solid #fff;
+    border-right: 1px solid var(--main-bg-color);
 }
 .markers-list li:last-child {
     border-right: none;

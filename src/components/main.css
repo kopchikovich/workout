@@ -2,6 +2,7 @@
     width: 100%;
     max-width: inherit;
     min-height: 646px;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
+    color: var(--main-color);
     padding: 78px 5px;
 }
