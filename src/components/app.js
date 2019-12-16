@@ -7,13 +7,9 @@ import Footer from './footer'
 
 class App extends Component {
 
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            screen: 'index',
-            headerText: ''
-        }
+    state = {
+        screen: 'index',
+        headerText: ''
     }
 
     render() {
