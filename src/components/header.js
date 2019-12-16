@@ -15,7 +15,7 @@ const Header = (props) => {
             case 'calendar':
                 renderedText = 'Календарь'; break;
             case 'exercise':
-                renderedText = 'Описания тренировок'; break;
+                renderedText = 'Тренировки'; break;
             case 'user':
                 renderedText = 'Аккаунт'; break;
             default:

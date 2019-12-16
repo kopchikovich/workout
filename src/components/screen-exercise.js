@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+import './screen-exercise.css'
 import ButtonList from './button-list'
+import Button from './button'
 import training_db from '../data'
 
 class ScreenExercise extends Component {
@@ -10,7 +12,6 @@ class ScreenExercise extends Component {
 
     makeDescription(e) {
         const training = training_db[e.target.value];
-        this.props.printHeader(training.name);
         const exercises = training.exercises.map((exs, index) => {
             return (
                 <details className='description__exercise' key={index}>
@@ -19,14 +20,31 @@ class ScreenExercise extends Component {
                 </details>
             )
         });
+        const returnButton = (
+            <Button
+                className='description__button'
+                title='<'
+                value={'exercise'}
+                onClickHandler={this.clearDescription.bind(this)}
+            />
+        );
+        this.props.printHeader(training.name);
         this.setState({
             description: (
             <article className='description'>
                 {training.description}
                 {exercises}
+                {returnButton}
             </article>
             )
         });
+    }
+
+    clearDescription() {
+        this.setState({
+            description: ''
+        });
+        this.props.printHeader('Тренировки');
     }
 
     render() {

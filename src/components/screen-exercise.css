@@ -1,0 +1,21 @@
+.description {
+    padding: 20px 10px;
+    position: relative;
+}
+.description__exercise {
+    margin: 5px 0 0;
+}
+.description__text {
+    display: block;
+    margin: 5px 0;
+    font-style: italic;
+}
+.description__button {
+    position: absolute;
+    top: -57px;
+    left: 0;
+    font-size: 26px;
+    padding: 3px;
+    color: var(--main-color);
+    opacity: 0.8;
+}

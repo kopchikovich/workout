@@ -10,6 +10,7 @@
     padding: 3px;
     margin-bottom: 7px;
 }
+
 /* exercise list with description */
 .buttons-list--description {
     padding-left: 50px;
@@ -17,15 +18,4 @@
 }
 .li--with-circle {
     list-style-type: circle;
-}
-.description {
-    padding: 20px 10px;
-}
-.description__exercise {
-    margin: 5px 0 0;
-}
-.description__text {
-    display: block;
-    margin: 5px 0;
-    font-style: italic;
 }

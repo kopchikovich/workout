@@ -7,7 +7,7 @@ const Main = (props) => {
 
     const index = <ScreenIndex />
     const calendar = null;
-    const exercise = <ScreenExercise printHeader={props.printHeader}/>;
+    const exercise = <ScreenExercise printHeader={props.printHeader} />;
     const user = null;
 
     const {screen} = props.state;
