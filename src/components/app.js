@@ -11,7 +11,8 @@ class App extends Component {
         super(props)
 
         this.state = {
-            screen: 'index'
+            screen: 'index',
+            headerText: ''
         }
     }
 
@@ -21,10 +22,12 @@ class App extends Component {
 
                 <Header
                     screen={this.state.screen}
+                    text={this.state.headerText}
                 />
 
                 <Main
                     state={this.state}
+                    printHeader={this.printHeader.bind(this)}
                 />
 
                 <Footer
@@ -38,7 +41,14 @@ class App extends Component {
 
     switchScreen(e) {
         this.setState({
+            headerText: '',
             screen: e.target.value
+        })
+    }
+
+    printHeader(text) {
+        this.setState({
+            headerText: text
         })
     }
 }

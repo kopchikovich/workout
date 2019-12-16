@@ -12,7 +12,7 @@ const ButtonList = (props) => {
                     className={props.buttonClassName}
                     title={training.name}
                     value={training.key}
-                    onClickHandler={null}
+                    onClickHandler={props.onClickHandler}
                 />
             </li>
         )
