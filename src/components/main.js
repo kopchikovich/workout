@@ -1,26 +1,33 @@
 import React from 'react'
 import './main.css'
+import ScreenIndex from './screen-index'
+import ScreenExercise from './screen-exercise'
 
 const Main = (props) => {
+
+    const index = <ScreenIndex />
+    const calendar = null;
+    const exercise = <ScreenExercise />;
+    const user = null;
 
     const {screen} = props.state;
     let renderedScreen = <h2>some error...</h2>;
 
     switch (screen) {
         case 'index':
-            renderedScreen = '';
+            renderedScreen = index;
             break;
         case 'calendar':
-            renderedScreen = '';
+            renderedScreen = calendar;
             break;
         case 'exercise':
-            renderedScreen = '';
+            renderedScreen = exercise;
             break;
         case 'user':
-            renderedScreen = '';
+            renderedScreen = user;
             break;
         default:
-            renderedScreen = '';
+            renderedScreen = index;
             break;
     }
 
