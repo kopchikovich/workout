@@ -5,19 +5,19 @@ import Button from './button'
 const Footer = (props) => {
 
     const footerTitles = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']];
-    const isCurrent = (screen, item) => {
-        if (screen === item) return 'markers-list__button markers-list__button--current';
-        return 'markers-list__button';
+    const isCurrent = (screen) => {
+        return props.screen === screen;
     };
 
     const footerList = footerTitles.map((title, key) => {
         return (
             <li key={key}>
                 <Button
-                    className={isCurrent(props.screen, title[0])}
+                    className={isCurrent(title[0])? 'markers-list__button markers-list__button--current' : 'markers-list__button'}
                     value={title[0]}
                     title={title[1]}
                     onClickHandler={props.switchScreen}
+                    disabled={isCurrent(title[0])}
                 />
             </li>
         )
