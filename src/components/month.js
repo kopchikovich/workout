@@ -2,10 +2,41 @@ import React from 'react'
 
 // class with helping methods
 class Calendar {
-    getAmountOfDaysInMonth(date) {
+
+    getMonth(monthNum) {
+        let date = new Date();
+        date.setDate(1);
+        date.setMonth(monthNum);
+        let days = [];
+        let day = 1 - this._getFirstEmptyWeekDays(date);
+        for (day; day <= this._getAmountOfDaysInMonth(date); day++) {
+            let newDay = (
+                <span className='calendar__day' key={day} value={day}>
+                    {day > 0? day : null}
+                </span>
+            );
+            days.push(newDay);
+        }
+        return days;
+    }
+
+    getMonthName(monthNum) {
+        if (monthNum < 0) monthNum += 12;
+        const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+        return monthNames[monthNum];
+    }
+
+    getMonthNameInEng(monthNum) {
+        if (monthNum < 0) monthNum += 12;
+        const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+        return monthNames[monthNum];
+    }
+
+    _getAmountOfDaysInMonth(date) {
         return 33 - new Date(date.getFullYear(), date.getMonth(), 33).getDate();
     }
-    getFirstEmptyWeekDays(date) {
+
+    _getFirstEmptyWeekDays(date) {
         const weekday = date.getDay();
         switch (weekday) {
             case 0: return 6; // Sunday
@@ -18,31 +49,7 @@ class Calendar {
             default: return -1; // Error
         }
     }
-    getMonth(monthNum) {
-        let date = new Date();
-        date.setDate(1);
-        date.setMonth(monthNum);
-        let days = [];
-        let day = 1 - this.getFirstEmptyWeekDays(date);
-        for (day; day <= this.getAmountOfDaysInMonth(date); day++) {
-            let newDay = (
-                <span className='calendar__day' key={day} value={day}>
-                    {day > 0? day : null}
-                </span>
-            )
-            days.push(newDay);
-        }
-        return days;
-    }
-    getMonthName(monthNum) {
-        if (monthNum < 0) monthNum += 12;
-        const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
-        return monthNames[monthNum];
-    }
-    getMonthNameInEng(monthNum) {
-        const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
-        return monthNames[monthNum];
-    }
+
 }
 
 // Component
