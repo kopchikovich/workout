@@ -8,9 +8,9 @@ import Footer from './footer'
 class App extends Component {
 
     state = {
-        screen: 'index',
+        screen: 'calendar',
         headerText: '',
-        isLogin: false
+        isLogin: true
     }
 
     render() {
