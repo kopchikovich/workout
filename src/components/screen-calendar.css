@@ -16,13 +16,14 @@
     margin: 0 40px 0 0; 
 }
 .calendar__month {
+    width: 350px;
+    margin: 0 auto;
+}
+.calendar__days {
     width: 100%;
     display: flex;
     flex-flow: row wrap;
     margin-bottom: 40px;
-}
-.calendar__week {
-    width: 100%;
 }
 .calendar__day {
     width: 50px;
