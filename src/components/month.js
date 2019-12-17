@@ -2,7 +2,6 @@ import React from 'react'
 
 // class with helping methods
 class Calendar {
-
     getAmountOfDaysInMonth(date) {
         return 33 - new Date(date.getFullYear(), date.getMonth(), 33).getDate();
     }
@@ -36,6 +35,7 @@ class Calendar {
         return days;
     }
     getMonthName(monthNum) {
+        if (monthNum < 0) monthNum += 12;
         const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
         return monthNames[monthNum];
     }
@@ -48,12 +48,12 @@ class Calendar {
 // Component
 const Month = (props) => {
 
-    const days = Calendar.prototype.getMonth(props.state.lastRenderedMonth)
+    const days = Calendar.prototype.getMonth(props.monthNum)
 
     return (
         <article className='calendar__month'>
             <h3 className='calendar__header'>
-                {Calendar.prototype.getMonthName(props.state.lastRenderedMonth)}
+                {Calendar.prototype.getMonthName(props.monthNum)}
             </h3>
             <div className='calendar__days'>
                 {days}

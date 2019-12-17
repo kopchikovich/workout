@@ -11,6 +11,13 @@
     font-size: 40px;
     color: #999;
 }
+.calendar__container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
 .calendar__header {
     font-size: 23px;
     margin: 0 40px 0 0; 
@@ -18,6 +25,11 @@
 .calendar__month {
     width: 350px;
     margin: 0 auto;
+}
+@media screen and (min-width: 725px) {
+    .calendar__month {
+        min-height: 370px;
+    }
 }
 .calendar__days {
     width: 100%;
