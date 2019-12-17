@@ -1,6 +1,7 @@
 import React from 'react'
 import './main.css'
 import ScreenIndex from './screen-index'
+import ScreenWorkout from './screen-workout'
 import ScreenCalendar from './screen-calendar'
 import ScreenExercise from './screen-exercise'
 import ScreenUser from './screen-user'
@@ -8,7 +9,14 @@ import ScreenUser from './screen-user'
 const Main = (props) => {
 
     const index = (
-        <ScreenIndex />
+        <ScreenIndex
+            openWorkoutScreen={props.openWorkoutScreen}
+        />
+    )
+    const workout = (
+        <ScreenWorkout
+            state={props.state}
+        />
     )
     const calendar = (
         <ScreenCalendar />
@@ -32,6 +40,9 @@ const Main = (props) => {
     switch (screen) {
         case 'index':
             renderedScreen = index;
+            break;
+        case 'workout':
+            renderedScreen = workout;
             break;
         case 'calendar':
             renderedScreen = calendar;

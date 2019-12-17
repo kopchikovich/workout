@@ -8,9 +8,10 @@ import Footer from './footer'
 class App extends Component {
 
     state = {
-        screen: 'calendar',
+        screen: 'index',
         headerText: '',
-        isLogin: true
+        isLogin: true,
+        trainingKey: ''
     }
 
     render() {
@@ -18,12 +19,12 @@ class App extends Component {
             <div className='app'>
 
                 <Header
-                    screen={this.state.screen}
-                    text={this.state.headerText}
+                    state={this.state}
                 />
 
                 <Main
                     state={this.state}
+                    openWorkoutScreen={this.openWorkoutScreen.bind(this)}
                     printHeader={this.printHeader.bind(this)}
                     login={this.login.bind(this)}
                     logout={this.logout.bind(this)}
@@ -42,6 +43,12 @@ class App extends Component {
         this.setState({
             headerText: '',
             screen: e.target.value
+        })
+    }
+    openWorkoutScreen(e) {
+        this.setState({
+            screen: 'workout',
+            trainingKey: e.target.value
         })
     }
 
@@ -65,6 +72,7 @@ class App extends Component {
             }, 300);
         }
     }
+
     logout() {
         this.setState({
             isLogin: false
