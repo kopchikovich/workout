@@ -9,7 +9,8 @@ class App extends Component {
 
     state = {
         screen: 'index',
-        headerText: ''
+        headerText: '',
+        isLogin: false
     }
 
     render() {
@@ -24,6 +25,8 @@ class App extends Component {
                 <Main
                     state={this.state}
                     printHeader={this.printHeader.bind(this)}
+                    login={this.login.bind(this)}
+                    logout={this.logout.bind(this)}
                 />
 
                 <Footer
@@ -45,6 +48,26 @@ class App extends Component {
     printHeader(text) {
         this.setState({
             headerText: text
+        })
+    }
+
+    login(e) {
+        e.preventDefault()
+        const form = e.target
+        if (form.email.value === '1@2.3' && form.password.value === '123') {
+            this.setState({
+                isLogin: true
+            })
+        } else {
+            form.classList.add('shake')
+            setTimeout(() => {
+                form.classList.remove('shake')
+            }, 300);
+        }
+    }
+    logout() {
+        this.setState({
+            isLogin: false
         })
     }
 }

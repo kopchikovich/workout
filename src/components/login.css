@@ -1,0 +1,31 @@
+.login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: 0.3s;
+}
+.login__block {
+    width: 300px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.login__text {
+    margin-right: 10px;
+}
+.login__input {
+    height: 30px;
+    width: 185px;
+    font-size: 18px;
+}
+.login__submit {
+    margin-top: 20px;
+    padding: 5px 10px;
+}
+
+/******** shake ********/
+.shake {
+    margin-right: 50px;
+}

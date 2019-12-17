@@ -1,0 +1,12 @@
+.user {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.user__text {
+    text-align: center;
+}
+.user__button {
+    padding: 5px 10px;
+}
