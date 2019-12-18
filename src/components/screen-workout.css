@@ -48,7 +48,7 @@
 .timer__time {
     font-size: 56px;
     font-weight: normal;
-    color: #f55;
+    color: var(--second-bg-color);
 }
 /*************** exercise ***************/
 .training-table__cell--exercise {
