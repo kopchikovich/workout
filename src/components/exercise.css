@@ -1,6 +1,10 @@
 /* exercise checker */
 .checker {
     padding-bottom: 0;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    justify-content: space-between;
 }
 .checker__current-exs {
     font-size: 18px;
@@ -16,8 +20,15 @@
     font-size: 16px;
 }
 /* exercise input */
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 .input__text {
     font-size: 18px;
+    margin-right: 10px;
 }
 .input__text--small {
     font-size: 14px;
