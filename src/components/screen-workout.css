@@ -1,4 +1,28 @@
-/*************** header ***************/
+/*************** main table ***************/
+.training-table {
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+}
+.training-table__cell {
+    box-sizing: border-box;
+    background-color: #fff;
+    height: 80%;
+    text-align: center;
+    padding: 5px;
+}
+.training-table__cell--timer {
+    width: 50%;
+    height: 20%;
+}
+.training-table__cell--exercise {
+    width: 55%;
+}
+.training-table__cell--sets {
+    width: 45%;
+}
+
+/*************** close button ***************/
 .header__button {
     height: 40px;
     width: 40px;
@@ -20,99 +44,4 @@
 }
 .header__button::after {
     transform: rotate(-45deg);
-}
-
-/*************** main table ***************/
-.training-table {
-    display: flex;
-    flex-flow: row wrap;
-    height: 100%;
-}
-.training-table__cell {
-    box-sizing: border-box;
-    background-color: #fff;
-    height: 80%;
-    text-align: center;
-    padding: 5px;
-}
-/*************** timers ***************/
-.training-table__cell--timer {
-    width: 50%;
-    height: 20%;
-}
-.timer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.timer__time {
-    font-size: 56px;
-    font-weight: normal;
-    color: var(--second-bg-color);
-}
-/*************** exercise ***************/
-.training-table__cell--exercise {
-    width: 55%;
-}
-/* exercise checker */
-.checker {
-    padding-bottom: 0;
-}
-.checker__current-exs {
-    font-size: 18px;
-}
-.checker__btn {
-    padding: 10px 0;
-    border-radius: 5px;
-}
-.exercise__sets {
-    margin: 0;
-    padding: 0;
-    margin-bottom: 15px;
-    font-size: 16px;
-}
-/* exercise input */
-.input__text {
-    font-size: 18px;
-}
-.input__text--small {
-    font-size: 14px;
-}
-.input__container {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    justify-content: space-around;
-    margin-bottom: 5px;
-}
-.input__container--column {
-    flex-direction: column;
-}
-.input__input {
-    height: 25px;
-    font-size: 16px;
-    padding: 1px;
-}
-.input__input--weight {
-    width: 125px;
-}
-.input__input--repeats {
-    width: 50px;
-}
-.input__input--time {
-    width: 70px;
-}
-.input__btn-submit {
-    margin-top: 25px;
-}
-/*************** sets list ***************/
-.training-table__cell--sets {
-    width: 45%;
-}
-.sets {
-    font-size: 18px;
-}
-.sets__set {
-    list-style-type: decimal;
-    margin-left: 10px;
 }

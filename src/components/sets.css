@@ -1,0 +1,7 @@
+.sets {
+    font-size: 18px;
+}
+.sets__set {
+    list-style-type: decimal;
+    margin-left: 10px;
+}

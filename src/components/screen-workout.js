@@ -2,6 +2,8 @@ import React, {Component} from 'react'
 import './screen-workout.css'
 import training_db from '../data'
 import Timer from './timer'
+import Exercise from './exercise'
+import Sets from './sets'
 
 class ScreenWorkout extends Component {
 
@@ -25,11 +27,11 @@ class ScreenWorkout extends Component {
                 </article>
 
                 <article className='training-table__cell training-table__cell--exercise exercise'>
-
+                    <Exercise training={training} />
                 </article>
 
                 <article className='training-table__cell training-table__cell--sets sets'>
-
+                    <Sets />
                 </article>
 
             </section>

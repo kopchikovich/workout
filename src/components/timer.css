@@ -1,0 +1,10 @@
+.timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.timer__time {
+    font-size: 56px;
+    font-weight: normal;
+    color: var(--second-bg-color);
+}

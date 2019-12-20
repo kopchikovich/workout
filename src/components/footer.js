@@ -16,7 +16,8 @@ const Footer = (props) => {
                 <Button
                     className='markers-list__button'
                     title='Закончить тренировку'
-                    onClickHandler={null}
+                    value='index'
+                    onClickHandler={props.switchScreen}
                 />
             </li>
         )
