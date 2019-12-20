@@ -4,7 +4,7 @@ const OptionWeight = () => {
     return (
         <label className='input__container'>
             <span className='input__text'>Вес</span>
-            <select className='input__input input__input--weight' id='weight'>
+            <select className='input__input input__input--weight' name='weight'>
                 <option value='0' className='input__weight-value'>без веса</option>
                 <option value='7300' className='input__weight-value'>7,3 (2x2.5)</option>
                 <option value='8300' className='input__weight-value'>8,3 (2x2.5,2x0.5)</option>
