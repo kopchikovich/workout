@@ -42,7 +42,8 @@ class ScreenWorkout extends Component {
                 </article>
 
                 <Button 
-                    className='training-table__button'
+                    className='description__button button--arrow'
+                    title='<'
                     onClickHandler={this.props.switchScreen}
                     value='index'
                 />

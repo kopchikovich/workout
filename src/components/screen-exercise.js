@@ -22,7 +22,7 @@ class ScreenExercise extends Component {
         });
         const returnButton = (
             <Button
-                className='description__button'
+                className='description__button button--arrow'
                 title='<'
                 value={'exercise'}
                 onClickHandler={this.clearDescription.bind(this)}
