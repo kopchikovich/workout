@@ -41,9 +41,9 @@ const Exercise = (props) => {
             <p className='exercise__sets'>
                 Подходы: <span>{exercise.sets}</span>
             </p>
-            <form className='exercise__input input' name='exercise-form'>
+            <form className='exercise__input input' name='exercise-form' onSubmit={props.recordSet}>
                 {renderedOptions}
-                <Button className='input__btn-submit' title='Записать' onClickHandler={null} />
+                <Button className='input__btn-submit' title='Записать' />
             </form>
         </>
     )

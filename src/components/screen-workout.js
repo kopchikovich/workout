@@ -6,12 +6,23 @@ import Timer from './timer'
 import Exercise from './exercise'
 import Sets from './sets'
 
+// Training это шаблон тренировки (тренировка в базе данных)
+// Workout это практическая тренировка, действие. Запись которой и происходит
+
 class ScreenWorkout extends Component {
 
     constructor(props) {
         super(props)
 
         this.training = training_db[this.props.state.trainingKey];
+        this.workout = {
+            name: this.training.name,
+            type: this.training.type,
+            timeStart: new Date(),
+            timeStop: '',
+            durationInMinutes: '',
+            exercises: {}
+        }
 
         this.initialState = {
             currentExs: this.training.exercises[0],
@@ -34,7 +45,12 @@ class ScreenWorkout extends Component {
                 </article>
 
                 <article className='training-table__cell training-table__cell--exercise exercise'>
-                    <Exercise state={this.state} training={this.training} switchExercise={this.switchExercise.bind(this)} />
+                    <Exercise
+                        state={this.state}
+                        training={this.training}
+                        switchExercise={this.switchExercise.bind(this)}
+                        recordSet={this.recordSet.bind(this)}
+                    />
                 </article>
 
                 <article className='training-table__cell training-table__cell--sets sets'>
@@ -69,6 +85,20 @@ class ScreenWorkout extends Component {
             currentExs: newExs,
             currentExsIndex: newExsIndex
         })
+    }
+
+    recordSet(e) {
+        e.preventDefault();
+        const form = e.target;
+        const FORM_LENGTH_WITHOUT_BUTTON = form.length-1;
+        let set = {};
+        for (let i = 0; i < FORM_LENGTH_WITHOUT_BUTTON; i++) {
+            set[form[i].name] = form[i].value;
+        }
+
+        let recordingExs = this.workout.exercises[this.state.currentExs.name];
+        if (!recordingExs) recordingExs = this.workout.exercises[this.state.currentExs.name] = [];
+        recordingExs.push(set);
     }
 }
 
