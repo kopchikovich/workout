@@ -3,10 +3,11 @@
     display: flex;
     flex-flow: row wrap;
     height: 100%;
+    position: relative;
 }
 .training-table__cell {
     box-sizing: border-box;
-    background-color: #fff;
+    background-color: var(--main-bg-color);
     height: 80%;
     text-align: center;
     padding: 5px;
@@ -23,25 +24,25 @@
 }
 
 /*************** close button ***************/
-.header__button {
+.training-table__button {
     height: 40px;
     width: 40px;
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: -60px;
+    left: 5px;
 }
-.header__button::before, .header__button::after {
+.training-table__button::before, .training-table__button::after {
     content: '';
     display: block;
     box-sizing: border-box;
     width: 40px;
     height: 5px;
-    border-top: 5px solid #999;
+    border-top: 5px solid var(--light-color);
     position: absolute;
 }
-.header__button::before {
+.training-table__button::before {
     transform: rotate(45deg);
 }
-.header__button::after {
+.training-table__button::after {
     transform: rotate(-45deg);
 }

@@ -24,6 +24,7 @@ class App extends Component {
 
                 <Main
                     state={this.state}
+                    switchScreen={this.switchScreen.bind(this)}
                     openWorkoutScreen={this.openWorkoutScreen.bind(this)}
                     printHeader={this.printHeader.bind(this)}
                     login={this.login.bind(this)}

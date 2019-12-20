@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import './screen-workout.css'
 import training_db from '../data'
+import Button from './button'
 import Timer from './timer'
 import Exercise from './exercise'
 import Sets from './sets'
@@ -39,6 +40,12 @@ class ScreenWorkout extends Component {
                 <article className='training-table__cell training-table__cell--sets sets'>
                     <Sets />
                 </article>
+
+                <Button 
+                    className='training-table__button'
+                    onClickHandler={this.props.switchScreen}
+                    value='index'
+                />
 
             </section>
         )

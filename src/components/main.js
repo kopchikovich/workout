@@ -16,6 +16,7 @@ const Main = (props) => {
     const workout = (
         <ScreenWorkout
             state={props.state}
+            switchScreen={props.switchScreen}
         />
     )
     const calendar = (
