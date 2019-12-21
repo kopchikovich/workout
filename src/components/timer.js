@@ -54,6 +54,9 @@ class Timer extends Component {
 
     componentWillUnmount() {
         clearInterval(this.timerInterval);
+        if (this.props.control) {
+            delete document.controller.resetRestTimer;
+        }
     }
 }
 
