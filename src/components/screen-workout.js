@@ -37,7 +37,7 @@ class ScreenWorkout extends Component {
             <section className='training-table'>
 
                 <article className='training-table__cell training-table__cell--timer timer'>
-                    <Timer />
+                    <Timer control={true} />
                 </article>
 
                 <article className='training-table__cell training-table__cell--timer timer'>
@@ -99,6 +99,8 @@ class ScreenWorkout extends Component {
         let recordingExs = this.workout.exercises[this.state.currentExs.name];
         if (!recordingExs) recordingExs = this.workout.exercises[this.state.currentExs.name] = [];
         recordingExs.push(set);
+
+        document.controller.resetRestTimer();
     }
 }
 

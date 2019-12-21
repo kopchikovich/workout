@@ -9,6 +9,20 @@ class Timer extends Component {
     }
     state = this.initialState
 
+    render() {
+        return (
+            <div className='timer__time'>
+                <span className='timer__minutes'>
+                    {this.state.minutes}
+                </span>
+                :
+                <span className='timer__seconds'>
+                    {this.state.seconds}
+                </span>
+            </div>
+        )
+    }
+
     tick() {
         let minutes = +this.state.minutes;
         let seconds = +this.state.seconds;
@@ -24,26 +38,22 @@ class Timer extends Component {
         })
     }
 
+    reset() {
+        this.setState({
+            minutes: '00',
+            seconds: '00'
+        })
+    }
+
     componentDidMount() {
         this.timerInterval = setInterval(this.tick.bind(this), 1000);
+        if (this.props.control) {
+            document.controller.resetRestTimer = this.reset.bind(this);
+        }
     }
 
     componentWillUnmount() {
         clearInterval(this.timerInterval);
-    }
-
-    render() {
-        return (
-            <div className='timer__time'>
-                <span className='timer__minutes'>
-                    {this.state.minutes}
-                </span>
-                :
-                <span className='timer__seconds'>
-                    {this.state.seconds}
-                </span>
-            </div>
-        )
     }
 }
 
