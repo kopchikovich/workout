@@ -20,13 +20,13 @@ class ScreenWorkout extends Component {
             type: this.training.type,
             timeStart: new Date(),
             timeStop: '',
-            durationInMinutes: '',
-            exercises: {}
+            durationInMinutes: ''
         }
 
         this.initialState = {
             currentExs: this.training.exercises[0],
-            currentExsIndex: 0
+            currentExsIndex: 0,
+            exercises: {}
         }
         this.state = this.initialState;
 
@@ -54,7 +54,7 @@ class ScreenWorkout extends Component {
                 </article>
 
                 <article className='training-table__cell training-table__cell--sets sets'>
-                    <Sets />
+                    <Sets exercise={this.state.exercises[this.state.currentExs.name]} />
                 </article>
 
                 <Button 
@@ -89,6 +89,7 @@ class ScreenWorkout extends Component {
 
     recordSet(e) {
         e.preventDefault();
+
         const form = e.target;
         const FORM_LENGTH_WITHOUT_BUTTON = form.length-1;
         let set = {};
@@ -96,9 +97,17 @@ class ScreenWorkout extends Component {
             set[form[i].name] = form[i].value;
         }
 
-        let recordingExs = this.workout.exercises[this.state.currentExs.name];
-        if (!recordingExs) recordingExs = this.workout.exercises[this.state.currentExs.name] = [];
-        recordingExs.push(set);
+        const currentExsLink = this.state.exercises[this.state.currentExs.name];
+        let sets = null;
+        if (currentExsLink) {
+            sets = Array.from(currentExsLink);
+            sets.push(set);
+        } else {
+            sets = [set];
+        }
+        this.setState({
+            exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
+        })
 
         document.controller.resetRestTimer();
     }

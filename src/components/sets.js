@@ -1,20 +1,27 @@
-import React, {Component} from 'react'
+import React from 'react'
 import './exercise.css'
 
-class Sets extends Component {
+const Sets = (props) => {
 
-    state = {}
-
-    render() {
+    const renderSets = (set, index) => {
         return (
-            <>
-                <h3 className='sets__header'>Выполнено</h3>
-                <ol className='sets__list'>
-                    <li className='sets__set'>-</li>
-                </ol>
-            </>
+            <li className='sets__set' key={index}>
+                {set.toString()}
+            </li>
         )
     }
+
+    const sets = props.exercise? props.exercise.map(renderSets) : <li className='sets__set'>-</li>;
+
+    return (
+        <>
+            <h3 className='sets__header'>Выполнено</h3>
+            <ol className='sets__list'>
+                {sets}
+            </ol>
+        </>
+    )
+
 }
 
 export default Sets
