@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import './screen-calendar.css'
-import Button from './button'
-import Month from './month'
+import Button from '../button'
+import Month from '../month'
 
 class ScreenCalendar extends Component {
 

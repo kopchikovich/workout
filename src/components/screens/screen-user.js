@@ -1,6 +1,6 @@
 import React from 'react'
-import Login from './login'
-import User from './user'
+import Login from '../login'
+import User from '../user'
 
 const ScreenUser = (props) => {
 

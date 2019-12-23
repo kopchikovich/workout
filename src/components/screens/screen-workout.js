@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import './screen-workout.css'
-import training_db from '../data'
-import Button from './button'
-import Timer from './timer'
-import Exercise from './exercise'
-import Sets from './sets'
+import training_db from '../../data'
+import Button from '../button'
+import Timer from '../timer'
+import Exercise from '../exercise'
+import Sets from '../sets'
 
 // Training это шаблон тренировки (тренировка в базе данных)
 // Workout это практическая тренировка, действие. Запись которой и происходит

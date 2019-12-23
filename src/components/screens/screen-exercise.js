@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import './screen-exercise.css'
-import ButtonList from './button-list'
-import Button from './button'
-import training_db from '../data'
+import ButtonList from '../button-list'
+import Button from '../button'
+import training_db from '../../data'
 
 class ScreenExercise extends Component {
 
