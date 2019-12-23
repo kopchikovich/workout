@@ -4,7 +4,7 @@ const OptionTime = () => {
     return (
         <label className='input__container'>
             <span className='input__text'>Время</span>
-            <input type='time' className='input__input input__input--time' name='time' />
+            <input type='time' className='input__input input__input--time' name='time' defaultValue='00:00' />
         </label>
     )
 }
