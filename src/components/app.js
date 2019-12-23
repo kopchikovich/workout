@@ -3,6 +3,7 @@ import './app.css'
 import Header from './header'
 import Main from './main'
 import Footer from './footer'
+import ModalWindow from './modal-window'
 
 
 class App extends Component {
@@ -36,6 +37,7 @@ class App extends Component {
                     switchScreen={this.switchScreen.bind(this)}
                 />
 
+                <ModalWindow header='pjujkjdjr' content='content' />
             </div>
         )
     }
