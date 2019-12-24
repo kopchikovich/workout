@@ -1,37 +1,22 @@
-import React, {Component} from 'react'
+import React from 'react'
 import './modal-window.css'
 
-class ModalWindow extends Component {
+const ModalWindow = (props) => {
 
-    state = {
-        isVisible: true
-    }
-
-    render() {
-
-        let display = this.state.isVisible? 'flex' : 'none';
+        let display = props.isVisible? 'flex' : 'none';
 
         return (
-            <div className='modal__wrapper' style={{display: display}} onClick={this.close.bind(this)}>
-                <div className='modal'>
-                    <h3 className='modal__header'>
-                        {this.props.header}
-                    </h3>
-                    <div className='modal__content'>
-                        {this.props.content}
-                    </div>
-                </div>
+            <div className='modal__wrapper' style={{display: display}} onClick={props.closeModal}>
+                <section className='modal'>
+                    <header className='modal__header'>
+                        {props.header}
+                    </header>
+                    <article className='modal__content'>
+                        {props.content}
+                    </article>
+                </section>
             </div>
         )
-    }
-
-    close(e) {
-        if (e.target === e.currentTarget) {
-            this.setState({
-                isVisible: false
-            })
-        }
-    }
 }
 
 export default ModalWindow

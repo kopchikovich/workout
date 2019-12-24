@@ -1,9 +1,9 @@
 :root {
     --main-bg-color: #fff;
+    --second-bg-color: #f55;
     --main-color: #222;
     --light-color: #777;
     --max-width: 800px;
-    --second-bg-color: #f55;
 }
 
 body, header, main, footer, h2, h3, ul, li, button {
@@ -21,11 +21,4 @@ button {
     border: none;
     background-color: transparent;
     font: inherit;
-}
-.visually-hidden {
-    position: absolute;
-    clip: rect(0 0 0 0);
-    width: 1px;
-    height: 1px;
-    margin: -1px;
 }

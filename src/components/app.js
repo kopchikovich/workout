@@ -1,9 +1,11 @@
 import React, {Component} from 'react'
 import './app.css'
+import training_db from '../data'
 import Header from './header'
 import Main from './main'
 import Footer from './footer'
 import ModalWindow from './modal-window'
+import ModalForm from './modal-form'
 
 
 class App extends Component {
@@ -12,7 +14,12 @@ class App extends Component {
         screen: 'index',
         headerText: '',
         isLogin: true,
-        trainingKey: ''
+        trainingKey: '',
+        modal: {
+            isVisible: false,
+            header: '',
+            content: ''
+        }
     }
 
     render() {
@@ -37,7 +44,13 @@ class App extends Component {
                     switchScreen={this.switchScreen.bind(this)}
                 />
 
-                <ModalWindow header='pjujkjdjr' content='content' />
+                <ModalWindow
+                    isVisible={this.state.modal.isVisible}
+                    header={this.state.modal.header}
+                    content={this.state.modal.content}
+                    openModal={this.openModal.bind(this)}
+                    closeModal={this.closeModal.bind(this)}
+                />
             </div>
         )
     }
@@ -48,17 +61,47 @@ class App extends Component {
             screen: e.target.value
         })
     }
+
     openWorkoutScreen(e) {
-        this.setState({
-            screen: 'workout',
-            trainingKey: e.target.value
-        })
+        const training = training_db[e.target.value];
+        if (training.type === 'power') {
+            this.setState({
+                screen: 'workout',
+                trainingKey: e.target.value
+            })
+        } else if (training.type === 'running' || training.type === 'swimming') {
+            this.openModal(training.name, <ModalForm />)
+        } else {
+            this.openModal('Error', 'Some arror, check app.js')
+        }
     }
 
     printHeader(text) {
         this.setState({
             headerText: text
         })
+    }
+
+    openModal(header, content) {
+        this.setState({
+            modal: {
+                isVisible: true,
+                header,
+                content
+            }
+        })
+    }
+
+    closeModal(e) {
+        if (e.target === e.currentTarget) {
+            this.setState({
+                modal: {
+                    isVisible: false,
+                    header: '',
+                    content: ''
+                }
+            })
+        }
     }
 
     login(e) {
