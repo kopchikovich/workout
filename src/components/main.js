@@ -17,6 +17,8 @@ const Main = (props) => {
         <ScreenWorkout
             state={props.state}
             switchScreen={props.switchScreen}
+            openModal={props.openModal}
+            closeModal={props.closeModal}
         />
     )
     const calendar = (

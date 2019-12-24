@@ -37,6 +37,8 @@ class App extends Component {
                     printHeader={this.printHeader.bind(this)}
                     login={this.login.bind(this)}
                     logout={this.logout.bind(this)}
+                    openModal={this.openModal.bind(this)}
+                    closeModal={this.closeModal.bind(this)}
                 />
 
                 <Footer
@@ -48,7 +50,6 @@ class App extends Component {
                     isVisible={this.state.modal.isVisible}
                     header={this.state.modal.header}
                     content={this.state.modal.content}
-                    openModal={this.openModal.bind(this)}
                     closeModal={this.closeModal.bind(this)}
                 />
             </div>
@@ -60,6 +61,7 @@ class App extends Component {
             headerText: '',
             screen: e.target.value
         })
+        this.closeModal(e, true);
     }
 
     openWorkoutScreen(e) {
@@ -92,8 +94,8 @@ class App extends Component {
         })
     }
 
-    closeModal(e) {
-        if (e.target === e.currentTarget) {
+    closeModal(e, forcibly) {
+        if (forcibly || e.target === e.currentTarget) {
             this.setState({
                 modal: {
                     isVisible: false,

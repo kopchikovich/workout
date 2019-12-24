@@ -33,9 +33,21 @@
     width: 270px;
     min-height: 50px;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     justify-content: space-between;
     align-items: center;
+}
+.modal__buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 170px;
+}
+.modal__buttons button {
+    color: inherit;
+    font-weight: 600;
+    padding: 2px 5px;
 }
 
 .modal__form {

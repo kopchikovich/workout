@@ -60,7 +60,7 @@ class ScreenWorkout extends Component {
                 <Button 
                     className='description__button button--arrow'
                     title='<'
-                    onClickHandler={this.props.switchScreen}
+                    onClickHandler={this.confirmExit.bind(this)}
                     value='index'
                 />
 
@@ -110,6 +110,19 @@ class ScreenWorkout extends Component {
         })
 
         document.controller.resetRestTimer();
+    }
+
+    confirmExit(e) {
+        let content = (
+            <>
+                <p>Вернуться к списку тренировок без сохранения данных?</p>
+                <div className='modal__buttons'>
+                    <Button title='Да' onClickHandler={this.props.switchScreen}  value='index' />
+                    <Button title='Нет' onClickHandler={this.props.closeModal} />
+                </div>
+            </>
+        )
+        this.props.openModal('Выход', content)
     }
 }
 
