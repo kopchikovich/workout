@@ -21,5 +21,10 @@
     padding: 5px;
     position: absolute;
     top: -60px;
-    transition: 1s;
+    transition: 0.8s;
 }
+
+/*
+    for warning messages color (red): #a00
+    for info messages color (green):  #0a0
+*/
