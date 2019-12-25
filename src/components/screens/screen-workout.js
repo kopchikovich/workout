@@ -50,6 +50,7 @@ class ScreenWorkout extends Component {
                         training={this.training}
                         switchExercise={this.switchExercise.bind(this)}
                         recordSet={this.recordSet.bind(this)}
+                        openModal={this.props.openModal}
                     />
                 </article>
 

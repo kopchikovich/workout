@@ -28,13 +28,17 @@ const Exercise = (props) => {
         renderedOptions.push(<OptionRepeats key='repeats' />);
     }
 
+    const openExerciseDescription = () => {
+        props.openModal(exercise.name, exercise.description);
+    }
+
     return (
         <>
             <h3 className='exercise__header'>Упражнение</h3>
             <div className='exercise__checker checker'>
                 <Button className='checker__btn' title='<' value='prev' onClickHandler={props.switchExercise} />
                 <span className='checker__current-exs'>
-                    {exercise.name}
+                    <span onClick={openExerciseDescription}>{exercise.name}</span>
                 </span>
                 <Button className='checker__btn' title='>' value='next' onClickHandler={props.switchExercise} />
             </div>
