@@ -16,7 +16,7 @@ class ScreenCalendar extends Component {
         let months = []
         for (let i = this.state.lastRenderedMonth; i <= this.state.currentMonth; i++ ) {
             months.push((
-                <Month monthNum={i} key={i} />
+                <Month monthNum={i} key={i} openModal={this.props.openModal} />
             ))
         }
 

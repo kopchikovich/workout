@@ -22,7 +22,9 @@ const Main = (props) => {
         />
     )
     const calendar = (
-        <ScreenCalendar />
+        <ScreenCalendar 
+            openModal={props.openModal}
+        />
     )
     const exercise = (
         <ScreenExercise

@@ -11,7 +11,7 @@ import ModalForm from './modal-form'
 class App extends Component {
 
     state = {
-        screen: 'index',
+        screen: 'calendar',
         headerText: '',
         isLogin: true,
         trainingKey: '',

@@ -10,8 +10,9 @@ class Calendar {
         let days = [];
         let day = 1 - this._getFirstEmptyWeekDays(date);
         for (day; day <= this._getAmountOfDaysInMonth(date); day++) {
+            let value = day > 0? `${date.getFullYear()}-${date.getMonth()+1}-${day}` : null;
             let newDay = (
-                <span className='calendar__day' key={day} value={day}>
+                <span className='calendar__day' key={day} id={value}>
                     {day > 0? day : null}
                 </span>
             );
@@ -56,13 +57,21 @@ class Calendar {
 const Month = (props) => {
 
     const days = Calendar.prototype.getMonth(props.monthNum)
+    const openWorkoutData = (e) => {
+        if (localStorage.getItem(e.target.id)) {
+            const workout = JSON.parse(localStorage[e.target.id]);
+
+            props.openModal(workout[2].name, workout.durationInMinutes); // here
+        }
+        
+    }
 
     return (
         <article className='calendar__month'>
             <h3 className='calendar__header'>
                 {Calendar.prototype.getMonthName(props.monthNum)}
             </h3>
-            <div className='calendar__days'>
+            <div className='calendar__days' onClick={openWorkoutData}>
                 {days}
             </div>
         </article>
