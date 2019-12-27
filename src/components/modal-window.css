@@ -44,6 +44,7 @@
     justify-content: space-between;
     align-items: center;
     width: 170px;
+    margin-bottom: 20px;
 }
 .modal__buttons button {
     color: inherit;
