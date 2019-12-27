@@ -13,8 +13,21 @@ class Calendar {
         let day = 1 - this._getFirstEmptyWeekDays(date);
         for (day; day <= this._getAmountOfDaysInMonth(date); day++) {
             let value = day > 0? `${date.getFullYear()}-${date.getMonth()+1}-${day}` : null;
+            let className = 'calendar__day';
+            if (localStorage.getItem(value)) {
+                let workouts = JSON.parse(localStorage.getItem(value));
+                if (workouts.length > 1) {
+                    className += ' calendar__day-train calendar__day-train--power-and-run'
+                } else if (workouts[0].type === 'power') {
+                    className += ' calendar__day-train calendar__day-train--power'
+                } else if (workouts[0].type === 'running') {
+                    className += ' calendar__day-train calendar__day-train--run'
+                } else if (workouts[0].type === 'swimming') {
+                    className += ' calendar__day-train calendar__day-train--swim'
+                }
+            }
             let newDay = (
-                <span className='calendar__day' key={day} id={value}>
+                <span className={className} key={day} id={value}>
                     {day > 0? day : null}
                 </span>
             );
