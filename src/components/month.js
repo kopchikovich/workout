@@ -1,4 +1,6 @@
 import React from 'react'
+import './month.css'
+import Sets from './sets'
 
 // class with helping methods
 class Calendar {
@@ -56,14 +58,49 @@ class Calendar {
 // Component
 const Month = (props) => {
 
-    const days = Calendar.prototype.getMonth(props.monthNum)
+    const days = Calendar.prototype.getMonth(props.monthNum);
+
     const openWorkoutData = (e) => {
         if (localStorage.getItem(e.target.id)) {
-            const workout = JSON.parse(localStorage[e.target.id]);
+            const workouts = JSON.parse(localStorage[e.target.id]);
+            const dataToRender = [];
+            workouts.forEach((workout, index) => {
+                if (workout.type !== 'power') {
+                    dataToRender.push((
+                        <article className='workout-data' key={index}>
+                            <h4 className='workout-data__header'>{workout.name}</h4>
+                            <p className='workout-data__text'>Расстояние: {workout.distance} м</p>
+                            <p className='workout-data__text'>Время тренировки: {workout.duration} мин</p>
+                        </article>
+                    ))
+                } else if (workout.type === 'power') {
+                    let exercises = [];
+                    Object.entries(workout.exercises).forEach((exercise, index) => {
+                        exercises.push((
+                            <div className='workout-data__exercise' key={index}>
+                                <span>{exercise[0]}</span>
+                                <Sets exercise={exercise[1]} />
+                            </div>
+                        ));
+                    })
+                    dataToRender.push((
+                        <article className='workout-data' key={index}>
+                            <h4 className='workout-data__header'>{workout.name}</h4>
+                            <p className='workout-data__text'>Время тренировки: {workout.durationInMinutes} мин</p>
+                            <details className='workout-data__exercises'>
+                                <summary>Упражнения</summary>
+                                {exercises}
+                            </details>
+                        </article>
+                    ))
+                } else {
+                    dataToRender.push('Error reading workout from localStorage');
+                }
+            });
 
-            props.openModal(workout[2].name, workout.durationInMinutes); // here
+
+            props.openModal(false, dataToRender);
         }
-        
     }
 
     return (

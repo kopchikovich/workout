@@ -57,6 +57,7 @@ class ScreenWorkout extends Component {
                 </article>
 
                 <article className='training-table__cell training-table__cell--sets sets'>
+                    <h3 className='sets__header'>Выполнено</h3>
                     <Sets exercise={this.state.exercises[this.state.currentExs.name]} />
                 </article>
 

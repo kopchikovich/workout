@@ -34,12 +34,9 @@ const Sets = (props) => {
     const sets = props.exercise? props.exercise.map(renderSets) : <li className='sets__set'>-</li>;
 
     return (
-        <>
-            <h3 className='sets__header'>Выполнено</h3>
-            <ol className='sets__list'>
-                {sets}
-            </ol>
-        </>
+        <ol className='sets__list'>
+            {sets}
+        </ol>
     )
 
 }
