@@ -131,7 +131,7 @@ class ScreenWorkout extends Component {
             localStorage.setItem(dateString, JSON.stringify(array));
         }
 
-        document.controller.renderMessage('Тренировка записана', '#0a0');
+        document.controller.renderMessage('Тренировка записана', 'green');
         this.props.switchScreen(e);
     }
 
