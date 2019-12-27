@@ -11,7 +11,7 @@ import ModalForm from './modal-form'
 class App extends Component {
 
     state = {
-        screen: 'calendar',
+        screen: 'index',
         headerText: '',
         isLogin: true,
         trainingKey: '',
@@ -76,9 +76,28 @@ class App extends Component {
                 trainingKey: e.target.value
             })
         } else if (training.type === 'running' || training.type === 'swimming') {
-            this.openModal(training.name, <ModalForm />)
+            this.openModal(training.name, <ModalForm training={training} recordCardioWorkout={this.recordCardioWorkout.bind(this)} closeModal={this.closeModal.bind(this)} />)
         } else {
             this.openModal('Error', 'Some arror, check app.js')
+        }
+    }
+
+    recordCardioWorkout(e, training) {
+        const workout = {
+            name: training.name,
+            type: training.type,
+            timeStop: new Date(),
+            duration: e.target[0].value,
+            distance: e.target[1].value
+        };
+
+        const dateString = `${workout.timeStop.getFullYear()}-${workout.timeStop.getMonth()+1}-${workout.timeStop.getDate()}`;
+        if (!localStorage.getItem(dateString)) {
+            localStorage.setItem(dateString, JSON.stringify([workout]));
+        } else {
+            let array = JSON.parse(localStorage.getItem(dateString));
+            array.push(workout);
+            localStorage.setItem(dateString, JSON.stringify(array));
         }
     }
 
