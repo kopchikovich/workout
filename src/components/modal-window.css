@@ -73,23 +73,3 @@
     color: inherit;
     padding: 3px 7px;
 }
-
-.modal--exs {
-    top: 10px;
-    width: 350px;
-    left: 12.5px;
-}
-.modal--training-data {
-    color: #114;
-    margin: 20px 0;
-}
-.modal--training-data h4 {
-    margin: 0 auto 10px;
-    color: inherit;
-}
-.modal--training-data p {
-    margin: 0;
-}
-.modal--training-data p.modal__text--small {
-    font-size: 14px;
-}
