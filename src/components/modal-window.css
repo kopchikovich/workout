@@ -1,5 +1,5 @@
 .modal__wrapper {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 999;
@@ -11,11 +11,12 @@
 }
 .modal {
     width: 300px;
-    margin-bottom: 100px;
+    max-height: 80vh;
     background-color: var(--light-color);
     color: var(--main-bg-color);
     border-radius: 10px;
     text-align: center;
+    overflow-y: auto;
 }
 .modal__header {
     display: flex;
