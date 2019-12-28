@@ -35,6 +35,14 @@ class ScreenCalendar extends Component {
             lastRenderedMonth: this.state.lastRenderedMonth-1
         })
     }
+
+    componentDidMount() {
+        // highlight current day
+        const date = new Date();
+        const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
+        const currentDay = document.getElementById(dateString);
+        currentDay.classList.add('calendar__day--current');
+    }
 }
 
 export default ScreenCalendar
