@@ -8,3 +8,9 @@
     opacity: 0.8;
     z-index: 999;
 }
+
+@media screen and (min-width: 800px) {
+    .button--arrow {
+        left: calc(50% - 400px)
+    }
+}
