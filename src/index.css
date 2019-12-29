@@ -1,9 +1,11 @@
 :root {
     --main-bg-color: #fff;
     --second-bg-color: #f55;
-    --main-color: #222;
-    --light-color: #777;
-    --lighter-color: #eee;
+    --main-text-color: #222;
+    --second-text-color: #fff;
+    --wrapper-bg-color: rgba(0,0,0,.85);
+    --modal-bg-color: #ddd;
+    --modal-text-color: #111;
     --max-width: 800px;
 }
 
@@ -22,4 +24,11 @@ button {
     border: none;
     background-color: transparent;
     font: inherit;
+    color: inherit;
+}
+input, select {
+    background-color: var(--main-bg-color);
+    color: var(--main-text-color);
+    border: 1px solid var(--main-text-color);
+    padding-left: 5px;
 }

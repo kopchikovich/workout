@@ -5,7 +5,11 @@ const ScreenUser = (props) => {
 
     return (
         <section>
-            <User logout={props.logout} />
+            <User
+                switchTheme={props.switchTheme}
+                darkTheme={props.darkTheme}
+                logout={props.logout}
+            />
         </section>
     )
 }

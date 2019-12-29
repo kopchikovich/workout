@@ -3,7 +3,7 @@
     max-width: inherit;
     height: 78px;
     background-color: var(--second-bg-color);
-    color: var(--main-bg-color);
+    color: var(--second-text-color);
     position: fixed;
     bottom: 0;
     z-index: 1

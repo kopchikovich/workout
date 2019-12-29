@@ -5,8 +5,16 @@
     align-items: center;
 }
 .user__text {
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .user__button {
     padding: 5px 10px;
+}
+.user__checkbox {
+    width: 25px;
+    height: 25px;
+    margin: 0;
+    margin-left: 25px;
 }

@@ -16,6 +16,7 @@
     justify-content: center;
     align-items: center;
     transition: 0.3s;
+    color: var(--main-text-color);
 }
 .login__block {
     width: 300px;

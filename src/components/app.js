@@ -6,12 +6,14 @@ import Main from './main'
 import Footer from './footer'
 import ModalWindow from './modal-window'
 import ModalForm from './modal-form'
+import Login from './login'
 
 
 class App extends Component {
 
     state = {
-        screen: 'index',
+        screen: 'user',
+        darkTheme: true,
         headerText: '',
         isLogin: true,
         trainingKey: '',
@@ -26,6 +28,8 @@ class App extends Component {
         return (
             <div className='app'>
 
+                {this.state.isLogin? null : <Login login={this.login.bind(this)} />}
+
                 <Header
                     state={this.state}
                 />
@@ -33,6 +37,7 @@ class App extends Component {
                 <Main
                     state={this.state}
                     switchScreen={this.switchScreen.bind(this)}
+                    switchTheme={this.switchTheme.bind(this)}
                     openWorkoutScreen={this.openWorkoutScreen.bind(this)}
                     printHeader={this.printHeader.bind(this)}
                     login={this.login.bind(this)}
@@ -62,6 +67,44 @@ class App extends Component {
             screen: e.target.value
         })
         this.closeModal(e, true);
+    }
+
+    switchTheme() {
+        if (!this.state.darkTheme) {
+            this.setDarkTheme();
+        } else {
+            this.setLightTheme();
+        }
+    }
+
+    setDarkTheme() {
+        const root = document.querySelector('html');
+        root.style.setProperty('--main-bg-color', '#333');
+        root.style.setProperty('--second-bg-color', '#5ff');
+        root.style.setProperty('--main-text-color', '#ddd');
+        root.style.setProperty('--second-text-color', '#333');
+        root.style.setProperty('--light-color', '#333');
+        root.style.setProperty('--wrapper-bg-color', 'rgba(200,200,200,.8);');
+        root.style.setProperty('--modal-bg-color', '#666');
+        root.style.setProperty('--modal-text-color', '#fff');
+        this.setState({
+            darkTheme: true
+        })
+    }
+
+    setLightTheme() {
+        const root = document.querySelector('html');
+        root.style.setProperty('--main-bg-color', '#fff');
+        root.style.setProperty('--second-bg-color', '#f55');
+        root.style.setProperty('--main-text-color', '#222');
+        root.style.setProperty('--second-text-color', '#fff');
+        root.style.setProperty('--light-color', '#777');
+        root.style.setProperty('--wrapper-bg-color', 'rgba(0,0,0,.85);');
+        root.style.setProperty('--modal-bg-color', '#ddd');
+        root.style.setProperty('--modal-text-color', '#111');
+        this.setState({
+            darkTheme: false
+        })
     }
 
     openWorkoutScreen(e) {
@@ -148,6 +191,14 @@ class App extends Component {
         this.setState({
             isLogin: false
         })
+    }
+
+    componentDidMount() {
+        if (this.state.darkTheme) {
+            this.setDarkTheme();
+        } else {
+            this.setLightTheme();
+        }
     }
 }
 

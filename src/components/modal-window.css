@@ -5,15 +5,15 @@
     z-index: 999;
     width: 100%;
     height: 100%;
-    background-color: rgba(0,0,0,.85);
+    background-color: var(--wrapper-bg-color);
     justify-content: center;
     align-items: center;
 }
 .modal {
     width: 300px;
     max-height: 80vh;
-    background-color: var(--light-color);
-    color: var(--main-bg-color);
+    background-color: var(--modal-bg-color);
+    color: var(--modal-text-color);
     border-radius: 10px;
     text-align: center;
     overflow-y: auto;
@@ -44,16 +44,16 @@
     justify-content: space-between;
     align-items: center;
     width: 170px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 .modal__buttons button {
     color: inherit;
-    font-weight: 600;
-    padding: 2px 5px;
+    font-size: 1.1em;
+    padding: 5px 10px;
 }
 
 .modal__form {
-    color: var(--main-bg-color);
+    color: var(--modal-text-color);
     width: 100%;
 }
 .modal__container {

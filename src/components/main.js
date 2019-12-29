@@ -33,8 +33,8 @@ const Main = (props) => {
     )
     const user = (
         <ScreenUser
-            isLogin={props.state.isLogin}
-            login={props.login}
+            switchTheme={props.switchTheme}
+            darkTheme={props.state.darkTheme}
             logout={props.logout}
         />
     )

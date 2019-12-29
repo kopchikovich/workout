@@ -1,9 +1,10 @@
 .button--arrow {
-    position: absolute;
-    top: -57px;
+    position: fixed;
+    top: 21px;
     left: 0;
     font-size: 26px;
     padding: 3px;
-    color: var(--main-color);
+    color: var(--main-text-color);
     opacity: 0.8;
+    z-index: 999;
 }

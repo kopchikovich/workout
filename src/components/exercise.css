@@ -8,9 +8,11 @@
 }
 .checker__current-exs {
     font-size: 18px;
+    cursor: pointer;
+    max-width: 80%;
 }
 .checker__btn {
-    padding: 10px 0;
+    padding: 15px 5px;
     border-radius: 5px;
 }
 .exercise__sets {
@@ -33,6 +35,9 @@
 .input__text--small {
     font-size: 14px;
 }
+label.input__container {
+    margin-top: 5px;
+}
 .input__container {
     display: flex;
     flex-flow: row nowrap;
@@ -44,9 +49,9 @@
     flex-direction: column;
 }
 .input__input {
-    height: 25px;
-    font-size: 16px;
-    padding: 1px;
+    height: 30px;
+    font-size: 18px;
+    padding: 2px 5px;
 }
 .input__input--weight {
     width: 125px;
@@ -55,7 +60,7 @@
     width: 50px;
 }
 .input__input--time {
-    width: 70px;
+    min-width: 70px;
 }
 .input__btn-submit {
     margin-top: 25px;

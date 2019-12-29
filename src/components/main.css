@@ -3,6 +3,6 @@
     max-width: inherit;
     min-height: 646px;
     background-color: var(--main-bg-color);
-    color: var(--main-color);
+    color: var(--main-text-color);
     padding: 78px 5px;
 }
