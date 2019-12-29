@@ -9,6 +9,9 @@
     align-items: center;
     justify-content: center;
 }
+.user__text span {
+    margin-left: 10px;
+}
 .user__button {
     padding: 5px 10px;
 }
