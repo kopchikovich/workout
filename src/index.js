@@ -4,7 +4,6 @@ import './index.css'
 import App from './components/app'
 import makeMessage from './components/message'
 import * as serviceWorker from './serviceWorker'
-import {firebase_db} from './firebase'
 
 // make global contoller for app
 document.controller = {};

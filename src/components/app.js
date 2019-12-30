@@ -1,4 +1,8 @@
 import React, {Component} from 'react'
+import * as firebase from 'firebase/app'
+import 'firebase/auth'
+import 'firebase/firestore'
+import {firebase_getUserData, firebase_signOut} from '../firebase'
 import './app.css'
 import training_db from '../data'
 import Header from './header'
@@ -175,29 +179,50 @@ class App extends Component {
     login(e) {
         e.preventDefault()
         const form = e.target
-        if (form.email.value === '1@2.3' && form.password.value === '123') {
+        const USER_NAME = 'user-name';
+
+        firebase.auth().signInWithEmailAndPassword(form.email.value, form.password.value).then(() => {
+            localStorage.setItem(USER_NAME, firebase.auth().currentUser.displayName);
+            console.log('Sign in as', localStorage.getItem(USER_NAME));
+            document.controller.renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green');
+            firebase_getUserData();
             this.setState({
                 isLogin: true
             })
-        } else {
+        }).catch((error) => {
+            console.log(error.code + ' : ' + error.message);
+            document.controller.renderMessage(`${error.code} : ${error.message}`, 'red');
             form.classList.add('shake')
             setTimeout(() => {
                 form.classList.remove('shake')
             }, 300);
-        }
+        })
     }
 
     logout() {
+        firebase_signOut();
+
         this.setState({
             isLogin: false
         })
     }
 
     componentDidMount() {
+        // check dark theme
         if (this.state.darkTheme) {
             this.setDarkTheme();
         } else {
             this.setLightTheme();
+        }
+        // check is login
+        if (firebase.auth().currentUser) {
+            this.setState({
+                isLogin: true
+            })
+        } else {
+            this.setState({
+                isLogin: false
+            })
         }
     }
 }
