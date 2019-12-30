@@ -176,6 +176,10 @@ class App extends Component {
         }
     }
 
+    async isLogin() {
+        return !!firebase.auth().currentUser;
+    }
+
     login(e) {
         e.preventDefault()
         const form = e.target
@@ -215,15 +219,13 @@ class App extends Component {
             this.setLightTheme();
         }
         // check is login
-        if (firebase.auth().currentUser) {
+        this.isLogin().then((value) => {
+            console.log('response', value)
             this.setState({
-                isLogin: true
+                isLogin: value
             })
-        } else {
-            this.setState({
-                isLogin: false
-            })
-        }
+            console.log('state', this.state.isLogin)
+        })
     }
 }
 
