@@ -12,10 +12,10 @@ import Login from './login'
 class App extends Component {
 
     state = {
-        screen: 'user',
+        screen: 'index',
         darkTheme: true,
-        headerText: '',
         isLogin: true,
+        headerText: '',
         trainingKey: '',
         modal: {
             isVisible: false,
