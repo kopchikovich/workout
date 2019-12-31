@@ -11,6 +11,7 @@
 }
 .user__text span {
     margin-left: 10px;
+    text-align: center;
 }
 .user__text--column {
     flex-direction: column;
