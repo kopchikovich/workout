@@ -37,7 +37,7 @@ const firebase_signOut = () => {
     firebase.auth().signOut().then(() => {
         console.log('Sign out');
         document.controller.renderMessage(`До свидания, ${localStorage.getItem(USER_NAME)}`, 'green');
-        localStorage.clear();  // turn on when production
+        localStorage.clear();
     }).catch(printError);
 }
 
@@ -57,13 +57,12 @@ const firebase_getMonthWorkouts = (date) => {
     const year = date.getFullYear();
     const monthNameEng = Calendar.prototype.getMonthNameInEng(date.getMonth());
     firebase_db.collection(`users/kopchikovich/workouts/${year}/${monthNameEng}`).get().then((querySnapshot) => {
-        if (querySnapshot.docs) {
+        if (querySnapshot.docs.length > 0) {
             querySnapshot.forEach((doc) => {
                 const workout = doc.data();
                 const MILLISECONDS_IN_SECONDS = 1000;
                 const workoutDate = new Date(+workout.timeStop.seconds*MILLISECONDS_IN_SECONDS);
                 const dateString = `${year}-${workoutDate.getMonth()+1}-${workoutDate.getDate()}`;
-
                 if (localStorage.getItem(dateString)) {
                     let workoutsArray = JSON.parse(localStorage.getItem(dateString));
                     const isSame = (elem) => {
