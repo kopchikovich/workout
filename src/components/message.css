@@ -19,7 +19,7 @@
     box-sizing: border-box;
     margin: 0 auto;
     padding: 5px;
-    position: absolute;
+    position: fixed;
     top: -60px;
     transition: 0.8s;
 }
