@@ -120,8 +120,9 @@ class ScreenWorkout extends Component {
         const MILLISECONDS_IN_MINUTE = 60000;
         this.workout.timeStop = new Date();
         this.workout.durationInMinutes = Math.floor((this.workout.timeStop - this.workout.timeStart)/MILLISECONDS_IN_MINUTE);
-        const dateString = `${this.workout.timeStop.getFullYear()}-${this.workout.timeStop.getMonth()+1}-${this.workout.timeStop.getDate()}`;
         const workout = Object.assign(this.workout, {exercises: this.state.exercises});
+
+        const dateString = `${this.workout.timeStop.getFullYear()}-${this.workout.timeStop.getMonth()+1}-${this.workout.timeStop.getDate()}`;
 
         if (!localStorage.getItem(dateString)) {
             localStorage.setItem(dateString, JSON.stringify([workout]));
@@ -132,6 +133,7 @@ class ScreenWorkout extends Component {
         }
 
         document.controller.renderMessage('Тренировка записана', 'green');
+        localStorage.setItem('user-last-workout', `${workout.name} ${dateString}`);
         this.props.switchScreen(e);
     }
 

@@ -111,7 +111,6 @@ const Month = (props) => {
                 }
             });
 
-
             props.openModal(false, dataToRender);
         }
     }
@@ -128,4 +127,5 @@ const Month = (props) => {
     )
 }
 
+export {Calendar}
 export default Month

@@ -146,6 +146,8 @@ class App extends Component {
             array.push(workout);
             localStorage.setItem(dateString, JSON.stringify(array));
         }
+
+        localStorage.setItem('user-last-workout', `${workout.name} ${dateString}`);
     }
 
     printHeader(text) {
@@ -205,7 +207,6 @@ class App extends Component {
 
     logout() {
         firebase_signOut();
-
         this.setState({
             isLogin: false
         })
@@ -219,13 +220,13 @@ class App extends Component {
             this.setLightTheme();
         }
         // check is login
-        this.isLogin().then((value) => {
-            console.log('response', value)
-            this.setState({
-                isLogin: value
-            })
-            console.log('state', this.state.isLogin)
-        })
+        // this.isLogin().then((value) => {
+        //     console.log('response', value)
+        //     this.setState({
+        //         isLogin: value
+        //     })
+        //     console.log('state', this.state.isLogin)
+        // })
     }
 }
 

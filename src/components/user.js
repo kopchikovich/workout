@@ -16,8 +16,8 @@ const User = (props) => {
                     {localStorage.getItem('user-mileage')}
                 </span> км
             </p>
-            <p className='user__text'>
-                Последняя тренировка: <br />
+            <p className='user__text user__text--column'>
+                Последняя тренировка:
                 <span className='user__last-workout'>
                     {localStorage.getItem('user-last-workout')}
                 </span>

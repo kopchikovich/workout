@@ -12,6 +12,12 @@
 .user__text span {
     margin-left: 10px;
 }
+.user__text--column {
+    flex-direction: column;
+}
+.user__text--column span {
+    margin-top: 5px;
+}
 .user__button {
     padding: 5px 10px;
 }

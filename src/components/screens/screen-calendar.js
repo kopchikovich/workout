@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {firebase_getMonthWorkouts} from '../../firebase'
 import './screen-calendar.css'
 import Button from '../button'
 import Month from '../month'
@@ -34,6 +35,14 @@ class ScreenCalendar extends Component {
         this.setState({
             lastRenderedMonth: this.state.lastRenderedMonth-1
         })
+        this.getLastMonthWorkouts(this.state.lastRenderedMonth-1);
+    }
+
+    getLastMonthWorkouts(month) {
+        let date = new Date();
+        date.setDate(1);
+        date.setMonth(month);
+        firebase_getMonthWorkouts(date);
     }
 
     componentDidMount() {
@@ -42,6 +51,8 @@ class ScreenCalendar extends Component {
         const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
         const currentDay = document.getElementById(dateString);
         currentDay.classList.add('calendar__day--current');
+        // get current month workouts
+        this.getLastMonthWorkouts(this.state.lastRenderedMonth);
     }
 }
 
