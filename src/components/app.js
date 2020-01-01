@@ -18,7 +18,7 @@ class App extends Component {
     state = {
         screen: 'index',
         darkTheme: true,
-        isLogin: true,
+        isLogin: false,
         headerText: '',
         trainingKey: '',
         modal: {
@@ -178,7 +178,7 @@ class App extends Component {
         }
     }
 
-    async isLogin() {
+    isLogin() {
         return !!firebase.auth().currentUser;
     }
 
@@ -219,14 +219,17 @@ class App extends Component {
         } else {
             this.setLightTheme();
         }
+
         // check is login
-        // this.isLogin().then((value) => {
-        //     console.log('response', value)
-        //     this.setState({
-        //         isLogin: value
-        //     })
-        //     console.log('state', this.state.isLogin)
-        // })
+        const CHECK_NUMBER = 5;
+        let checkCounter = 0;
+        let loginCheckTimeout = setInterval(() => {
+            this.setState({
+                isLogin: this.isLogin()
+            })
+            checkCounter++;
+            if (checkCounter >= CHECK_NUMBER || this.isLogin()) clearInterval(loginCheckTimeout);
+        }, 2000);
     }
 }
 
