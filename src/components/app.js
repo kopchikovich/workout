@@ -221,7 +221,8 @@ class App extends Component {
         }
 
         // check is login
-        const CHECK_NUMBER = 5;
+        const CHECK_NUMBER = 10;
+        const CHECK_INTERVAL = 1000;
         let checkCounter = 0;
         let loginCheckTimeout = setInterval(() => {
             this.setState({
@@ -229,7 +230,7 @@ class App extends Component {
             })
             checkCounter++;
             if (checkCounter >= CHECK_NUMBER || this.isLogin()) clearInterval(loginCheckTimeout);
-        }, 2000);
+        }, CHECK_INTERVAL);
     }
 }
 
