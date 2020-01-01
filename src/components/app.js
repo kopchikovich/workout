@@ -84,7 +84,7 @@ class App extends Component {
     setDarkTheme() {
         const root = document.querySelector('html');
         root.style.setProperty('--main-bg-color', '#333');
-        root.style.setProperty('--second-bg-color', '#5ff');
+        root.style.setProperty('--second-bg-color', '#61dafb');
         root.style.setProperty('--main-text-color', '#ddd');
         root.style.setProperty('--second-text-color', '#333');
         root.style.setProperty('--light-color', '#333');

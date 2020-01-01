@@ -49,6 +49,7 @@ class ScreenCalendar extends Component {
 
     componentDidMount() {
         // highlight current day
+        // работает один раз, если загрузятся данные слетает, но проблемы в этом не вижу :)
         const date = new Date();
         const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
         const currentDay = document.getElementById(dateString);

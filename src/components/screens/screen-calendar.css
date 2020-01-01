@@ -41,22 +41,20 @@
     width: 50px;
     height: 50px;
     box-sizing: border-box;
+    border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
 }
 .calendar__day--current {
-    border-radius: 50%;
-    background-color: #abf;
-    color: #fff;
+    background-color: rgba(187,239,253,0.3);
 }
 .calendar__day-train {
     border: 2px solid transparent;
-    border-radius: 50%;
 }
 .calendar__day-train--run {
-    border-color: #5f5;
+    border-color: #61dafb;
 }
 .calendar__day-train--swim {
     border-color: #55f;
@@ -66,6 +64,6 @@
 }
 .calendar__day-train--power-and-run {
     border-width: 1px;
-    border-color:#55f;
-    box-shadow: inset 0 0 1px 1px #f55;
+    border-color:#61dafb;
+    box-shadow: inset 0 0 1px 2px #f55;
 }
