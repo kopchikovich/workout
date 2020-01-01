@@ -17,21 +17,6 @@ const printError = (error) => {
     document.controller.renderMessage(`${error.code} : ${error.message}`, 'red');
 }
 
-// firebase auth
-const firebase_isLogin = () => {
-    return !!firebase.auth().currentUser;
-}
-
-const firebase_signIn = (email, password) => {
-    const USER_NAME = 'user-name';
-    firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
-        localStorage.setItem(USER_NAME, firebase.auth().currentUser.displayName);
-        console.log('Sign in like ', localStorage.getItem(USER_NAME));
-        document.controller.renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green');
-        firebase_getUserData();
-    }).catch(printError);
-}
-
 const firebase_signOut = () => {
     const USER_NAME = 'user-name';
     firebase.auth().signOut().then(() => {
@@ -42,7 +27,7 @@ const firebase_signOut = () => {
 }
 
 const firebase_getUserData = () => {
-    const user = firebase_db.doc('users/kopchikovich');
+    const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
     user.get().then((doc) => {
         if (doc.exists) {
             const userData = doc.data();
@@ -51,6 +36,31 @@ const firebase_getUserData = () => {
             localStorage.setItem(USER_MILEAGE, `${(userData.mileageInMeters/METERS_IN_KILOMETERS).toFixed(1)}`);
         }
     }).catch(printError);
+}
+
+const firebase_recordWorkout = (workout) => {
+    // get current year and month
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonthName = Calendar.prototype.getMonthNameInEng(+currentDate.getMonth());
+    // write training data to db
+    const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
+    user.collection(`workouts/${currentYear}/${currentMonthName}`).add(workout)
+    .then(function(docRef) {
+        console.log("Training written with ID: ", docRef.id);
+        document.controller.renderMessage(`Тренировка записана в firestore`, 'green');
+        // write last training id
+        user.update({
+            lastTraining: docRef.id
+        });
+        // update mileage
+        if (workout.type === 'running') {
+            user.update({
+                mileageInMeters: firebase.firestore.FieldValue.increment(+workout.distance)
+            }).then(firebase_getUserData);
+        }
+    })
+    .catch(printError);
 }
 
 const firebase_getMonthWorkouts = (date) => {
@@ -86,4 +96,4 @@ const firebase_getMonthWorkouts = (date) => {
 }
 
 
-export {firebase_db, firebase_isLogin, firebase_signIn, firebase_signOut, firebase_getUserData, firebase_getMonthWorkouts}
+export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts}
