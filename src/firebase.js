@@ -56,7 +56,7 @@ const firebase_getUserData = () => {
 const firebase_getMonthWorkouts = (date) => {
     const year = date.getFullYear();
     const monthNameEng = Calendar.prototype.getMonthNameInEng(date.getMonth());
-    firebase_db.collection(`users/kopchikovich/workouts/${year}/${monthNameEng}`).get().then((querySnapshot) => {
+    return firebase_db.collection(`users/kopchikovich/workouts/${year}/${monthNameEng}`).get().then((querySnapshot) => {
         if (querySnapshot.docs.length > 0) {
             querySnapshot.forEach((doc) => {
                 const workout = doc.data();
