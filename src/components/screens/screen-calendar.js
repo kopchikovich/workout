@@ -47,15 +47,21 @@ class ScreenCalendar extends Component {
         });
     }
 
-    componentDidMount() {
-        // highlight current day
-        // работает один раз, если загрузятся данные слетает, но проблемы в этом не вижу :)
+    highlightCurrentDay() {
         const date = new Date();
         const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
         const currentDay = document.getElementById(dateString);
         currentDay.classList.add('calendar__day--current');
+    }
+
+    componentDidMount() {
+        this.highlightCurrentDay();
         // get current month workouts
         this.getLastMonthWorkouts(this.state.lastRenderedMonth);
+    }
+
+    componentDidUpdate() {
+        this.highlightCurrentDay();
     }
 }
 
