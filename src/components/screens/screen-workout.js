@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {firebase_recordWorkout} from '../../firebase'
 import './screen-workout.css'
 import training_db from '../../data'
 import Button from '../button'
@@ -135,6 +136,8 @@ class ScreenWorkout extends Component {
         document.controller.renderMessage('Тренировка записана', 'green');
         localStorage.setItem('user-last-workout', `${workout.name} ${dateString}`);
         this.props.switchScreen(e);
+
+        firebase_recordWorkout(workout);
     }
 
     confirmExit(e) {

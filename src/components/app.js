@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import {firebase_getUserData, firebase_signOut} from '../firebase'
+import {firebase_getUserData, firebase_signOut, firebase_recordWorkout} from '../firebase'
 import './app.css'
 import training_db from '../data'
 import Header from './header'
@@ -148,6 +148,7 @@ class App extends Component {
         }
 
         localStorage.setItem('user-last-workout', `${workout.name} ${dateString}`);
+        firebase_recordWorkout(workout);
     }
 
     printHeader(text) {
