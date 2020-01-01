@@ -42,7 +42,9 @@ class ScreenCalendar extends Component {
         let date = new Date();
         date.setDate(1);
         date.setMonth(month);
-        firebase_getMonthWorkouts(date);
+        firebase_getMonthWorkouts(date).then(() => {
+            this.setState({});
+        });
     }
 
     componentDidMount() {
