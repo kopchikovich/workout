@@ -16,7 +16,7 @@ class ScreenExercise extends Component {
             return (
                 <details className='description__exercise' key={index}>
                     <summary>{exs.name}</summary>
-                    <span className="description__text">{exs.description}</span>
+                    <div className="description__text">{exs.description}</div>
                 </details>
             )
         });
