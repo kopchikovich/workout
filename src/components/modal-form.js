@@ -7,7 +7,6 @@ const ModalForm = (props) => {
         e.preventDefault();
         props.recordCardioWorkout(e, props.training);
         props.closeModal(e, true);
-        document.controller.renderMessage('Тренировка записана', 'green');
     }
 
     return (
