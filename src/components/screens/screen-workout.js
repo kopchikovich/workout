@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {firebase_recordWorkout} from '../../firebase'
 import './screen-workout.css'
 import training_db from '../../data'
-import {Calendar} from '../month'
 import Button from '../button'
 import Timer from '../timer'
 import Exercise from '../exercise'
@@ -133,11 +132,6 @@ class ScreenWorkout extends Component {
             array.push(workout);
             localStorage.setItem(dateString, JSON.stringify(array));
         }
-
-        const monthNum = +date.getMonth();
-        let monthName = Calendar.prototype.getMonthName(monthNum).toLowerCase();
-        monthName = monthNum === 2 || monthNum === 7 ? monthName + 'а' : monthName.slice(0, -1) + 'я';
-        localStorage.setItem('user-last-workout', `${workout.name} - ${date.getDate()} ${monthName}`);
 
         document.controller.renderMessage('Тренировка записана', 'green');
         this.props.switchScreen(e);

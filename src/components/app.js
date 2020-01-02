@@ -5,7 +5,6 @@ import 'firebase/firestore'
 import {firebase_getUserData, firebase_signOut, firebase_recordWorkout} from '../firebase'
 import './app.css'
 import training_db from '../data'
-import {Calendar} from './month'
 import Header from './header'
 import Main from './main'
 import Footer from './footer'
@@ -148,11 +147,6 @@ class App extends Component {
             localStorage.setItem(dateString, JSON.stringify(array));
         }
 
-        const monthNum = +workout.timeStop.getMonth();
-        let monthName = Calendar.prototype.getMonthName(monthNum).toLowerCase();
-        monthName = monthNum === 2 || monthNum === 7 ? monthName + 'а' : monthName.slice(0, -1) + 'я';
-
-        localStorage.setItem('user-last-workout', `${workout.name} - ${workout.timeStop.getDate()} ${monthName}`);
         document.controller.renderMessage('Тренировка записана', 'green');
         firebase_recordWorkout(workout);
     }

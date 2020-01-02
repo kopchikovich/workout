@@ -19,7 +19,7 @@ const User = (props) => {
             <p className='user__text user__text--column'>
                 Последняя тренировка:
                 <span className='user__last-workout'>
-                    {localStorage.getItem('user-last-workout') || <i>Будет записана после тренировки</i>}
+                    {localStorage.getItem('user-last-workout') && localStorage.getItem('user-last-workout') !== 'undefined' ? localStorage.getItem('user-last-workout') : <i>Будет записана после тренировки</i>}
                 </span>
             </p>
             <p className='user__text'>
