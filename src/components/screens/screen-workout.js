@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {firebase_recordWorkout} from '../../firebase'
 import './screen-workout.css'
 import training_db from '../../data'
+import {Calendar} from '../month'
 import Button from '../button'
 import Timer from '../timer'
 import Exercise from '../exercise'
@@ -119,11 +120,11 @@ class ScreenWorkout extends Component {
 
     recordWorkout(e) {
         const MILLISECONDS_IN_MINUTE = 60000;
-        this.workout.timeStop = new Date();
+        const date = this.workout.timeStop = new Date();
         this.workout.durationInMinutes = Math.floor((this.workout.timeStop - this.workout.timeStart)/MILLISECONDS_IN_MINUTE);
         const workout = Object.assign(this.workout, {exercises: this.state.exercises});
 
-        const dateString = `${this.workout.timeStop.getFullYear()}-${this.workout.timeStop.getMonth()+1}-${this.workout.timeStop.getDate()}`;
+        const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 
         if (!localStorage.getItem(dateString)) {
             localStorage.setItem(dateString, JSON.stringify([workout]));
@@ -133,10 +134,13 @@ class ScreenWorkout extends Component {
             localStorage.setItem(dateString, JSON.stringify(array));
         }
 
-        document.controller.renderMessage('Тренировка записана', 'green');
-        localStorage.setItem('user-last-workout', `${workout.name} ${dateString}`);
-        this.props.switchScreen(e);
+        const monthNum = +date.getMonth();
+        let monthName = Calendar.prototype.getMonthName(monthNum).toLowerCase();
+        monthName = monthNum === 2 || monthNum === 7 ? monthName + 'а' : monthName.slice(0, -1) + 'я';
+        localStorage.setItem('user-last-workout', `${workout.name} - ${date.getDate()} ${monthName}`);
 
+        document.controller.renderMessage('Тренировка записана', 'green');
+        this.props.switchScreen(e);
         firebase_recordWorkout(workout);
     }
 
