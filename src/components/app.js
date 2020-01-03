@@ -146,8 +146,10 @@ class App extends Component {
             array.push(workout);
             localStorage.setItem(dateString, JSON.stringify(array));
         }
-
         document.controller.renderMessage('Тренировка записана', 'green');
+
+        // make backup and append workout to firestore
+        localStorage.setItem('workout-backup', JSON.stringify(workout));
         firebase_recordWorkout(workout);
     }
 

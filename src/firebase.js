@@ -39,21 +39,21 @@ const firebase_getUserData = () => {
 }
 
 const firebase_recordWorkout = (workout) => {
-    // get current year and month
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
-    const currentMonthName = Calendar.prototype.getMonthNameInEng(+currentDate.getMonth());
+    // get workout date data
+    const workoutDate = typeof workout.timeStop === 'string'? new Date(workout.timeStop) : workout.timeStop;
+    const workoutMonth = workoutDate.getMonth();
+    const workoutYear = workoutDate.getFullYear();
+    const workoutMonthNameEng = Calendar.prototype.getMonthNameInEng(workoutMonth);
+    let workoutMonthName = Calendar.prototype.getMonthName(workoutMonth).toLowerCase();
 
-    // get data to record last workout string
-    const monthNum = +workout.timeStop.getMonth();
-    let monthName = Calendar.prototype.getMonthName(monthNum).toLowerCase();
-    monthName = monthNum === 2 || monthNum === 7 ? monthName + 'а' : monthName.slice(0, -1) + 'я';
-    let lastWorkoutString = `${workout.name} - ${workout.timeStop.getDate()} ${monthName}`;
+    // record last workout string
+    workoutMonthName = workoutMonth === 2 || workoutMonth === 7 ? workoutMonthName + 'а' : workoutMonthName.slice(0, -1) + 'я';
+    let lastWorkoutString = `${workout.name} - ${workoutDate.getDate()} ${workoutMonthName}`;
     localStorage.setItem('user-last-workout', lastWorkoutString);
 
     // write workout data to db
     const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
-    user.collection(`workouts/${currentYear}/${currentMonthName}`).add(workout)
+    document.controller.workoutAppendPromise = user.collection(`workouts/${workoutYear}/${workoutMonthNameEng}`).add(workout)
     .then(function(docRef) {
         console.log('Workout written with ID: ', docRef.id);
         document.controller.renderMessage(`Тренировка записана в firestore`, 'green');
@@ -68,6 +68,11 @@ const firebase_recordWorkout = (workout) => {
                 mileageInMeters: firebase.firestore.FieldValue.increment(+workout.distance)
             }).then(firebase_getUserData);
         }
+
+        // remove backup
+        document.controller.workoutAppendPromise = null;
+        localStorage.removeItem('workout-backup');
+
     }).catch(printError);
 }
 

@@ -26,6 +26,9 @@ document.controller.renderMessage = (text, color) => {
     }, TIMEOUT);
 }
 
+// !null when append workout data to firestore
+document.controller.workoutAppendPromise = null;
+
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

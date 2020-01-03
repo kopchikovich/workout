@@ -8,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    text-align: center;
 }
 .user__text span {
     margin-left: 10px;
@@ -19,8 +20,15 @@
 .user__text--column span {
     margin-top: 5px;
 }
+.user__text--warning {
+    padding: 5px;
+    border: 1px dashed var(--main-text-color);
+}
 .user__button {
     padding: 5px 10px;
+}
+.user__button--send {
+    margin-top: 5px;
 }
 .user__checkbox {
     width: 25px;

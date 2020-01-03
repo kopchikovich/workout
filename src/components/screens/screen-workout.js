@@ -135,6 +135,9 @@ class ScreenWorkout extends Component {
 
         document.controller.renderMessage('Тренировка записана', 'green');
         this.props.switchScreen(e);
+
+        // make backup and append workout to firestore
+        localStorage.setItem('workout-backup', JSON.stringify(workout));
         firebase_recordWorkout(workout);
     }
 

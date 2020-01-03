@@ -1,9 +1,23 @@
 import React from 'react'
 import './user.css'
+import {firebase_recordWorkout} from '../firebase'
 import Button from './button'
 import Checkbox from './checkbox'
 
 const User = (props) => {
+
+    const backupWorkout = JSON.parse(localStorage.getItem('workout-backup'));
+    const sendBackup = (e) => {
+        e.target.parentNode.style.display = 'none';
+        firebase_recordWorkout(backupWorkout);
+    }
+    const backupMessage = (
+        <p className='user__text user__text--column user__text--warning'>
+            <span>Найдена несохранённа тренировка: <i>{backupWorkout? backupWorkout.name : null}</i></span>
+            <Button className='user__button user__button--send' title='Отправить' onClickHandler={sendBackup} />
+        </p>
+    )
+
     return (
         <div className='user'>
             <p className='user__text'>
@@ -26,6 +40,10 @@ const User = (props) => {
                 Тёмная тема
                 <Checkbox className='user__checkbox' onChangeHandler={props.switchTheme} isChecked={props.darkTheme} />
             </p>
+
+            {/* если есть бэкап, написать об этом и отправить */}
+            {!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
+
             <Button className='user__button' title='Выйти' onClickHandler={props.logout} />
         </div>
     )
