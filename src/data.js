@@ -43,15 +43,15 @@ const exs = {
     // Отжимания
     'bars': new Exercise('Отжимания на брусьях', 'Отжимания от брусьев на грудные мышцы, т.е. немного наклонившись вперёд, ноги назад не отводить', ['chest', 'triceps'], '3-4-5', ['weight', 'repeats']),
     'push-ups': new Exercise('Отжимания от пола', 'Классические отжимания от пола или от упоров. Для дополнительной нагрузки использовать резину', ['chest', 'triceps'], 3, ['repeats']),
-    'push-ups archer': new Exercise('Отжимания "Лучник"', 'Поочередно отжиматься на одной руке. Вторая рука ровная, не сгибать', ['chest', 'triceps'], 1, ['repeats', 'one hand']),
+    'push-ups archer': new Exercise('Отжимания "Лучник"', 'Поочередно отжиматься на одной руке. Вторая рука ровная, не сгибать', ['chest', 'triceps'], 2, ['repeats', 'one hand']),
     'push-ups legs up': new Exercise('Отжимания с высокой постановкой ног', 'Подготовительное упражнение к отжиманиям в стойке на руках. Ноги упираются в стену для равновесия, либо ставятся на поверхность выше пола (диван). Целевые мышцы - дельтавидные', ['delta'], 5, ['repeats']),
     'push-ups slow': new Exercise('Медленные подконтрольные отжимания', 'Вниз опускаться медленно не менее 4 секунд, вверх - взрыв 1 секунда', ['chest', 'triceps'], 5, ['repeats']),
     'push-ups diamond': new Exercise('Бриллиантовые отжимания', 'Руки складываются треугольником. При отжимании касаться нижней частью груди', ['triceps', 'chest'], 2, ['repeats']),
-    'explosive ngtv push-ups': new Exercise('Взрывные негативные отжимания от пола', 'Отжимания с резким толчком вверх (прыжок), затем мягкое приземление и медленная негативная фаза', ['chest', 'triceps'], 1, ['repeats']),
+    'explosive ngtv push-ups': new Exercise('Взрывные негативные отжимания от пола', 'Отжимания с резким толчком вверх (прыжок), затем мягкое приземление и медленная негативная фаза', ['chest', 'triceps'], 2, ['repeats']),
     'back triceps push-ups': new Exercise('Задние отжимания на трицепс от скамьи', 'Руки опереть сзади на скамью или табурет. Опустить тело до уровня пола, поднять вверх за счёт силы трицепса', ['triceps'], 3, ['repeats']),
     // Пресс, передний вис
-    'corner': new Exercise('Удержание уголка', 'Удержание прямых ног на максимальное время вися на перекладине', ['press'], 1, ['time']),
-    'press': new Exercise('Подъём колен к груди на перекладине', 'Для усложнения можно поднимать ноги в уголок, затем поднимать ноги к перекладине', ['press'], 3, ['repeats']),
+    'corner': new Exercise('Удержание уголка', 'Удержание прямых ног на максимальное время вися на перекладине', ['press'], 3, ['time']),
+    'press': new Exercise('Подъём колен к груди на перекладине', 'Для усложнения можно поднимать ноги в уголок, затем поднимать ноги к перекладине', ['press'], 2, ['repeats']),
     'strap': new Exercise('Планка', 'Классическая планка на локтях и носках на максимальное время', ['press'], 1, ['time']),
     'scapula': new Exercise('Сведение лопаток в висе', 'Сведение лопаток вместе в висе на турнике и удержание такого положения 15 секунд. Упражнение для переднего виса', ['back', 'delta'], '15 секунд', ['time']),
     'scapula pull down': new Exercise('Тяга вниз лопатками', 'Удержание тяги вниз лопатками в висе на турнике 10 секунд. Упражнение для переднего виса. Свести лопатки, откинуть голову назад, грудь и живот вверх', ['back', 'delta', 'press'], '10 секунд', ['time']),
@@ -73,34 +73,52 @@ const exs = {
 
 const training_db = {
     // power
-    'Back and delta': new Training('Back and delta', 'Спина, плечи', 'Цель тренировки научиться подтягиваться на 1 руке и развить дельтавидные мышцы. В жиме гантели стоя увеличить количество подходов по неделям 3-4-5, затем возвращаться на 3 подхода, но увеличить вес', 'power',
-        [exs['pull-ups'],
-        exs['hanging'],
-        exs['pull-ups negative'],
-        exs['dumbbell bench stand'],
-        exs['dumbbell leading'],
-        exs['traction rubber'],
-        exs['pull-ups horizontal']]),
-    'Chest and press': new Training('Chest and press', 'Грудь, пресс', 'Цель тренировки - развитие грудных, трицепса и пресса. Увеличить количество подходов в отжимания на брусьях по неделям 3-4-5, затем возвращаться и увеличивать вес', 'power',
-        [exs['push-ups'],
-        exs['push-ups archer'],
-        exs['explosive ngtv push-ups'],
-        exs['bars'],
-        exs['crossover with rubber'],
-        exs['scapula'],
-        exs['scapula pull down'],
-        exs['front hanging with knees'],
-        exs['corner'],
-        exs['strap']]),
-    'Delta and chest': new Training('Delta and chest', 'Плечи, грудь', 'Короткая тренировка сфокусированная на остающих мышцах: дельтавидных и грудных', 'power',
-        [exs['push-ups legs up'],
-        exs['dumbbell bench sit'],
-        exs['push-ups slow'],
-        exs['push-ups diamond']]),
+    'Back and biceps': new Training('Back and biceps', 'Спина, бицепс', 'Цель тренировки научиться подтягиваться на 1 руке и развить спину и бицепс. В подъеме гантели на бицепс увеличить количество подходов по неделям 3-4-5, затем возвращаться на 3 подхода, но увеличить вес', 'power',
+        [
+            exs['pull-ups'],
+            exs['pull-ups rings'],
+            exs['dumbbell deadlift'],
+            exs['leg lift'],
+            exs['pull-ups reverse'],
+            exs['dumbbell biceps'],
+            exs['hanging'],
+            exs['pull-ups negative']
+        ]
+    ),
+    'Chest and triceps': new Training('Chest and triceps', 'Грудь, трицепс', 'Цель тренировки - развитие грудных, трицепса и переднего виса. Увеличить количество подходов в отжимания на брусьях по неделям 3-4-5, затем возвращаться и увеличивать вес', 'power',
+        [
+            exs['push-ups'],
+            exs['bars'],
+            exs['crossover with rubber'],
+            exs['push-ups archer'],
+            exs['explosive ngtv push-ups'],
+            exs['back triceps push-ups'],
+            exs['scapula'],
+            exs['scapula pull down'],
+            exs['front hanging with knees']
+        ]
+    ),
+    'Delta, legs and press': new Training('Delta, legs and press', 'Плечи, ноги, пресс', 'Тренировка для развития дельтовидных, ног и пресса. Жим гантели стоя делать по правилу 3-4-5', 'power',
+        [
+            exs['push-ups legs up'],
+            exs['dumbbell bench stand'],
+            exs['dumbbell leading'],
+            exs['traction rubber'],
+            exs['squats'],
+            exs['squats gun'],
+            exs['corner'],
+            exs['press'],
+            exs['strap']
+        ]
+    ),
     'Muscle-up': new Training('Muscle-up', 'Выходы силой', 'Короткая тренировка направленная на проработку выходов силой', 'power',
-        [exs['pull-ups'],
-        exs['muscle-up'],
-        exs['horizontal bar push-ups']]),
+        [
+            exs['pull-ups'],
+            exs['muscle-up'],
+            exs['horizontal bar push-ups'],
+            exs['pull-ups reverse']
+        ]
+    ),
     // swimming
     'Swimming': new Training('Swimming', 'Плавание', 'Плавание в бассейне для удовольствия и восстановления', 'swimming', [exs['swimming']]),
     // running
