@@ -2,7 +2,7 @@ import React from 'react'
 
 const OptionTimeOneHand = () => {
     return (
-        <label className='input__container'>
+        <div className='input__container'>
             <span className='input__text'>Время</span>
             <div className='input__container input__container--column'>
                 <span className='input__text--small'>Левая</span>
@@ -10,7 +10,7 @@ const OptionTimeOneHand = () => {
                 <span className='input__text--small'>Правая</span>
                 <input type='time' className='input__input input__input--time' name='time-right' defaultValue='00:00' />
             </div>
-        </label>
+        </div>
     )
 }
 
