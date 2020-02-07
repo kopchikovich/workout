@@ -3,4 +3,29 @@
 }
 .sets__set {
     list-style-type: decimal;
+    position: relative;
+    padding-right: 15px;
+}
+.sets__btn {
+    position: absolute;
+    top: -5px;
+    right: 0;
+    width: 20px;
+    height: 20px;
+}
+.sets__btn::before, .sets__btn::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 3px;
+    height: 15px;
+    background-color: var(--second-bg-color);
+}
+.sets__btn::before {
+    transform: rotate(45deg);
+}
+.sets__btn::after {
+    transform: rotate(-45deg);
 }

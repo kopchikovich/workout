@@ -23,15 +23,29 @@ const Sets = (props) => {
         return 'error';
     }
 
-    const renderSets = (set, index) => {
+    const toggleDeleteButton = (e) => {
+        const target = e.target
+        const deleteButtonNode = target.querySelector('.sets__btn')
+
+        if (deleteButtonNode) {
+            target.removeChild(deleteButtonNode)
+        } else {
+            const deleteButton = document.createElement('button')
+            deleteButton.className = 'sets__btn'
+            deleteButton.addEventListener('click', () => props.deleteSet(target.id))
+            target.appendChild(deleteButton)
+        }
+    }
+
+    const renderSet = (set, index) => {
         return (
-            <li className='sets__set' key={index}>
+            <li className='sets__set' key={index} id={index} onClick={toggleDeleteButton.bind(this)}>
                 {makeSetString(set)}
             </li>
         )
     }
 
-    const sets = props.exercise? props.exercise.map(renderSets) : <li className='sets__set'>-</li>;
+    const sets = props.exercise? props.exercise.map(renderSet) : <li className='sets__set'>-</li>;
 
     return (
         <ol className='sets__list'>

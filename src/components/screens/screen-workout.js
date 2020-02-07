@@ -59,7 +59,10 @@ class ScreenWorkout extends Component {
 
                 <article className='training-table__cell training-table__cell--sets sets'>
                     <h3 className='sets__header'>Выполнено</h3>
-                    <Sets exercise={this.state.exercises[this.state.currentExs.name]} />
+                    <Sets
+                        exercise={this.state.exercises[this.state.currentExs.name]}
+                        deleteSet={this.deleteSet.bind(this)}
+                    />
                 </article>
 
                 <Button 
@@ -115,6 +118,18 @@ class ScreenWorkout extends Component {
         })
 
         document.controller.resetRestTimer();
+    }
+
+    deleteSet(index) {
+        const currentExsLink = this.state.exercises[this.state.currentExs.name]
+        let sets = Array.from(currentExsLink)
+        console.log(sets)
+        sets.splice(+index, 1)
+        console.log(sets)
+
+        this.setState({
+            exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
+        })
     }
 
     recordWorkout(e) {
