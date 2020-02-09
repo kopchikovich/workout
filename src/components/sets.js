@@ -24,23 +24,30 @@ const Sets = (props) => {
     }
 
     const toggleDeleteButton = (e) => {
-        const target = e.target
-        const deleteButtonNode = target.querySelector('.sets__btn')
+        const parent = e.target.parentNode
+        const deleteButtonNode = parent.querySelector('.sets__btn')
 
         if (deleteButtonNode) {
-            target.removeChild(deleteButtonNode)
+            parent.removeChild(deleteButtonNode)
         } else {
             const deleteButton = document.createElement('button')
             deleteButton.className = 'sets__btn'
-            deleteButton.addEventListener('click', () => props.deleteSet(target.id))
-            target.appendChild(deleteButton)
+            deleteButton.addEventListener('click', clickHandler)
+            parent.appendChild(deleteButton)
         }
+    }
+
+    const clickHandler = (e) => {
+        const parent = e.target.parentNode
+
+        parent.removeChild(e.target)
+        props.deleteSet(parent.id)
     }
 
     const renderSet = (set, index) => {
         return (
-            <li className='sets__set' key={index} id={index} onClick={toggleDeleteButton.bind(this)}>
-                {makeSetString(set)}
+            <li className='sets__set' key={index} id={index}>
+                <span onClick={toggleDeleteButton.bind(this)}>{makeSetString(set)}</span>
             </li>
         )
     }
