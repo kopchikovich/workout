@@ -63,7 +63,7 @@ class ScreenWorkout extends Component {
                         exercise={this.state.exercises[this.state.currentExs.name]}
                         deleteSet={this.deleteSet.bind(this)}
                     />
-                    <h3 className='sets__header'>В прошлый раз</h3>
+                    <h3 className='sets__header sets__header--small'>В прошлый раз</h3>
                     <Sets
                         exercise={this.getLastWorkout()}
                     />
@@ -127,10 +127,7 @@ class ScreenWorkout extends Component {
     deleteSet(index) {
         const currentExsLink = this.state.exercises[this.state.currentExs.name]
         let sets = Array.from(currentExsLink)
-        console.log(sets)
         sets.splice(+index, 1)
-        console.log(sets)
-
         this.setState({
             exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
         })

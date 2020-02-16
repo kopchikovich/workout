@@ -24,16 +24,18 @@ const Sets = (props) => {
     }
 
     const toggleDeleteButton = (e) => {
-        const parent = e.target.parentNode
-        const deleteButtonNode = parent.querySelector('.sets__btn')
+        if (props.deleteSet) {
+            const parent = e.target.parentNode
+            const deleteButtonNode = parent.querySelector('.sets__btn')
 
-        if (deleteButtonNode) {
-            parent.removeChild(deleteButtonNode)
-        } else {
-            const deleteButton = document.createElement('button')
-            deleteButton.className = 'sets__btn'
-            deleteButton.addEventListener('click', clickHandler)
-            parent.appendChild(deleteButton)
+            if (deleteButtonNode) {
+                parent.removeChild(deleteButtonNode)
+            } else {
+                const deleteButton = document.createElement('button')
+                deleteButton.className = 'sets__btn'
+                deleteButton.addEventListener('click', clickHandler)
+                parent.appendChild(deleteButton)
+            }
         }
     }
 
