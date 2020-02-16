@@ -53,7 +53,7 @@ const firebase_recordWorkout = (workout) => {
     localStorage.setItem('user-last-workout', lastWorkoutString);
 
     // write workout data to db
-    const user = firebase_db.doc('test/kopchikovich'); //changing db here | test <-> users |
+    const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
     document.controller.workoutAppendPromise = user.collection(`workouts/${workoutYear}/${workoutMonthNameEng}`).add(workout)
     .then(function(docRef) {
         console.log('Workout written with ID: ', docRef.id);
