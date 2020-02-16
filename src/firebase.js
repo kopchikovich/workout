@@ -34,6 +34,7 @@ const firebase_getUserData = () => {
             const METERS_IN_KILOMETERS = 1000;
             localStorage.setItem('user-mileage', `${(userData.mileageInMeters/METERS_IN_KILOMETERS).toFixed(1)}`);
             localStorage.setItem('user-last-workout' , userData.lastWorkout);
+            localStorage.setItem('last-workouts' , '{}');
         }
     }).catch(printError);
 }
@@ -52,7 +53,7 @@ const firebase_recordWorkout = (workout) => {
     localStorage.setItem('user-last-workout', lastWorkoutString);
 
     // write workout data to db
-    const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
+    const user = firebase_db.doc('test/kopchikovich'); //changing db here | test <-> users |
     document.controller.workoutAppendPromise = user.collection(`workouts/${workoutYear}/${workoutMonthNameEng}`).add(workout)
     .then(function(docRef) {
         console.log('Workout written with ID: ', docRef.id);

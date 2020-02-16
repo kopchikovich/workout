@@ -63,6 +63,10 @@ class ScreenWorkout extends Component {
                         exercise={this.state.exercises[this.state.currentExs.name]}
                         deleteSet={this.deleteSet.bind(this)}
                     />
+                    <h3 className='sets__header'>В прошлый раз</h3>
+                    <Sets
+                        exercise={this.getLastWorkout()}
+                    />
                 </article>
 
                 <Button 
@@ -148,12 +152,36 @@ class ScreenWorkout extends Component {
             localStorage.setItem(dateString, JSON.stringify(array));
         }
 
+        // записываю тренировку в список последних тренировок по названию
+        let lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'));
+        lastWorkouts[workout.name] = dateString;
+        localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts));
+
         document.controller.renderMessage('Тренировка записана', 'green');
         this.props.switchScreen(e);
 
         // make backup and append workout to firestore
         localStorage.setItem('workout-backup', JSON.stringify(workout));
         firebase_recordWorkout(workout);
+    }
+
+    getLastWorkout() {
+        // Получаю объект с названиями последних тренировок
+        const lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'));
+        let lastSets = null;
+
+        if (lastWorkouts[this.workout.name]) {
+            // Получаю прошлую тренировку по названию и дате (записи в localStorage)
+            const lastWorkout = JSON.parse(localStorage.getItem(lastWorkouts[this.workout.name])).find((el) => {
+                return el.name === this.workout.name;
+            });
+            // Получаю прошлые подходы в текущем упражнении
+            if (Object.keys(lastWorkout.exercises).includes(this.state.currentExs.name)) {
+                lastSets = lastWorkout.exercises[this.state.currentExs.name];
+            }
+        }
+
+        return lastSets;
     }
 
     confirmExit(e) {
