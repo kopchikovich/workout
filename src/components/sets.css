@@ -29,3 +29,6 @@
 .sets__btn::after {
     transform: rotate(-45deg);
 }
+.sets__header--small {
+    font-size: 20px;
+}
