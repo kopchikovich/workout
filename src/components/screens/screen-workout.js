@@ -154,6 +154,7 @@ class ScreenWorkout extends Component {
         lastWorkouts[workout.name] = dateString;
         localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts));
 
+        // переключаю экран
         document.controller.renderMessage('Тренировка записана', 'green');
         this.props.switchScreen(e);
 
