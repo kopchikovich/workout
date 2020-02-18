@@ -34,7 +34,7 @@ const firebase_getUserData = () => {
             const METERS_IN_KILOMETERS = 1000;
             localStorage.setItem('user-mileage', `${(userData.mileageInMeters/METERS_IN_KILOMETERS).toFixed(1)}`);
             localStorage.setItem('user-last-workout' , userData.lastWorkout);
-            localStorage.setItem('last-workouts' , '{}');
+            localStorage.setItem('last-workouts' , userData.lastWorkouts);
         }
     }).catch(printError);
 }
@@ -61,7 +61,8 @@ const firebase_recordWorkout = (workout) => {
         // write last workout id and string
         user.update({
             lastWorkoutId: docRef.id,
-            lastWorkout: lastWorkoutString
+            lastWorkout: lastWorkoutString,
+            lastWorkouts: localStorage.getItem('last-workouts')
         });
         // update mileage
         if (workout.type === 'running') {
