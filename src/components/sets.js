@@ -10,7 +10,7 @@ const Sets = (props) => {
         if (options.includes('time-left') && options.includes('time-right')) {
             return `лев - ${set['time-left']} / прав - ${set['time-right']}`;
         } else if (options.includes('weight') && options.includes('repeats-left') && options.includes('repeats-right')) {
-            return `лев ${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)}кг - ${set['repeats-left']} / прав ${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)}кг - ${set['repeats-right']}`;
+            return `${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)}кг лев - ${set['repeats-left']} / прав - ${set['repeats-right']}`;
         } else if (options.includes('repeats-left') && options.includes('repeats-right')) {
             return `лев - ${set['repeats-left']} / прав - ${set['repeats-right']}`;
         } else if (options.includes('time')) {
