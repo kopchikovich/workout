@@ -1,6 +1,6 @@
 import React from 'react'
 import './user.css'
-import {firebase_recordWorkout} from '../firebase'
+import {firebase_recordWorkout, firebase_getUserData} from '../firebase'
 import Button from './button'
 import Checkbox from './checkbox'
 
@@ -17,6 +17,11 @@ const User = (props) => {
             <Button className='user__button user__button--send' title='Отправить' onClickHandler={sendBackup} />
         </p>
     )
+
+    const updateUserData = () => {
+        firebase_getUserData();
+        document.controller.renderMessage('Обновляем данные...', 'green');
+    }
 
     return (
         <div className='user'>
@@ -44,6 +49,7 @@ const User = (props) => {
             {/* если есть бэкап, написать об этом и отправить */}
             {!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
 
+            <Button className='user__button' title='Обновить данные' onClickHandler={updateUserData} />
             <Button className='user__button' title='Выйти' onClickHandler={props.logout} />
         </div>
     )

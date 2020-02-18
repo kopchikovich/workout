@@ -26,6 +26,7 @@
 }
 .user__button {
     padding: 5px 10px;
+    margin-bottom: 10px;
 }
 .user__button--send {
     margin-top: 5px;
