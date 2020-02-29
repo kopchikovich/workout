@@ -14,6 +14,7 @@ const OptionWeight = () => {
                 <option value='13300' className='input__weight-value'>13,3 (4x2.5,2x0.5)</option>
                 <option value='14800' className='input__weight-value'>14,8 (4x2.5,2x1.25)</option>
                 <option value='15800' className='input__weight-value'>15,8 (4x2.5,2x1.25,2x0.5)</option>
+                <option value='17300' className='input__weight-value'>17,3 (6x2.5)</option>
             </select>
         </label>
     )
