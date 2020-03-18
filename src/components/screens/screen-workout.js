@@ -164,21 +164,22 @@ class ScreenWorkout extends Component {
     }
 
     getLastWorkout() {
-        // Получаю объект с названиями последних тренировок
-        const lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'));
         let lastSets = null;
 
-        if (lastWorkouts[this.workout.name]) {
-            // Получаю прошлую тренировку по названию и дате (записи в localStorage)
-            const lastWorkout = JSON.parse(localStorage.getItem(lastWorkouts[this.workout.name])).find((el) => {
-                return el.name === this.workout.name;
-            });
-            // Получаю прошлые подходы в текущем упражнении
-            if (Object.keys(lastWorkout.exercises).includes(this.state.currentExs.name)) {
-                lastSets = lastWorkout.exercises[this.state.currentExs.name];
+        // Получаю объект с названиями последних тренировок
+        if (localStorage.getItem('last-workouts')) {
+            const lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'));
+            if (lastWorkouts[this.workout.name]) {
+                // Получаю прошлую тренировку по названию и дате (записи в localStorage)
+                const lastWorkout = JSON.parse(localStorage.getItem(lastWorkouts[this.workout.name])).find((el) => {
+                    return el.name === this.workout.name;
+                });
+                // Получаю прошлые подходы в текущем упражнении
+                if (Object.keys(lastWorkout.exercises).includes(this.state.currentExs.name)) {
+                    lastSets = lastWorkout.exercises[this.state.currentExs.name];
+                }
             }
         }
-
         return lastSets;
     }
 
