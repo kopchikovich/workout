@@ -11,6 +11,8 @@ firebase.initializeApp({
 });
 
 const firebase_db = firebase.firestore();
+const user = firebase_db.doc('users/kopchikovich');
+// const user = firebase_db.doc('test/kopchikovich');
 
 const printError = (error) => {
     console.log(error.code + ' : ' + error.message);
@@ -27,7 +29,6 @@ const firebase_signOut = () => {
 }
 
 const firebase_getUserData = () => {
-    const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
     user.get().then((doc) => {
         if (doc.exists) {
             const userData = doc.data();
@@ -53,7 +54,6 @@ const firebase_recordWorkout = (workout) => {
     localStorage.setItem('user-last-workout', lastWorkoutString);
 
     // write workout data to db
-    const user = firebase_db.doc('users/kopchikovich'); //changing db here | test <-> users |
     document.controller.workoutAppendPromise = user.collection(`workouts/${workoutYear}/${workoutMonthNameEng}`).add(workout)
     .then(function(docRef) {
         console.log('Workout written with ID: ', docRef.id);
@@ -109,6 +109,5 @@ const firebase_getMonthWorkouts = (date) => {
         }
     }).catch(printError);
 }
-
 
 export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts}
