@@ -3,21 +3,28 @@
     flex-flow: row wrap;
     height: 100%;
     position: relative;
+    width: 100%;
 }
 .training-table__cell {
     box-sizing: border-box;
     background-color: var(--main-bg-color);
-    height: 80%;
     text-align: center;
     padding: 5px;
+    z-index: 1;
 }
-.training-table__cell--timer {
-    width: 50%;
-    height: 20%;
+.training-table__cell--timers {
+    width: 100%;
+    max-width: 800px;
+    height: 100px;
+    position: fixed;
+    z-index: 2;
+    display: flex;
 }
 .training-table__cell--exercise {
+    margin-top: 100px;
     width: 60%;
 }
 .training-table__cell--sets {
+    margin-top: 100px;
     width: 40%;
 }

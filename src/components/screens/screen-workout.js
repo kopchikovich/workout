@@ -38,15 +38,14 @@ class ScreenWorkout extends Component {
     render() {
         return (
             <section className='training-table'>
-
-                <article className='training-table__cell training-table__cell--timer timer'>
-                    <Timer control={true} />
-                </article>
-
-                <article className='training-table__cell training-table__cell--timer timer'>
-                    <Timer />
-                </article>
-
+                <section className='training-table__cell training-table__cell--timers'>
+                    <article className=' timer'>
+                        <Timer control={true} />
+                    </article>
+                    <article className='timer'>
+                        <Timer />
+                    </article>
+                </section>
                 <article className='training-table__cell training-table__cell--exercise exercise'>
                     <Exercise
                         state={this.state}
