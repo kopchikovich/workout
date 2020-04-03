@@ -1,7 +1,7 @@
 .footer {
     width: 100%;
     max-width: inherit;
-    height: 78px;
+    height: var(--header-footer-height);
     background-color: var(--second-bg-color);
     color: var(--second-text-color);
     position: fixed;
