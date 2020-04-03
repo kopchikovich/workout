@@ -1,3 +1,7 @@
+:root {
+    --timers-height: 85px;
+}
+
 .training-table {
     display: flex;
     flex-flow: row wrap;
@@ -14,17 +18,17 @@
 }
 .training-table__cell--timers {
     width: 100%;
-    max-width: 800px;
-    height: 100px;
+    max-width: var(--max-width);
+    height: var(--timers-height);
     position: fixed;
     z-index: 2;
     display: flex;
 }
 .training-table__cell--exercise {
-    margin-top: 100px;
+    margin-top: var(--timers-height);
     width: 60%;
 }
 .training-table__cell--sets {
-    margin-top: 100px;
+    margin-top: var(--timers-height);
     width: 40%;
 }
