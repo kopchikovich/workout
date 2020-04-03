@@ -17,7 +17,7 @@ const Footer = (props) => {
                     className='markers-list__button'
                     title='Закончить тренировку'
                     value='index'
-                    onClickHandler={document.controller.recordWorkout}
+                    onClickHandler={(e) => document.controller.recordWorkout(e, true)}
                 />
             </li>
         )

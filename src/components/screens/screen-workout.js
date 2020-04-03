@@ -31,7 +31,7 @@ class ScreenWorkout extends Component {
         }
         this.state = this.initialState;
 
-        document.controller.recordWorkout = this.recordWorkout.bind(this);
+        document.controller.recordWorkout = this.confirmExit.bind(this);
 
     }
 
@@ -182,16 +182,32 @@ class ScreenWorkout extends Component {
         return lastSets;
     }
 
-    confirmExit(e) {
-        let content = (
-            <>
-                <p>Вернуться к списку тренировок без сохранения данных?</p>
-                <div className='modal__buttons'>
-                    <Button title='Да' onClickHandler={this.props.switchScreen}  value='index' />
-                    <Button title='Нет' onClickHandler={this.props.closeModal} />
-                </div>
-            </>
-        )
+    confirmExit(e, isWorkoutEnd) {
+
+        let content = null
+
+        if (isWorkoutEnd) {
+            content = (
+                <>
+                    <p>Тренировка действительно закончилась?</p>
+                    <div className='modal__buttons'>
+                        <Button title='Да' onClickHandler={this.recordWorkout.bind(this)}  value='index' />
+                        <Button title='Нет' onClickHandler={this.props.closeModal} />
+                    </div>
+                </>
+            )
+        } else {
+            content = (
+                <>
+                    <p>Вернуться к списку тренировок без сохранения данных?</p>
+                    <div className='modal__buttons'>
+                        <Button title='Да' onClickHandler={this.props.switchScreen}  value='index' />
+                        <Button title='Нет' onClickHandler={this.props.closeModal} />
+                    </div>
+                </>
+            )
+        }
+        
         this.props.openModal('Выход', content)
     }
 
