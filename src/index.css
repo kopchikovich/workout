@@ -7,7 +7,7 @@
     --modal-bg-color: #ddd;
     --modal-text-color: #111;
     --max-width: 800px;
-    --header-footer-height: 60px;
+    --header-footer-height: 65px;
 }
 
 body, header, main, footer, h2, h3, ul, li, button {
