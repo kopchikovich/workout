@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import './screen-exercise.css'
 import ButtonList from '../button-list'
 import Button from '../button'
-import training_db from '../../data'
 
 class ScreenExercise extends Component {
 
@@ -11,12 +10,17 @@ class ScreenExercise extends Component {
     }
 
     makeDescription(e) {
+
+        const training_db = JSON.parse(localStorage.getItem('trainings'));
+        const exercise_db = JSON.parse(localStorage.getItem('exercises'));
         const training = training_db[e.target.value];
         const exercises = training.exercises.map((exs, index) => {
             return (
                 <details className='description__exercise' key={index}>
-                    <summary>{exs.name}</summary>
-                    <div className="description__text">{exs.description}</div>
+                    <summary>{exercise_db[exs].name}</summary>
+                    <div className="description__text">
+                        {exercise_db[exs].description}
+                    </div>
                 </details>
             )
         });

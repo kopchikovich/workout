@@ -1,7 +1,6 @@
-import React, {Component} from 'react'
-import {firebase_recordWorkout} from '../../firebase'
+import React, { Component } from 'react'
+import { firebase_recordWorkout } from '../../firebase'
 import './screen-workout.css'
-import training_db from '../../data'
 import Button from '../button'
 import Timer from '../timer'
 import Exercise from '../exercise'
@@ -15,6 +14,8 @@ class ScreenWorkout extends Component {
     constructor(props) {
         super(props)
 
+        const training_db = JSON.parse(localStorage.getItem('trainings'));
+        this.exercise_db = JSON.parse(localStorage.getItem('exercises'));
         this.training = training_db[this.props.state.trainingKey];
         this.workout = {
             name: this.training.name,
@@ -25,7 +26,7 @@ class ScreenWorkout extends Component {
         }
 
         this.initialState = {
-            currentExs: this.training.exercises[0],
+            currentExs: this.exercise_db[this.training.exercises[0]],
             currentExsIndex: 0,
             exercises: {}
         }
@@ -90,7 +91,7 @@ class ScreenWorkout extends Component {
         } else {
             return null;
         }
-        newExs = this.training.exercises[newExsIndex];
+        newExs = this.exercise_db[this.training.exercises[newExsIndex]];
 
         this.setState({
             currentExs: newExs,
