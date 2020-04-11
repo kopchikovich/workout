@@ -1,7 +1,7 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import {Calendar} from './components/month'
+import { Calendar } from './components/month'
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp({
@@ -11,8 +11,8 @@ firebase.initializeApp({
 });
 
 const firebase_db = firebase.firestore();
-const user = firebase_db.doc('users/kopchikovich');
-// const user = firebase_db.doc('test/kopchikovich');
+// const user = firebase_db.doc('users/kopchikovich');
+const user = firebase_db.doc('test/kopchikovich');
 
 const printError = (error) => {
     console.log(error.code + ' : ' + error.message);
@@ -109,5 +109,52 @@ const firebase_getMonthWorkouts = (date) => {
         }
     }).catch(printError);
 }
+const firebase_getUserTrainings = () => {
+    // get exercises
+    user.collection('exercises').get().then((querySnapshot) => {
+        const exercises = {};
+        if (querySnapshot.docs.length > 1) {  // 1 потому что всегда есть template упражнения
+            querySnapshot.forEach((doc) => {
+                if (doc.id === 'template') {
+                    return;
+                } else {
+                    exercises[doc.id] = doc.data();
+                }
+            })
+        } 
+        localStorage.setItem('exercises', JSON.stringify(exercises));
+    }).catch(printError);
+    // get trainings
+    user.collection('trainings').get().then((querySnapshot) => {
+        const trainings = {};
+        if (querySnapshot.docs.length > 1) {  // 1 потому что всегда есть template упражнения
+            querySnapshot.forEach((doc) => {
+                if (doc.id === 'template') {
+                    return;
+                } else {
+                    trainings[doc.id] = doc.data();
+                }
+            })
+        } 
+        localStorage.setItem('trainings', JSON.stringify(trainings));
+    }).catch(printError);  
+}
+const firebase_updateUserTrainings = () => {
+    // update exercises
+    const exercises = Object.entries(JSON.parse(localStorage.getItem('exercises')));
+    exercises.forEach((exs) => {
+        user.collection('exercises').doc(exs[0]).set(exs[1])
+            .catch(printError);
+    })
+    // update trainings
+    const trainings = Object.entries(JSON.parse(localStorage.getItem('trainings')));
+    trainings.forEach((exs) => {
+        user.collection('trainings').doc(exs[0]).set(exs[1])
+            .catch(printError);
+    })
 
-export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts}
+}
+window.firebase_updateUserTrainings = firebase_updateUserTrainings
+window.firebase_getUserTrainings = firebase_getUserTrainings
+
+export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings}
