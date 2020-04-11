@@ -14,12 +14,22 @@ class ScreenExercise extends Component {
         const training_db = JSON.parse(localStorage.getItem('trainings'));
         const exercise_db = JSON.parse(localStorage.getItem('exercises'));
         const training = training_db[e.target.value];
+        const parseArrayOfP = (arr) => {
+            return arr.map((text, i) => {
+                return (
+                    <p key={i}>
+                        {text.slice(3, -4)}
+                    </p>
+                )
+            })
+        }
+
         const exercises = training.exercises.map((exs, index) => {
             return (
                 <details className='description__exercise' key={index}>
                     <summary>{exercise_db[exs].name}</summary>
                     <div className="description__text">
-                        {exercise_db[exs].description}
+                        {typeof exercise_db[exs].description === 'string'? exercise_db[exs].description : parseArrayOfP(exercise_db[exs].description)}
                     </div>
                 </details>
             )
