@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import {firebase_getUserData, firebase_signOut, firebase_recordWorkout} from '../firebase'
+import { firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserTrainings, firebase_getMonthWorkouts } from '../firebase'
 import './app.css'
 import training_db from '../data'
 import Header from './header'
@@ -194,10 +194,17 @@ class App extends Component {
             localStorage.setItem(USER_NAME, firebase.auth().currentUser.displayName);
             console.log('Sign in as', localStorage.getItem(USER_NAME));
             document.controller.renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green');
-            firebase_getUserData();
             this.setState({
                 isLogin: true
             })
+            firebase_getUserData();
+            firebase_getUserTrainings();
+            // get last 2 month workouts
+            const date = new Date();
+            firebase_getMonthWorkouts(date);
+            date.setDate(1);
+            date.setMonth(date.getMonth() - 1);
+            firebase_getMonthWorkouts(date);
         }).catch((error) => {
             console.log(error.code + ' : ' + error.message);
             document.controller.renderMessage(`${error.code} : ${error.message}`, 'red');
