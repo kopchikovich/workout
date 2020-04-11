@@ -1,10 +1,10 @@
 import React from 'react'
 import './button-list.css'
-import training_db from '../data'
 import Button from './button'
 
 const ButtonList = (props) => {
 
+    const training_db = JSON.parse(localStorage.getItem('trainings'));
     const list = Object.values(training_db).map((training, key) => {
         return (
             <li className={props.liClassName} key={key}>

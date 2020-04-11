@@ -1,9 +1,9 @@
 import React from 'react'
 import './header.css'
-import training_db from '../data'
 
 const Header = (props) => {
 
+    const training_db = JSON.parse(localStorage.getItem('trainings'));
     const {screen, headerText, trainingKey} = props.state;
     let renderedText = '';
     

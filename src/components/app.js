@@ -4,7 +4,6 @@ import 'firebase/auth'
 import 'firebase/firestore'
 import { firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserTrainings, firebase_getMonthWorkouts } from '../firebase'
 import './app.css'
-import training_db from '../data'
 import Header from './header'
 import Main from './main'
 import Footer from './footer'
@@ -116,6 +115,7 @@ class App extends Component {
             document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00');
             return;
         }
+        const training_db = JSON.parse(localStorage.getItem('trainings'));
         const training = training_db[e.target.value];
         if (training.type === 'power') {
             this.setState({
