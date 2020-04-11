@@ -75,57 +75,68 @@ const training_db = {
     // power
     'Back and biceps': new Training('Back and biceps', 'Спина, бицепс', 'Цель тренировки научиться подтягиваться на 1 руке и развить спину и бицепс. В подъеме гантели на бицепс увеличить количество подходов по неделям 3-4-5, затем возвращаться на 3 подхода, но увеличить вес', 'power',
         [
-            exs['pull-ups'],
-            exs['pull-ups rings'],
-            exs['dumbbell deadlift'],
-            exs['leg lift'],
-            exs['pull-ups reverse'],
-            exs['dumbbell biceps'],
-            exs['hanging'],
-            exs['pull-ups negative']
+            'pull-ups',
+            'pull-ups rings',
+            'dumbbell deadlift',
+            'leg lift',
+            'pull-ups reverse',
+            'dumbbell biceps',
+            'hanging',
+            'pull-ups negative'
         ]
     ),
     'Chest and triceps': new Training('Chest and triceps', 'Грудь, трицепс', 'Цель тренировки - развитие грудных, трицепса и переднего виса. Увеличить количество подходов в отжимания на брусьях по неделям 3-4-5, затем возвращаться и увеличивать вес', 'power',
         [
-            exs['push-ups'],
-            exs['bars'],
-            exs['crossover with rubber'],
-            exs['push-ups archer'],
-            exs['explosive ngtv push-ups'],
-            exs['back triceps push-ups'],
-            exs['scapula'],
-            exs['scapula pull down'],
-            exs['front hanging with knees']
+            'push-ups',
+            'bars',
+            'crossover with rubber',
+            'push-ups archer',
+            'explosive ngtv push-ups',
+            'back triceps push-ups',
+            'scapula',
+            'scapula pull down',
+            'front hanging with knees'
         ]
     ),
     'Delta, legs and press': new Training('Delta, legs and press', 'Плечи, ноги, пресс', 'Тренировка для развития дельтовидных, ног и пресса. Жим гантели стоя делать по правилу 3-4-5', 'power',
         [
-            exs['push-ups legs up'],
-            exs['dumbbell bench stand'],
-            exs['dumbbell leading'],
-            exs['traction rubber'],
-            exs['squats'],
-            exs['squats gun'],
-            exs['corner'],
-            exs['press'],
-            exs['strap']
+            'push-ups legs up',
+            'dumbbell bench stand',
+            'dumbbell leading',
+            'traction rubber',
+            'squats',
+            'squats gun',
+            'corner',
+            'press',
+            'strap'
         ]
     ),
     'Muscle-up': new Training('Muscle-up', 'Выходы силой', 'Короткая тренировка направленная на проработку выходов силой', 'power',
         [
-            exs['pull-ups'],
-            exs['muscle-up'],
-            exs['horizontal bar push-ups'],
-            exs['pull-ups reverse']
+            'pull-ups',
+            'muscle-up',
+            'horizontal bar push-ups',
+            'pull-ups reverse'
         ]
     ),
     // swimming
-    'Swimming': new Training('Swimming', 'Плавание', 'Плавание в бассейне для удовольствия и восстановления', 'swimming', [exs['swimming']]),
+    'Swimming': new Training('Swimming', 'Плавание', 'Плавание в бассейне для удовольствия и восстановления', 'swimming', ['swimming']),
     // running
-    'Recovery run': new Training('Recovery run', 'Восстановительный бег', 'Медленный бег для удовольствия и восстановления', 'running', [exs['run slow']]),
-    'Interval run': new Training('Interval run', 'Интервальный бег', 'Тренировка для развития скоростной выносливости и финиширования', 'running', [exs['run interval']]),
-    'Tempo cross run': new Training('Tempo cross run', 'Темповой кросс', 'Тренировка на общую скоростную выносливость', 'running', [exs['run tempo cross']]),
-    'Training 10x10': new Training('Training 10x10', 'Тренировка 10х10', 'Упражнения на улучшение результатов в 10х10', 'running', [exs['run 10x10']])
+    'Recovery run': new Training('Recovery run', 'Восстановительный бег', 'Медленный бег для удовольствия и восстановления', 'running', ['run slow']),
+    'Interval run': new Training('Interval run', 'Интервальный бег', 'Тренировка для развития скоростной выносливости и финиширования', 'running', ['run interval']),
+    'Tempo cross run': new Training('Tempo cross run', 'Темповой кросс', 'Тренировка на общую скоростную выносливость', 'running', ['run tempo cross']),
+    'Training 10x10': new Training('Training 10x10', 'Тренировка 10х10', 'Упражнения на улучшение результатов в 10х10', 'running', ['run 10x10'])
 }
+
+const saveExercisesToLocalStorage = () => {
+    localStorage.setItem('exercises', JSON.stringify(exs))
+}
+// saveExercisesToLocalStorage()
+
+const saveTrainingsToLocalStorage = () => {
+    localStorage.setItem('trainings', JSON.stringify(training_db))
+}
+// saveTrainingsToLocalStorage()
+
 
 export default training_db;
