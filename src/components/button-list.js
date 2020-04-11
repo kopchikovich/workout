@@ -4,8 +4,17 @@ import Button from './button'
 
 const ButtonList = (props) => {
 
-    const training_db = JSON.parse(localStorage.getItem('trainings'));
-    const list = Object.values(training_db).map((training, key) => {
+    const training_db = JSON.parse(localStorage.getItem('trainings'))
+    const compare = (a, b) => {
+        if (a.type === 'power' && b.type !== 'power') {
+            return -1
+        } else if (a.type !== 'power' && b.type === 'power') {
+            return 1
+        } else {
+            return 0
+        }
+    }
+    const list = Object.values(training_db).sort(compare).map((training, key) => {
         return (
             <li className={props.liClassName} key={key}>
                 <Button
@@ -16,7 +25,8 @@ const ButtonList = (props) => {
                 />
             </li>
         )
-    });
+    })
+    
 
     return (
         <ul className={props.listClassName}>
