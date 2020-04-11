@@ -109,6 +109,7 @@ const firebase_getMonthWorkouts = (date) => {
         }
     }).catch(printError);
 }
+
 const firebase_getUserTrainings = () => {
     // get exercises
     user.collection('exercises').get().then((querySnapshot) => {
@@ -123,11 +124,12 @@ const firebase_getUserTrainings = () => {
             })
         } 
         localStorage.setItem('exercises', JSON.stringify(exercises));
+        console.log('Complete getting exercises from firebase');
     }).catch(printError);
     // get trainings
     user.collection('trainings').get().then((querySnapshot) => {
         const trainings = {};
-        if (querySnapshot.docs.length > 1) {  // 1 потому что всегда есть template упражнения
+        if (querySnapshot.docs.length > 1) {  // 1 потому что всегда есть template тренировки
             querySnapshot.forEach((doc) => {
                 if (doc.id === 'template') {
                     return;
@@ -137,24 +139,35 @@ const firebase_getUserTrainings = () => {
             })
         } 
         localStorage.setItem('trainings', JSON.stringify(trainings));
+        console.log('Complete getting trainings from firebase');
     }).catch(printError);  
 }
+
 const firebase_updateUserTrainings = () => {
     // update exercises
     const exercises = Object.entries(JSON.parse(localStorage.getItem('exercises')));
-    exercises.forEach((exs) => {
+    exercises.forEach((exs, i) => {
         user.collection('exercises').doc(exs[0]).set(exs[1])
+            .then(() => {
+                if (i === exercises.length-1) {
+                    console.log('Complete updating exercises on firebase');
+                }
+            })
             .catch(printError);
     })
     // update trainings
     const trainings = Object.entries(JSON.parse(localStorage.getItem('trainings')));
-    trainings.forEach((exs) => {
+    trainings.forEach((exs, i) => {
         user.collection('trainings').doc(exs[0]).set(exs[1])
+            .then(() => {
+                if (i === trainings.length-1) {
+                    console.log('Complete updating trainings on firebase');
+                }
+            })
             .catch(printError);
     })
-
 }
-window.firebase_updateUserTrainings = firebase_updateUserTrainings
-window.firebase_getUserTrainings = firebase_getUserTrainings
+// window.firebase_updateUserTrainings = firebase_updateUserTrainings
+// window.firebase_getUserTrainings = firebase_getUserTrainings
 
-export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings}
+export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings, firebase_updateUserTrainings}
