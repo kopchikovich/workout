@@ -4,7 +4,7 @@ import Button from './button'
 
 const ButtonList = (props) => {
 
-    const training_db = JSON.parse(localStorage.getItem('trainings'))
+    const training_db = localStorage.getItem('trainings')? JSON.parse(localStorage.getItem('trainings')) : {}
     const compare = (a, b) => {
         if (a.type === 'power' && b.type !== 'power') {
             return -1
