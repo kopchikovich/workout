@@ -11,8 +11,8 @@ firebase.initializeApp({
 });
 
 const firebase_db = firebase.firestore();
-// const user = firebase_db.doc('users/kopchikovich');
-const user = firebase_db.doc('test/kopchikovich');
+const user = firebase_db.doc('users/kopchikovich');
+// const user = firebase_db.doc('test/kopchikovich');
 
 const printError = (error) => {
     console.log(error.code + ' : ' + error.message);
@@ -167,7 +167,5 @@ const firebase_updateUserTrainings = () => {
             .catch(printError);
     })
 }
-// window.firebase_updateUserTrainings = firebase_updateUserTrainings
-// window.firebase_getUserTrainings = firebase_getUserTrainings
 
 export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings, firebase_updateUserTrainings}
