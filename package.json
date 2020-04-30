@@ -1,6 +1,6 @@
 {
-  "name": "workout_v2",
-  "version": "0.1.0",
+  "name": "workout",
+  "version": "2.0.0",
   "author": "kopchikovich",
   "private": true,
   "dependencies": {
