@@ -26,11 +26,12 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    width: 100%;
 }
 .input__text {
     font-size: 18px;
-    margin-right: 10px;
+    margin-right: 5px;
 }
 .input__text--small {
     font-size: 14px;
@@ -42,11 +43,14 @@ label.input__container {
     display: flex;
     flex-flow: row nowrap;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     margin-bottom: 5px;
+    width: 90%;
+    padding-left: 5px;
 }
 .input__container--column {
     flex-direction: column;
+    padding-left: 0;
 }
 .input__input {
     height: 30px;
@@ -64,4 +68,5 @@ label.input__container {
 }
 .input__btn-submit {
     margin-top: 25px;
+    align-self: center;
 }

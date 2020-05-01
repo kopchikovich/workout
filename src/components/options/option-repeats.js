@@ -1,10 +1,11 @@
 import React from 'react'
+import InputNumber from '../input-number'
 
 const OptionRepeats = () => {
     return (
-        <label className='input__container'>
+        <label className='input__container' for='repeats'>
             <span className='input__text'>Повторы</span>
-            <input type='number' className='input__input input__input--repeats' name='repeats' placeholder='0' />
+            <InputNumber name='repeats' id='repeats' />
         </label>
     )
 }
