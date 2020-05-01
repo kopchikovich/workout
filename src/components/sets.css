@@ -1,6 +1,13 @@
 .sets {
     font-size: 18px;
 }
+.sets__scrollable {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.sets__header {
+    padding: 3px 0 10px;
+}
 .sets__set {
     list-style-type: decimal;
     position: relative;

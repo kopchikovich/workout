@@ -59,14 +59,16 @@ class ScreenWorkout extends Component {
 
                 <article className='training-table__cell training-table__cell--sets sets'>
                     <h3 className='sets__header'>Выполнено</h3>
-                    <Sets
-                        exercise={this.state.exercises[this.state.currentExs.name]}
-                        deleteSet={this.deleteSet.bind(this)}
-                    />
-                    <h3 className='sets__header sets__header--small'>В прошлый раз</h3>
-                    <Sets
-                        exercise={this.getLastWorkout()}
-                    />
+                    <div className='sets__scrollable'>
+                        <Sets
+                            exercise={this.state.exercises[this.state.currentExs.name]}
+                            deleteSet={this.deleteSet.bind(this)}
+                        />
+                        <h3 className='sets__header sets__header--small'>В прошлый раз</h3>
+                        <Sets
+                            exercise={this.getLastWorkout()}
+                        />
+                    </div>
                 </article>
 
                 <Button 
