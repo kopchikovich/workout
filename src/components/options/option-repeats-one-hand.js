@@ -1,4 +1,5 @@
 import React from 'react'
+import InputNumber from '../input-number'
 
 const OptionRepeatsOneHand = () => {
     return (
@@ -6,9 +7,9 @@ const OptionRepeatsOneHand = () => {
             <span className='input__text'>Повторы</span>
             <div className='input__container input__container--column'>
                 <span className='input__text--small'>Левая</span>
-                <input type='number' className='input__input input__input--repeats' name='repeats-left' placeholder='0' />
+                <InputNumber name='repeats-left' />
                 <span className='input__text--small'>Правая</span>
-                <input type='number' className='input__input input__input--repeats' name='repeats-right' placeholder='0' />
+                <InputNumber name='repeats-right' />
             </div>
         </div>
     )
