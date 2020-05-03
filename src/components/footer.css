@@ -9,7 +9,7 @@
     z-index: 1
 }
 /* footer links */
-.markers-list {
+.footer-list {
     width: 100%;
     height: 100%;
     display: flex;
@@ -17,17 +17,17 @@
     justify-content: center;
     align-items: center;
 }
-.markers-list__button {
+.footer-list__button {
     font-size: 16px;
     padding: 15px 7px;
     color: inherit;
 }
-.markers-list__button--current {
+.footer-list__button--current {
     text-decoration: underline;
 }
-.markers-list li {
+.footer-list li {
     border-right: 1px solid var(--main-bg-color);
 }
-.markers-list li:last-child {
+.footer-list li:last-child {
     border-right: none;
 }

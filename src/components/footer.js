@@ -14,7 +14,7 @@ const Footer = (props) => {
         footerList = (
             <li>
                 <Button
-                    className='markers-list__button'
+                    className='footer-list__button'
                     title='Закончить тренировку'
                     value='index'
                     onClickHandler={(e) => document.controller.recordWorkout(e, true)}
@@ -26,7 +26,7 @@ const Footer = (props) => {
             return (
                 <li key={key}>
                     <Button
-                        className={isCurrent(title[0])? 'markers-list__button markers-list__button--current' : 'markers-list__button'}
+                        className={isCurrent(title[0])? 'footer-list__button footer-list__button--current' : 'footer-list__button'}
                         value={title[0]}
                         title={title[1]}
                         onClickHandler={props.switchScreen}
@@ -39,7 +39,7 @@ const Footer = (props) => {
 
     return (
         <footer className='footer'>
-            <ul className='footer__markers-list markers-list'>
+            <ul className='footer__footer-list footer-list'>
                 {footerList}
             </ul>
         </footer>

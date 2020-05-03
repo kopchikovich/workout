@@ -40,7 +40,7 @@ const Main = (props) => {
     )
 
     const {screen} = props.state;
-    let renderedScreen = <h2>some error...</h2>;
+    let renderedScreen = <h2>some error..</h2>;
 
     switch (screen) {
         case 'index':
