@@ -70,3 +70,10 @@ label.input__container {
     margin-top: 25px;
     align-self: center;
 }
+
+@media (min-width: 400px) {
+    .input__container {
+        max-width: 300px;
+        margin: 0 auto 5px;
+    }
+}
