@@ -29,7 +29,8 @@ const firebase_signOut = () => {
 }
 
 const firebase_getUserData = () => {
-    user.get().then((doc) => {
+    localStorage.setItem('user-name', firebase.auth().currentUser.displayName);
+    return user.get().then((doc) => {
         if (doc.exists) {
             const userData = doc.data();
             const METERS_IN_KILOMETERS = 1000;
@@ -124,7 +125,7 @@ const firebase_getUserTrainings = () => {
             })
         } 
         localStorage.setItem('exercises', JSON.stringify(exercises));
-        console.log('Complete getting exercises from firebase');
+        console.log('Get exercises from firebase');
     }).catch(printError);
     // get trainings
     user.collection('trainings').get().then((querySnapshot) => {
@@ -139,18 +140,18 @@ const firebase_getUserTrainings = () => {
             })
         } 
         localStorage.setItem('trainings', JSON.stringify(trainings));
-        console.log('Complete getting trainings from firebase');
+        console.log('Get trainings from firebase');
     }).catch(printError);  
 }
 
-const firebase_updateUserTrainings = () => {
+const firebase_setUserTrainings = () => {
     // update exercises
     const exercises = Object.entries(JSON.parse(localStorage.getItem('exercises')));
     exercises.forEach((exs, i) => {
         user.collection('exercises').doc(exs[0]).set(exs[1])
             .then(() => {
                 if (i === exercises.length-1) {
-                    console.log('Complete updating exercises on firebase');
+                    console.log('Set exercises on firebase');
                 }
             })
             .catch(printError);
@@ -161,11 +162,17 @@ const firebase_updateUserTrainings = () => {
         user.collection('trainings').doc(exs[0]).set(exs[1])
             .then(() => {
                 if (i === trainings.length-1) {
-                    console.log('Complete updating trainings on firebase');
+                    console.log('Set trainings on firebase');
                 }
             })
             .catch(printError);
     })
 }
 
-export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings, firebase_updateUserTrainings}
+// user.onSnapshot((doc) => {
+//     document.controller.userDataStatus = 'update'
+//     console.log('fb update');
+// });
+
+
+export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings, firebase_setUserTrainings}

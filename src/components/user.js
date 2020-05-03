@@ -1,15 +1,35 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './user.css'
-import {firebase_recordWorkout, firebase_getUserData} from '../firebase'
+import { firebase_recordWorkout, firebase_getUserData, firebase_getUserTrainings } from '../firebase'
 import Button from './button'
 import Checkbox from './checkbox'
 
 const User = (props) => {
 
-    const backupWorkout = JSON.parse(localStorage.getItem('workout-backup'));
+    const [ mileage, setMileage ] = useState(0)
+    const [ lastWorkout, setLastWorkout ] = useState(<i>Ещё впереди</i>)
+
+    useEffect(() => {
+        const userMileage = localStorage.getItem('user-mileage')
+        const userLastWorkout = localStorage.getItem('user-last-workout')
+        if (userMileage) setMileage(userMileage)
+        if (userLastWorkout && userLastWorkout !== 'undefined') setLastWorkout(userLastWorkout)
+    }, [])
+
+    const updateUserData = () => {
+        firebase_getUserData().then(() => {
+            setMileage(localStorage.getItem('user-mileage'))
+            setLastWorkout(localStorage.getItem('user-last-workout'))
+        })
+        firebase_getUserTrainings()
+        document.controller.renderMessage('Синхронизируем..', 'green')
+    }
+
+    // BACKUP
+    const backupWorkout = JSON.parse(localStorage.getItem('workout-backup'))
     const sendBackup = (e) => {
-        e.target.parentNode.style.display = 'none';
-        firebase_recordWorkout(backupWorkout);
+        e.target.parentNode.style.display = 'none'
+        firebase_recordWorkout(backupWorkout)
     }
     const backupMessage = (
         <p className='user__text user__text--column user__text--warning'>
@@ -18,27 +38,22 @@ const User = (props) => {
         </p>
     )
 
-    const updateUserData = () => {
-        firebase_getUserData();
-        document.controller.renderMessage('Обновляем данные...', 'green');
-    }
-
     return (
         <div className='user'>
             <p className='user__text'>
                 Привет, <span className='user__name'>
-                    {localStorage.getItem('user-name')}
+                    {localStorage.getItem('user-name') || 'пользователь'}
                 </span>
             </p>
             <p className='user__text'>
                 Твой пробег: <span className='user__mileage'>
-                    {localStorage.getItem('user-mileage')}
+                    {mileage}
                 </span> км
             </p>
             <p className='user__text user__text--column'>
                 Последняя тренировка:
                 <span className='user__last-workout'>
-                    {localStorage.getItem('user-last-workout') && localStorage.getItem('user-last-workout') !== 'undefined' ? localStorage.getItem('user-last-workout') : <i>Будет записана после тренировки</i>}
+                    {lastWorkout}
                 </span>
             </p>
             <p className='user__text'>
@@ -49,7 +64,7 @@ const User = (props) => {
             {/* если есть бэкап, написать об этом и отправить */}
             {!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
 
-            <Button className='user__button' title='Обновить данные' onClickHandler={updateUserData} />
+            <Button className='user__button' title='Синхронизировать с облаком' onClickHandler={updateUserData} />
             <Button className='user__button' title='Выйти' onClickHandler={props.logout} />
         </div>
     )
