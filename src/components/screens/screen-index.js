@@ -5,8 +5,7 @@ const ScreenIndex = (props) => {
 
     return (
         <ButtonList
-            listClassName='buttons-list'
-            buttonClassName='buttons-list__button'
+            className='buttons-list'
             onClickHandler={props.openWorkoutScreen}
         />
     )

@@ -16,9 +16,9 @@ const ButtonList = (props) => {
     }
     const list = Object.values(training_db).sort(compare).map((training, key) => {
         return (
-            <li className={props.liClassName} key={key}>
+            <li className='buttons-list__item' key={key}>
                 <Button
-                    className={props.buttonClassName}
+                    className='buttons-list__button'
                     title={training.name}
                     value={training.key}
                     onClickHandler={props.onClickHandler}
@@ -29,7 +29,7 @@ const ButtonList = (props) => {
     
 
     return (
-        <ul className={props.listClassName}>
+        <ul className={props.className}>
             {list}
         </ul>
     )

@@ -64,9 +64,7 @@ class ScreenExercise extends Component {
     render() {
         const exerciseList = (
             <ButtonList
-                listClassName='buttons-list buttons-list--description'
-                buttonClassName='buttons-list__button'
-                liClassName='li--with-circle'
+                className='buttons-list buttons-list--description'
                 onClickHandler={this.makeDescription.bind(this)}
             />
         )
