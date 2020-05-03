@@ -1,11 +1,11 @@
 import React from 'react'
 import './exercise.css'
 import Button from './button'
-import OptionWeight from './options/option-weight'
-import OptionRepeats from './options/option-repeats'
-import OptionRepeatsOneHand from './options/option-repeats-one-hand'
-import OptionTime from './options/option-time'
-import OptionTimeOneHand from './options/option-time-one-hand'
+import OptionWeight from './options/weight'
+import OptionRepeats from './options/repeats'
+import OptionRepeatsOneHand from './options/repeats-one-hand'
+import OptionTime from './options/time'
+import OptionTimeOneHand from './options/time-one-hand'
 
 const Exercise = (props) => {
 

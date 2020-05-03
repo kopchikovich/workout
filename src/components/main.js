@@ -1,10 +1,10 @@
 import React from 'react'
 import './main.css'
-import ScreenIndex from './screens/screen-index'
-import ScreenWorkout from './screens/screen-workout'
-import ScreenCalendar from './screens/screen-calendar'
-import ScreenExercise from './screens/screen-exercise'
-import ScreenUser from './screens/screen-user'
+import ScreenIndex from './screens/index'
+import ScreenWorkout from './screens/workout'
+import ScreenCalendar from './screens/calendar'
+import ScreenExercise from './screens/exercise'
+import ScreenUser from './screens/user'
 
 const Main = (props) => {
 

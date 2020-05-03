@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { firebase_recordWorkout } from '../../firebase'
-import './screen-workout.css'
+import './workout.css'
 import Button from '../button'
 import Timer from '../timer'
 import Exercise from '../exercise'

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {firebase_getMonthWorkouts} from '../../firebase'
-import './screen-calendar.css'
+import './calendar.css'
 import Button from '../button'
 import Month from '../month'
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import './screen-exercise.css'
+import './exercise.css'
 import ButtonList from '../button-list'
 import Button from '../button'
 
