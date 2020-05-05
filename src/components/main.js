@@ -5,6 +5,7 @@ import ScreenWorkout from './screens/workout'
 import ScreenCalendar from './screens/calendar'
 import ScreenExercise from './screens/exercise'
 import ScreenUser from './screens/user'
+import ScreenEditor from './screens/editor'
 
 const Main = (props) => {
 
@@ -29,6 +30,7 @@ const Main = (props) => {
     const exercise = (
         <ScreenExercise
             printHeader={props.printHeader}
+            switchScreen={props.switchScreen}
         />
     )
     const user = (
@@ -37,6 +39,9 @@ const Main = (props) => {
             darkTheme={props.state.darkTheme}
             logout={props.logout}
         />
+    )
+    const editor = (
+        <ScreenEditor />
     )
 
     const {screen} = props.state;
@@ -57,6 +62,9 @@ const Main = (props) => {
             break;
         case 'user':
             renderedScreen = user;
+            break;
+        case 'editor':
+            renderedScreen = editor;
             break;
         default:
             renderedScreen = index;

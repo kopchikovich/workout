@@ -41,7 +41,7 @@ class ScreenExercise extends Component {
                 value={'exercise'}
                 onClickHandler={this.clearDescription.bind(this)}
             />
-        );
+        )
         this.props.printHeader(training.name);
         this.setState({
             description: (
@@ -51,7 +51,7 @@ class ScreenExercise extends Component {
                 {returnButton}
             </article>
             )
-        });
+        })
     }
 
     clearDescription() {
@@ -68,9 +68,18 @@ class ScreenExercise extends Component {
                 onClickHandler={this.makeDescription.bind(this)}
             />
         )
+        const editorButton = (
+            <Button
+                className='button--editor'
+                title='Редактировать'
+                onClickHandler={this.props.switchScreen}
+                value='editor'
+            />
+        )
 
         return (
             <section>
+                {!!this.state.description? null : editorButton}
                 {!!this.state.description? this.state.description : exerciseList}
             </section>
         )

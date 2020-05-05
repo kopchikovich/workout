@@ -21,6 +21,8 @@ const Header = (props) => {
                 renderedText = 'Тренировки'; break;
             case 'user':
                 renderedText = 'Аккаунт'; break;
+            case 'editor':
+                renderedText = 'Редактор'; break;
             default:
                 renderedText = 'Where is i'; break;
         }

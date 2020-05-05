@@ -8,9 +8,17 @@
     opacity: 0.8;
     z-index: 999;
 }
-
 @media screen and (min-width: 800px) {
     .button--arrow {
         left: calc(50% - 395px)
     }
+}
+
+.button--editor {
+    display: table;
+    margin: 20px auto 0;
+    padding: 7px 12px;
+    font-size: 18px;
+    border: 1px solid var(--main-text-color);
+    border-radius: 10px;
 }

@@ -15,7 +15,7 @@ import Login from './components/login'
 class App extends Component {
 
     state = {
-        screen: 'index',
+        screen: 'editor',
         darkTheme: true,
         isLogin: false,
         headerText: '',

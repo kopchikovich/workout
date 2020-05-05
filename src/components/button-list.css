@@ -13,6 +13,7 @@
 
 /* exercise list with description */
 .buttons-list--description {
+    height: 60vh;
     padding-left: 50px;
     align-items: flex-start;
 }
