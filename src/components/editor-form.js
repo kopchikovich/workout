@@ -1,6 +1,9 @@
 import React from 'react'
 import './editor-form.css'
 import Button from './button'
+import InputName from './editor-inputs/name'
+import InputDescription from './editor-inputs/description'
+import InputSets from './editor-inputs/sets'
 
 const EditorForm = (props) => {
 
@@ -11,35 +14,43 @@ const EditorForm = (props) => {
         console.log('submit', editableItemId);
     }
 
+    const names = {
+        options: 'Параметры упражнения',
+        sets: 'Количество подходов',
+        type: 'Тип тренировки',
+        exercises: 'Упражнения'
+    }
+    const components = {
+        options: null,
+        sets: <InputSets value={editableItem.sets} />,
+        type: null,
+        exercises: null
+    }
+    const differentInputs = Object.keys(editableItem).map((el, i) => {
+        if (!names[el]) return null
+        return (
+            <label className='editor-form__label' key={i}>
+                <span className='editor-form__text'>
+                    {names[el]}
+                </span>
+                {components[el]}
+            </label>
+        )
+    })
+
     return (
         <form className='editor-form' onSubmit={submitHandler}>
-            <label className='editor-form__label'>
-                <span className='editor-form__text'>
-                    Название
-                </span>
-                <input
-                    className='editor-form__text-input'
-                    type='text'
-                    id='name'
-                    value={editableItem.name}
-                    onChange={(e) => console.log(e)}
-                />
-            </label>
-            <label className='editor-form__label'>
-                <span className='editor-form__text'>
-                    Описание
-                </span>
-                <textarea
-                    className='editor-form__textarea'
-                    id='description'
-                    value={editableItem.description}
-                    onChange={(e) => console.log(e)}
-                />
-            </label>
+
+            <InputName value={editableItem.name} />
+            <InputDescription value={editableItem.description} />
+
+            {differentInputs}
+
             <Button
                 className='editor-form__button'
                 title='Сохранить'
             />
+
         </form>
     )
 }
