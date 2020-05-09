@@ -5,6 +5,7 @@ import InputName from './editor-inputs/name'
 import InputDescription from './editor-inputs/description'
 import InputSets from './editor-inputs/sets'
 import InputType from './editor-inputs/type'
+import InputOptions from './editor-inputs/options'
 
 const EditorForm = (props) => {
 
@@ -17,12 +18,12 @@ const EditorForm = (props) => {
 
     const names = {
         options: 'Параметры упражнения',
-        sets: 'Количество подходов',
+        sets: 'Количество подходов (продолжительность)',
         type: 'Тип тренировки',
         exercises: 'Упражнения'
     }
     const components = {
-        options: null,
+        options: <InputOptions value={editableItem.options} />,
         sets: <InputSets value={editableItem.sets} />,
         type: <InputType value={editableItem.type} />,
         exercises: null

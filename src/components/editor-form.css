@@ -20,7 +20,7 @@
     justify-content: center;
     align-items: center;
 }
-.editor-form__label--radio {
+.editor-form__label--radio, .editor-form__label--checkbox {
     flex-flow: row nowrap;
     justify-content: flex-start;
     margin-bottom: 5px;
@@ -58,7 +58,7 @@
 .editor-form__button {
     margin-top: 20px;
 }
-.editor-form__radio {
+.editor-form__radio, .editor-form__checkbox {
     transform: scale(1.4);
     margin-right: 10px;
 }
