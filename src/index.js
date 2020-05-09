@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import './index.css'
 import App from './app'
 import makeMessage from './components/message'
+import Local_db from './local-db'
 import * as serviceWorker from './serviceWorker'
 
 // make global contoller for app
@@ -28,6 +29,9 @@ document.controller.renderMessage = (text, color) => {
 
 // !null when append workout data to firestore
 document.controller.workoutAppendPromise = null;
+
+// testing local db
+document.controller.Local_db = Local_db
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
