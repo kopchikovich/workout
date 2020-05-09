@@ -4,6 +4,7 @@ import Button from './button'
 import InputName from './editor-inputs/name'
 import InputDescription from './editor-inputs/description'
 import InputSets from './editor-inputs/sets'
+import InputType from './editor-inputs/type'
 
 const EditorForm = (props) => {
 
@@ -11,7 +12,7 @@ const EditorForm = (props) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.log('submit', editableItemId);
+        console.dir(e.target, editableItemId);
     }
 
     const names = {
@@ -23,26 +24,30 @@ const EditorForm = (props) => {
     const components = {
         options: null,
         sets: <InputSets value={editableItem.sets} />,
-        type: null,
+        type: <InputType value={editableItem.type} />,
         exercises: null
     }
     const differentInputs = Object.keys(editableItem).map((el, i) => {
         if (!names[el]) return null
         return (
-            <label className='editor-form__label' key={i}>
+            <div className='editor-form__container' key={i}>
                 <span className='editor-form__text'>
                     {names[el]}
                 </span>
                 {components[el]}
-            </label>
+            </div>
         )
     })
 
     return (
         <form className='editor-form' onSubmit={submitHandler}>
 
-            <InputName value={editableItem.name} />
-            <InputDescription value={editableItem.description} />
+            <div className='editor-form__container'>
+                <InputName value={editableItem.name} />
+            </div>
+            <div className='editor-form__container'>
+                <InputDescription value={editableItem.description} />
+            </div>
 
             {differentInputs}
 
