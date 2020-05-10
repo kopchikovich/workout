@@ -6,6 +6,7 @@ import InputDescription from './editor-inputs/description'
 import InputSets from './editor-inputs/sets'
 import InputType from './editor-inputs/type'
 import InputOptions from './editor-inputs/options'
+import InputExercises from './editor-inputs/exercises'
 
 const EditorForm = (props) => {
 
@@ -15,19 +16,21 @@ const EditorForm = (props) => {
         e.preventDefault()
         console.dir(e.target, editableItemId);
     }
-
+    
     const names = {
         options: 'Параметры упражнения',
         sets: 'Количество подходов (продолжительность)',
         type: 'Тип тренировки',
         exercises: 'Упражнения'
     }
+
     const components = {
         options: <InputOptions value={editableItem.options} />,
         sets: <InputSets value={editableItem.sets} />,
         type: <InputType value={editableItem.type} />,
-        exercises: null
+        exercises: <InputExercises value={editableItem.exercises} />
     }
+    
     const differentInputs = Object.keys(editableItem).map((el, i) => {
         if (!names[el]) return null
         return (

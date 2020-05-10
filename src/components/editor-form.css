@@ -57,8 +57,36 @@
 }
 .editor-form__button {
     margin-top: 20px;
+    padding: 3px 10px;
+    border: 1px solid var(--main-text-color);
+    border-radius: 10px;
+}
+.editor-form__button--middle {
+    margin: 10px auto;
+    font-size: 18px;
 }
 .editor-form__radio, .editor-form__checkbox {
     transform: scale(1.4);
     margin-right: 10px;
+}
+.editor-form__list {
+    margin: 0 0 0 25px;
+    padding: 0;
+}
+.editor-form__list-element {
+    list-style-type: decimal;
+    margin-bottom: 3px;
+    font-size: 18px;
+}
+.editor-form__select {
+    padding: 5px;
+    margin: 10px 0;
+    width: 100%;
+    height: 40px;
+}
+
+@media (min-width: 400px) {
+    .editor-form__select {
+        height: 150px;
+    }
 }

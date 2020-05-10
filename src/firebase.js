@@ -11,8 +11,8 @@ firebase.initializeApp({
 });
 
 const firebase_db = firebase.firestore();
-const user = firebase_db.doc('users/kopchikovich');
-// const user = firebase_db.doc('test/kopchikovich');
+// const user = firebase_db.doc('users/kopchikovich');
+const user = firebase_db.doc('test/kopchikovich');
 
 const printError = (error) => {
     console.log(error.code + ' : ' + error.message);
