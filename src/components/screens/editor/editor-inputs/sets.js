@@ -5,7 +5,7 @@ const InputSets = (props) => {
         <input
             className='editor-form__text-input'
             type='text'
-            id='name'
+            id='sets'
             defaultValue={props.value}
         />
     )

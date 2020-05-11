@@ -1,0 +1,33 @@
+import React from 'react'
+import Local_db from '../../../local-db'
+import Button from '../../button'
+import EditorForm from './editor-form'
+
+const List = (props) => {
+
+    const targetObj = new Local_db(props.target).open()
+
+    const list = Object.values(targetObj).map((elem, i) => {
+        return (
+            <li className='editor-section__item' key={i}>
+                <Button
+                    className='editor-section__button'
+                    title={elem.name}
+                    value={elem.name}
+                />
+            </li>
+        )
+    })
+
+    const clickHandler = (e) => {
+        props.setCurrentView(<EditorForm target={e.target.value} targetObj={targetObj} switchScreen={props.switchScreen} />)
+    }
+
+    return (
+        <ul className='editor-section__list' onClick={clickHandler}>
+            {list}
+        </ul>
+    )
+}
+
+export default List

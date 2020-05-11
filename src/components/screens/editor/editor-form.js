@@ -1,6 +1,7 @@
 import React from 'react'
 import './editor-form.css'
-import Button from './button'
+import Local_db from '../../../local-db'
+import Button from '../../button'
 import InputName from './editor-inputs/name'
 import InputDescription from './editor-inputs/description'
 import InputSets from './editor-inputs/sets'
@@ -10,11 +11,49 @@ import InputExercises from './editor-inputs/exercises'
 
 const EditorForm = (props) => {
 
-    const [ editableItemId, editableItem ] = Object.entries(props.targetObj).find((el) => el[1].name === props.target)
+    let [ editableItemId, editableItem ] = Object.entries(props.targetObj).find((el) => el[1].name === props.target)
+
+    let exercises = editableItem.exercises
+    let setExercises = (newExercises) => {
+        exercises = newExercises
+    }
 
     const submitHandler = (e) => {
         e.preventDefault()
-        console.dir(e.target, editableItemId);
+
+        let db = null
+        const inputs = e.target.elements
+
+        if (editableItem.exercises) {
+
+            editableItem = Object.assign(editableItem, {
+                name: inputs.name.value,
+                description: inputs.description.value,
+                type: inputs.type.value,
+                exercises
+            })
+            db = new Local_db('workout-templates')
+
+        } else if (editableItem.options) {
+
+            let options = []
+            inputs.options.forEach((el) => {
+                if (el.checked) {
+                    options.push(el.value)
+                }
+            })
+            editableItem = Object.assign(editableItem, {
+                name: inputs.name.value,
+                description: inputs.description.value,
+                sets: inputs.sets.value,
+                options
+            })
+            db = new Local_db('exercises')
+
+        }
+        db.edit(editableItem, editableItemId)
+        document.controller.renderMessage('Изменение записано', 'green')
+        props.switchScreen({target: {value: 'exercise'}})
     }
     
     const names = {
@@ -28,7 +67,7 @@ const EditorForm = (props) => {
         options: <InputOptions value={editableItem.options} />,
         sets: <InputSets value={editableItem.sets} />,
         type: <InputType value={editableItem.type} />,
-        exercises: <InputExercises value={editableItem.exercises} />
+        exercises: <InputExercises value={editableItem.exercises} setExercises={setExercises} />
     }
     
     const differentInputs = Object.keys(editableItem).map((el, i) => {

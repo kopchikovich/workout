@@ -5,7 +5,7 @@ import ScreenWorkout from './screens/workout'
 import ScreenCalendar from './screens/calendar'
 import ScreenExercise from './screens/exercise'
 import ScreenUser from './screens/user'
-import ScreenEditor from './screens/editor'
+import ScreenEditor from './screens/editor/editor'
 
 const Main = (props) => {
 
@@ -41,7 +41,7 @@ const Main = (props) => {
         />
     )
     const editor = (
-        <ScreenEditor />
+        <ScreenEditor switchScreen={props.switchScreen} />
     )
 
     const {screen} = props.state;

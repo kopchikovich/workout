@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
+import Local_db from '../../../../local-db'
 
 const InputExercises = (props) => {
 
     const [ state, setState ] = useState(props.value)
-    const exercises_db = new document.controller.Local_db('exercises').open()
+    const exercises_db = new Local_db('exercises').open()
 
     const getIdByName = (name) => {
         const db = Object.entries(exercises_db)
@@ -25,6 +26,7 @@ const InputExercises = (props) => {
                 <input
                     className='editor-form__checkbox'
                     type='checkbox'
+                    name='exercises'
                     value={id}
                     defaultChecked={state.includes(id)}
                 />
@@ -35,11 +37,16 @@ const InputExercises = (props) => {
 
     const changeHandler = (e) => {
         const value = e.target.value? e.target.value : e.target.firstChild.value
+        let newState = null
 
         if (!state.includes(value)) {
-            return setState([...state, value])
+            newState = [...state, value]
+        } else {
+            newState = state.filter((el) => el !== value)
         }
-        return setState(state.filter((el) => el !== value))
+
+        props.setExercises(newState)
+        setState(newState)
     }
     
     return (
@@ -47,7 +54,7 @@ const InputExercises = (props) => {
             <div className='editor-form__select' onChange={changeHandler}>
                 {exerciseOptions}
             </div>
-            <ol className='editor-form__list'>
+            <ol className='editor-form__list' id='exercises'>
                 {exerciseList}
             </ol>
         </>
