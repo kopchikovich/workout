@@ -1,6 +1,7 @@
 import React from 'react'
 import './editor-form.css'
 import Local_db from '../../../local-db'
+import { firebase_setUserExercises, firebase_setUserWorkoutTemplates } from '../../../firebase'
 import Button from '../../button'
 import InputName from './editor-inputs/name'
 import InputDescription from './editor-inputs/description'
@@ -33,6 +34,8 @@ const EditorForm = (props) => {
                 exercises
             })
             db = new Local_db('workout-templates')
+            db.edit(editableItem, editableItemId)
+            firebase_setUserWorkoutTemplates()
 
         } else if (editableItem.options) {
 
@@ -49,10 +52,11 @@ const EditorForm = (props) => {
                 options
             })
             db = new Local_db('exercises')
+            db.edit(editableItem, editableItemId)
+            firebase_setUserExercises()
 
         }
-        db.edit(editableItem, editableItemId)
-        document.controller.renderMessage('Изменение записано', 'green')
+        document.controller.renderMessage('Сохранено', 'green')
         props.switchScreen({target: {value: 'exercise'}})
     }
     

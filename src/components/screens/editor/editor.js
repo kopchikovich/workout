@@ -13,7 +13,8 @@ const ScreenEditor = (props) => {
                 switchScreen={props.switchScreen}
             />
         ))
-    }, [])
+        console.log('effect');
+    }, [props.switchScreen])
 
     return (
         <section className='editor-section'>
