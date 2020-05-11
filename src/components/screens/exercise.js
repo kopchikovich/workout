@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import './exercise.css'
+import Local_db from '../../local-db'
 import ButtonList from '../button-list'
 import Button from '../button'
 
@@ -11,9 +12,9 @@ class ScreenExercise extends Component {
 
     makeDescription(e) {
 
-        const training_db = JSON.parse(localStorage.getItem('trainings'));
-        const exercise_db = JSON.parse(localStorage.getItem('exercises'));
-        const training = training_db[e.target.value];
+        const workoutTemplate_db = new Local_db('workout-templates').open();
+        const exercise_db = new Local_db('exercises').open();
+        const workoutTemplate = workoutTemplate_db[e.target.value];
         const parseArrayOfP = (arr) => {
             return arr.map((text, i) => {
                 return (
@@ -24,7 +25,7 @@ class ScreenExercise extends Component {
             })
         }
 
-        const exercises = training.exercises.map((exs, index) => {
+        const exercises = workoutTemplate.exercises.map((exs, index) => {
             return (
                 <details className='description__exercise' key={index}>
                     <summary>{exercise_db[exs].name}</summary>
@@ -42,11 +43,11 @@ class ScreenExercise extends Component {
                 onClickHandler={this.clearDescription.bind(this)}
             />
         )
-        this.props.printHeader(training.name);
+        this.props.printHeader(workoutTemplate.name);
         this.setState({
             description: (
             <article className='description'>
-                {training.description}
+                {workoutTemplate.description}
                 {exercises}
                 {returnButton}
             </article>

@@ -1,6 +1,7 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
+import Local_db from './local-db'
 import { Calendar } from './components/month'
 
 // Initialize Cloud Firestore through Firebase
@@ -111,42 +112,20 @@ const firebase_getMonthWorkouts = (date) => {
     }).catch(printError);
 }
 
-const firebase_getUserTrainings = () => {
-    // get exercises
-    user.collection('exercises').get().then((querySnapshot) => {
+const firebase_getUserExercises = () => {
+    return user.collection('exercises').get().then((querySnapshot) => {
         const exercises = {};
-        if (querySnapshot.docs.length > 1) {  // 1 потому что всегда есть template упражнения
+        if (querySnapshot.docs.length > 0) {
             querySnapshot.forEach((doc) => {
-                if (doc.id === 'template') {
-                    return;
-                } else {
-                    exercises[doc.id] = doc.data();
-                }
+                exercises[doc.id] = doc.data();
             })
-        } 
-        localStorage.setItem('exercises', JSON.stringify(exercises));
+        }
         console.log('Get exercises from firebase');
+        localStorage.setItem('exercises', JSON.stringify(exercises));
     }).catch(printError);
-    // get trainings
-    user.collection('trainings').get().then((querySnapshot) => {
-        const trainings = {};
-        if (querySnapshot.docs.length > 1) {  // 1 потому что всегда есть template тренировки
-            querySnapshot.forEach((doc) => {
-                if (doc.id === 'template') {
-                    return;
-                } else {
-                    trainings[doc.id] = doc.data();
-                }
-            })
-        } 
-        localStorage.setItem('trainings', JSON.stringify(trainings));
-        console.log('Get trainings from firebase');
-    }).catch(printError);  
 }
-
-const firebase_setUserTrainings = () => {
-    // update exercises
-    const exercises = Object.entries(JSON.parse(localStorage.getItem('exercises')));
+const firebase_setUserExercises = () => {
+    const exercises = Object.entries(new Local_db('exercises').open());
     exercises.forEach((exs, i) => {
         user.collection('exercises').doc(exs[0]).set(exs[1])
             .then(() => {
@@ -156,23 +135,31 @@ const firebase_setUserTrainings = () => {
             })
             .catch(printError);
     })
-    // update trainings
-    const trainings = Object.entries(JSON.parse(localStorage.getItem('trainings')));
-    trainings.forEach((exs, i) => {
-        user.collection('trainings').doc(exs[0]).set(exs[1])
+}
+
+const firebase_getUserWorkoutTemplates = () => {
+    return user.collection('workoutTemplates').get().then((querySnapshot) => {
+        const workoutTemplates = {};
+        if (querySnapshot.docs.length > 1) {
+            querySnapshot.forEach((doc) => {
+                workoutTemplates[doc.id] = doc.data();
+            })
+        }
+        console.log('Get workoutTemplates from firebase');
+        localStorage.setItem('workout-templates', JSON.stringify(workoutTemplates));
+    }).catch(printError);
+}
+const firebase_setUserWorkoutTemplates = () => {
+    const workoutTemplates = Object.entries(new Local_db('workout-templates').open());
+    workoutTemplates.forEach((exs, i) => {
+        user.collection('workoutTemplates').doc(exs[0]).set(exs[1])
             .then(() => {
-                if (i === trainings.length-1) {
-                    console.log('Set trainings on firebase');
+                if (i === workoutTemplates.length-1) {
+                    console.log('Set workoutTemplates on firebase');
                 }
             })
             .catch(printError);
     })
 }
 
-// user.onSnapshot((doc) => {
-//     document.controller.userDataStatus = 'update'
-//     console.log('fb update');
-// });
-
-
-export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserTrainings, firebase_setUserTrainings}
+export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserExercises, firebase_setUserExercises, firebase_getUserWorkoutTemplates, firebase_setUserWorkoutTemplates}

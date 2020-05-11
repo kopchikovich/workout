@@ -1,10 +1,11 @@
 import React from 'react'
 import './button-list.css'
+import Local_db from '../local-db'
 import Button from './button'
 
 const ButtonList = (props) => {
 
-    const training_db = localStorage.getItem('trainings')? JSON.parse(localStorage.getItem('trainings')) : {}
+    const workoutTemplate_db = new Local_db('workout-templates').open()
     const compare = (a, b) => {
         if (a.type === 'power' && b.type !== 'power') {
             return -1
@@ -14,13 +15,13 @@ const ButtonList = (props) => {
             return 0
         }
     }
-    const list = Object.values(training_db).sort(compare).map((training, key) => {
+    const list = Object.values(workoutTemplate_db).sort(compare).map((workoutTemplate, key) => {
         return (
             <li className='buttons-list__item' key={key}>
                 <Button
                     className='buttons-list__button'
-                    title={training.name}
-                    value={training.key}
+                    title={workoutTemplate.name}
+                    value={workoutTemplate.key}
                     onClickHandler={props.onClickHandler}
                 />
             </li>

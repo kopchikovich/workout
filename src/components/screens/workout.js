@@ -1,32 +1,33 @@
 import React, { Component } from 'react'
 import { firebase_recordWorkout } from '../../firebase'
 import './workout.css'
+import Local_db from '../../local-db'
 import Button from '../button'
 import Timer from '../timer'
 import Exercise from '../exercise'
 import Sets from '../sets'
 
-// Training это шаблон тренировки (тренировка в базе данных)
-// Workout это практическая тренировка, действие. Запись которой и происходит
+// workoutTemplate это шаблон тренировки (тренировка в базе данных)
+// workout это практическая тренировка, действие. Запись которой и происходит
 
 class ScreenWorkout extends Component {
 
     constructor(props) {
         super(props)
 
-        const training_db = JSON.parse(localStorage.getItem('trainings'));
-        this.exercise_db = JSON.parse(localStorage.getItem('exercises'));
-        this.training = training_db[this.props.state.trainingKey];
+        const workoutTemplate_db = new Local_db('workout-templates').open();
+        this.exercise_db = new Local_db('exercises').open();
+        this.workoutTemplate = workoutTemplate_db[this.props.state.workoutTemplateKey];
         this.workout = {
-            name: this.training.name,
-            type: this.training.type,
+            name: this.workoutTemplate.name,
+            type: this.workoutTemplate.type,
             timeStart: new Date(),
             timeStop: '',
             durationInMinutes: ''
         }
 
         this.initialState = {
-            currentExs: this.exercise_db[this.training.exercises[0]],
+            currentExs: this.exercise_db[this.workoutTemplate.exercises[0]],
             currentExsIndex: 0,
             exercises: {}
         }
@@ -50,7 +51,7 @@ class ScreenWorkout extends Component {
                 <article className='training-table__cell training-table__cell--exercise exercise'>
                     <Exercise
                         state={this.state}
-                        training={this.training}
+                        workoutTemplate={this.workoutTemplate}
                         switchExercise={this.switchExercise.bind(this)}
                         recordSet={this.recordSet.bind(this)}
                         openModal={this.props.openModal}
@@ -89,11 +90,11 @@ class ScreenWorkout extends Component {
         if (e.target.value === 'prev') {
             newExsIndex = this.state.currentExsIndex-1 <= 0? 0 : this.state.currentExsIndex-1;
         } else if (e.target.value === 'next') {
-            newExsIndex = this.state.currentExsIndex+1 >= this.training.exercises.length-1? this.training.exercises.length-1 : this.state.currentExsIndex+1;
+            newExsIndex = this.state.currentExsIndex+1 >= this.workoutTemplate.exercises.length-1? this.workoutTemplate.exercises.length-1 : this.state.currentExsIndex+1;
         } else {
             return null;
         }
-        newExs = this.exercise_db[this.training.exercises[newExsIndex]];
+        newExs = this.exercise_db[this.workoutTemplate.exercises[newExsIndex]];
 
         this.setState({
             currentExs: newExs,

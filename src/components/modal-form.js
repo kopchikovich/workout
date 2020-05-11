@@ -5,7 +5,7 @@ const ModalForm = (props) => {
 
     const submit = (e) => {
         e.preventDefault();
-        props.recordCardioWorkout(e, props.training);
+        props.recordCardioWorkout(e, props.workoutTemplate);
         props.closeModal(e, true);
     }
 

@@ -36,7 +36,7 @@ const Exercise = (props) => {
         <>
             <h3 className='exercise__header'>Упражнение</h3>
             <div>
-                {props.state.currentExsIndex+1} / {props.training.exercises.length}
+                {props.state.currentExsIndex+1} / {props.workoutTemplate.exercises.length}
             </div>
             <div className='exercise__checker checker'>
                 <Button className='checker__btn' title='<' value='prev' onClickHandler={props.switchExercise} />

@@ -2,8 +2,9 @@ import React, { Component } from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import { firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserTrainings, firebase_getMonthWorkouts } from './firebase'
+import { firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserWorkoutTemplates, firebase_getUserExercises, firebase_getMonthWorkouts } from './firebase'
 import './app.css'
+import Local_db from './local-db'
 import Header from './components/header'
 import Main from './components/main'
 import Footer from './components/footer'
@@ -15,11 +16,11 @@ import Login from './components/login'
 class App extends Component {
 
     state = {
-        screen: 'editor',
+        screen: 'index',
         darkTheme: true,
         isLogin: false,
         headerText: '',
-        trainingKey: '',
+        workoutTemplateKey: '',
         modal: {
             isVisible: false,
             header: '',
@@ -115,24 +116,24 @@ class App extends Component {
             document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00');
             return;
         }
-        const training_db = JSON.parse(localStorage.getItem('trainings'));
-        const training = training_db[e.target.value];
-        if (training.type === 'power') {
+        const workoutTemplate_db = new Local_db('workout-templates').open();
+        const workoutTemplate = workoutTemplate_db[e.target.value];
+        if (workoutTemplate.type === 'power') {
             this.setState({
                 screen: 'workout',
-                trainingKey: e.target.value
+                workoutTemplateKey: e.target.value
             })
-        } else if (training.type === 'running' || training.type === 'swimming') {
-            this.openModal(training.name, <ModalForm training={training} recordCardioWorkout={this.recordCardioWorkout.bind(this)} closeModal={this.closeModal.bind(this)} />)
+        } else if (workoutTemplate.type === 'running' || workoutTemplate.type === 'swimming') {
+            this.openModal(workoutTemplate.name, <ModalForm workoutTemplate={workoutTemplate} recordCardioWorkout={this.recordCardioWorkout.bind(this)} closeModal={this.closeModal.bind(this)} />)
         } else {
             this.openModal('Error', 'Some arror, check app.js')
         }
     }
 
-    recordCardioWorkout(e, training) {
+    recordCardioWorkout(e, workoutTemplate) {
         const workout = {
-            name: training.name,
-            type: training.type,
+            name: workoutTemplate.name,
+            type: workoutTemplate.type,
             timeStop: new Date(),
             duration: e.target[0].value,
             distance: e.target[1].value
@@ -198,7 +199,8 @@ class App extends Component {
                 isLogin: true
             })
             firebase_getUserData();
-            firebase_getUserTrainings();
+            firebase_getUserExercises();
+            firebase_getUserWorkoutTemplates();
             // get last 2 month workouts
             const date = new Date();
             firebase_getMonthWorkouts(date);

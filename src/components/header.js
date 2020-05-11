@@ -1,10 +1,11 @@
 import React from 'react'
 import './header.css'
+import Local_db from '../local-db'
 
 const Header = (props) => {
 
-    const training_db = JSON.parse(localStorage.getItem('trainings'));
-    const {screen, headerText, trainingKey} = props.state;
+    const workoutTemplate_db = new Local_db('workout-templates').open()
+    const {screen, headerText, workoutTemplateKey} = props.state;
     let renderedText = '';
     
     if (headerText) {
@@ -14,7 +15,7 @@ const Header = (props) => {
             case 'index':
                 renderedText = 'Начать тренировку'; break;
             case 'workout':
-                renderedText = training_db[trainingKey].name; break;
+                renderedText = workoutTemplate_db[workoutTemplateKey].name; break;
             case 'calendar':
                 renderedText = 'Календарь'; break;
             case 'exercise':

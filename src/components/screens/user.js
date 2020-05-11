@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './user.css'
-import { firebase_recordWorkout, firebase_getUserData, firebase_getUserTrainings } from '../../firebase'
+import { firebase_recordWorkout, firebase_getUserData, firebase_getUserWorkoutTemplates, firebase_getUserExercises } from '../../firebase'
 import Button from '../button'
 import Checkbox from '../checkbox'
 
@@ -21,7 +21,8 @@ const ScreenUser = (props) => {
             setMileage(localStorage.getItem('user-mileage'))
             setLastWorkout(localStorage.getItem('user-last-workout'))
         })
-        firebase_getUserTrainings()
+        firebase_getUserWorkoutTemplates()
+        firebase_getUserExercises()
         document.controller.renderMessage('Синхронизируем..', 'green')
     }
 
