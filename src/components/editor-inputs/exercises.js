@@ -21,14 +21,20 @@ const InputExercises = (props) => {
     const exerciseOptions = Object.values(exercises_db).map((el) => {
         const id = getIdByName(el.name)
         return (
-            <option value={id} key={id}>
+            <label className='editor-form__option' key={id}>
+                <input
+                    className='editor-form__checkbox'
+                    type='checkbox'
+                    value={id}
+                    defaultChecked={state.includes(id)}
+                />
                 {el.name}
-            </option>
+            </label>
         )
     })
 
     const changeHandler = (e) => {
-        const value = e.target.value
+        const value = e.target.value? e.target.value : e.target.firstChild.value
 
         if (!state.includes(value)) {
             return setState([...state, value])
@@ -37,21 +43,14 @@ const InputExercises = (props) => {
     }
     
     return (
-        <ol className='editor-form__list'>
-
-            <select
-                className='editor-form__select'
-                multiple={true}
-                name='exercises[]'
-                value={state}
-                onChange={changeHandler}
-            >
+        <>
+            <div className='editor-form__select' onChange={changeHandler}>
                 {exerciseOptions}
-            </select>
-
-            {exerciseList}
-            
-        </ol>
+            </div>
+            <ol className='editor-form__list'>
+                {exerciseList}
+            </ol>
+        </>
     )
 }
 
