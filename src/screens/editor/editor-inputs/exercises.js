@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import Local_db from '../../../../local-db'
+import Local_db from '../../../local-db'
 
 const InputExercises = (props) => {
 

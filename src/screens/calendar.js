@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
-import {firebase_getMonthWorkouts} from '../../firebase'
+import React, { Component } from 'react'
+import { firebase_getMonthWorkouts } from '../firebase'
 import './calendar.css'
-import Button from '../button'
-import Month from '../month'
+import Button from '../components/button'
+import Month from '../components/month'
 
 class ScreenCalendar extends Component {
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import ButtonList from '../button-list'
+import ButtonList from '../components/button-list'
 
 const ScreenIndex = (props) => {
 

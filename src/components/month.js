@@ -127,5 +127,5 @@ const Month = (props) => {
     )
 }
 
-export {Calendar}
+export { Calendar }
 export default Month

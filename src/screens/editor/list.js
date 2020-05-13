@@ -1,6 +1,6 @@
 import React from 'react'
-import Local_db from '../../../local-db'
-import Button from '../../button'
+import Local_db from '../../local-db'
+import Button from '../../components/button'
 import EditorForm from './editor-form'
 
 const List = (props) => {

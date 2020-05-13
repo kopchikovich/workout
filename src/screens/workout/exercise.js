@@ -1,6 +1,6 @@
 import React from 'react'
 import './exercise.css'
-import Button from './button'
+import Button from '../../components/button'
 import OptionWeight from './options/weight'
 import OptionRepeats from './options/repeats'
 import OptionRepeatsOneHand from './options/repeats-one-hand'

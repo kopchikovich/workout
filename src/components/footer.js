@@ -1,6 +1,6 @@
 import React from 'react'
 import './footer.css'
-import Button from './button'
+import Button from '../components/button'
 
 const Footer = (props) => {
 

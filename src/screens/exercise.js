@@ -1,8 +1,8 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import './exercise.css'
-import Local_db from '../../local-db'
-import ButtonList from '../button-list'
-import Button from '../button'
+import Local_db from '../local-db'
+import ButtonList from '../components/button-list'
+import Button from '../components/button'
 
 class ScreenExercise extends Component {
 

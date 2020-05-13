@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './user.css'
-import { firebase_recordWorkout, firebase_getUserData, firebase_getUserWorkoutTemplates, firebase_getUserExercises } from '../../firebase'
-import Button from '../button'
-import Checkbox from '../checkbox'
+import { firebase_recordWorkout, firebase_getUserData, firebase_getUserWorkoutTemplates, firebase_getUserExercises } from '../firebase'
+import Button from '../components/button'
+import Checkbox from '../components/checkbox'
 
 const ScreenUser = (props) => {
 
