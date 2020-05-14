@@ -105,11 +105,10 @@ class ScreenWorkout extends Component {
     recordSet(e) {
         e.preventDefault();
 
-        const form = e.target;
-        const FORM_LENGTH_WITHOUT_BUTTON = form.length-1;
+        const options = Array.from(e.target.elements).filter((el) => el.nodeName !== 'BUTTON');
         let set = {};
-        for (let i = 0; i < FORM_LENGTH_WITHOUT_BUTTON; i++) {
-            set[form[i].name] = form[i].value;
+        for (let i = 0; i < options.length; i++) {
+            set[options[i].name] = options[i].value;
         }
 
         const currentExsLink = this.state.exercises[this.state.currentExs.name];
