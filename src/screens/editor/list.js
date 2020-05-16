@@ -25,7 +25,7 @@ const List = (props) => {
 
     return (
         <ul className='editor-section__list' onClick={clickHandler}>
-            {list}
+            {list.length > 0? list : 'Не найдено записей в базе'}
         </ul>
     )
 }

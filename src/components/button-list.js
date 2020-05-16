@@ -31,7 +31,7 @@ const ButtonList = (props) => {
 
     return (
         <ul className={props.className}>
-            {list}
+            {list.length > 0? list : 'Тренировок пока нет'}
         </ul>
     )
 }
