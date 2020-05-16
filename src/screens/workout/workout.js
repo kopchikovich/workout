@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { firebase_recordWorkout } from '../../firebase'
+import { firebase_recordWorkout, firebase_getMonthWorkouts } from '../../firebase'
 import './workout.css'
 import Local_db from '../../local-db'
 import Button from '../../components/button'
@@ -67,7 +67,7 @@ class ScreenWorkout extends Component {
                         />
                         <h3 className='sets__header sets__header--small'>В прошлый раз</h3>
                         <Sets
-                            exercise={this.getLastWorkout()}
+                            exercise={this.getLastWorkoutSets()}
                         />
                     </div>
                 </article>
@@ -165,22 +165,20 @@ class ScreenWorkout extends Component {
         firebase_recordWorkout(workout);
     }
 
-    getLastWorkout() {
+    getLastWorkoutSets() {
         let lastSets = null;
-
-        // Получаю объект с названиями последних тренировок
-        if (localStorage.getItem('last-workouts')) {
-            const lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'));
-            if (lastWorkouts[this.workout.name]) {
-                // Получаю прошлую тренировку по названию и дате (записи в localStorage)
-                const lastWorkout = JSON.parse(localStorage.getItem(lastWorkouts[this.workout.name])).find((el) => {
-                    return el.name === this.workout.name;
-                });
-                // Получаю прошлые подходы в текущем упражнении
-                if (Object.keys(lastWorkout.exercises).includes(this.state.currentExs.name)) {
-                    lastSets = lastWorkout.exercises[this.state.currentExs.name];
-                }
+        const lastAllWorkouts = JSON.parse(localStorage.getItem('last-workouts'));
+        const isLastWorkoutExist = lastAllWorkouts && lastAllWorkouts[this.workout.name];
+        const lastWorkout = isLastWorkoutExist? JSON.parse(localStorage.getItem(lastAllWorkouts[this.workout.name])) : null;
+        if (lastWorkout) {
+            const lastWorkoutData = lastWorkout.find((el) => {
+                return el.name === this.workout.name;
+            });
+            if (Object.keys(lastWorkoutData.exercises).includes(this.state.currentExs.name)) {
+                lastSets = lastWorkoutData.exercises[this.state.currentExs.name];
             }
+        } else if (isLastWorkoutExist) {
+            firebase_getMonthWorkouts(new Date(lastAllWorkouts[this.workout.name]));
         }
         return lastSets;
     }

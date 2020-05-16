@@ -113,8 +113,7 @@ class App extends Component {
 
     openWorkoutScreen(e) {
         if (!this.state.isLogin) {
-            document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00');
-            return;
+            return document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00');
         }
         const workoutTemplate_db = new Local_db('workout-templates').open();
         const workoutTemplate = workoutTemplate_db[e.target.value];
