@@ -6,32 +6,28 @@ import makeMessage from './components/message'
 import * as serviceWorker from './serviceWorker'
 
 // make global contoller for app
-document.controller = {};
+document.controller = {}
 
 // message api
 document.controller.renderMessage = (text, color) => {
+  const TOP_POSITION = 0
+  const TIMEOUT = 3000
+  const container = document.getElementById('message')
+  const message = makeMessage(text, color)
 
-    const TOP_POSITION = 0;
-    const TIMEOUT = 3000;
-    const container = document.getElementById('message');
-    const message = makeMessage(text, color);
-
-    container.appendChild(message);
-    // for animation
-    setTimeout(() => {
-        message.style.top = TOP_POSITION;
-    }, 100);
-    setTimeout(() => {
-        container.removeChild(message);
-    }, TIMEOUT);
+  container.appendChild(message)
+  // for animation
+  setTimeout(() => {
+    message.style.top = TOP_POSITION
+  }, 100)
+  setTimeout(() => {
+    container.removeChild(message)
+  }, TIMEOUT)
 }
 
 // !null when append workout data to firestore
-document.controller.workoutAppendPromise = null;
+document.controller.workoutAppendPromise = null
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'))
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.register();
+serviceWorker.register()

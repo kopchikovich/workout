@@ -1,69 +1,70 @@
 .calendar {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 0 7.5px;
-    text-align: right;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 7.5px;
+  text-align: right;
 }
 .calendar__button {
-    width: 100%;
-    padding: 5px 0;
-    text-align: center;
-    font-size: 40px;
-    color: #999;
+  width: 100%;
+  padding: 5px 0;
+  text-align: center;
+  font-size: 40px;
+  color: #999;
 }
 .calendar__container {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
 }
 .calendar__header {
-    font-size: 23px;
-    margin: 0 40px 0 0; 
+  font-size: 23px;
+  margin: 0 40px 0 0; 
 }
 .calendar__month {
-    width: 350px;
-    margin: 0 auto;
-}
-@media screen and (min-width: 725px) {
-    .calendar__month {
-        min-height: 370px;
-    }
+  width: 350px;
+  margin: 0 auto;
 }
 .calendar__days {
-    width: 100%;
-    display: flex;
-    flex-flow: row wrap;
-    margin-bottom: 40px;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 40px;
 }
 .calendar__day {
-    width: 50px;
-    height: 50px;
-    box-sizing: border-box;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
+  width: 50px;
+  height: 50px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
 }
 .calendar__day--current {
-    background-color: rgba(187,239,253,0.3);
+  background-color: rgba(187,239,253,0.3);
 }
 .calendar__day-train {
-    border: 2px solid transparent;
+  border: 2px solid transparent;
 }
 .calendar__day-train--run {
-    border-color: #61dafb;
+  border-color: #61dafb;
 }
 .calendar__day-train--swim {
-    border-color: #55f;
+  border-color: #55f;
 }
 .calendar__day-train--power {
-    border-color: #f55;
+  border-color: #f55;
 }
 .calendar__day-train--power-and-run {
-    border-width: 1px;
-    border-color:#61dafb;
-    box-shadow: inset 0 0 1px 2px #f55;
+  border-width: 1px;
+  border-color:#61dafb;
+  box-shadow: inset 0 0 1px 2px #f55;
+}
+
+@media screen and (min-width: 725px) {
+  .calendar__month {
+    min-height: 370px;
+  }
 }

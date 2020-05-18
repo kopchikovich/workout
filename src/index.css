@@ -1,35 +1,35 @@
 :root {
-    --main-bg-color: #fff;
-    --second-bg-color: #f55;
-    --main-text-color: #222;
-    --second-text-color: #fff;
-    --wrapper-bg-color: rgba(0,0,0,.85);
-    --modal-bg-color: #ddd;
-    --modal-text-color: #111;
-    --max-width: 800px;
-    --header-footer-height: 65px;
+  --main-bg-color: #fff;
+  --second-bg-color: #f55;
+  --main-text-color: #222;
+  --second-text-color: #fff;
+  --wrapper-bg-color: rgba(0,0,0,.85);
+  --modal-bg-color: #ddd;
+  --modal-text-color: #111;
+  --max-width: 800px;
+  --header-footer-height: 65px;
 }
 
 body, header, main, footer, h2, h3, ul, li, button {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 body {
-    background-color: var(--main-bg-color);
+  background-color: var(--main-bg-color);
 }
 li {
-    list-style-type: none;
+  list-style-type: none;
 }
 button {
-    border: none;
-    background-color: transparent;
-    font: inherit;
-    color: inherit;
+  border: none;
+  background-color: transparent;
+  font: inherit;
+  color: inherit;
 }
 input, select {
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
-    border: 1px solid var(--main-text-color);
-    padding-left: 5px;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  border: 1px solid var(--main-text-color);
+  padding-left: 5px;
 }

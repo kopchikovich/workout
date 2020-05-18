@@ -4,22 +4,22 @@ import Selection from './selection'
 
 const ScreenEditor = (props) => {
 
-    const [ currentView, setCurrentView ] = useState(null)
+  const [ currentView, setCurrentView ] = useState(null)
 
-    useEffect(() => {
-        setCurrentView((
-            <Selection
-                setCurrentView={setCurrentView}
-                switchScreen={props.switchScreen}
-            />
-        ))
-    }, [props.switchScreen])
+  useEffect(() => {
+    setCurrentView((
+      <Selection
+        setCurrentView={setCurrentView}
+        switchScreen={props.switchScreen}
+      />
+    ))
+  }, [props.switchScreen])
 
-    return (
-        <section className='editor-section'>
-            {currentView}
-        </section>
-    )
+  return (
+    <section className='editor-section'>
+      {currentView}
+    </section>
+  )
 }
 
 export default ScreenEditor

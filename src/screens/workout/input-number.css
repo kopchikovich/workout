@@ -1,27 +1,27 @@
 .input-number__container {
-    width: 120px;
-    height: 35px;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
+  width: 120px;
+  height: 35px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
 }
 .input-number {
-    width: 50%;
-    height: 100%;
-    font-size: 18px;
-    padding: 2px 5px;
-    box-sizing: border-box;
-    margin: 0 5%;
+  width: 50%;
+  height: 100%;
+  font-size: 18px;
+  padding: 2px 5px;
+  box-sizing: border-box;
+  margin: 0 5%;
 }
 .input-number__button {
-    width: 20%;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 18px;
+  width: 20%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 18px;
 }
 .input-number__button--reverse {
-    transform: rotate(180deg);
+  transform: rotate(180deg);
 }

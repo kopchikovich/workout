@@ -6,63 +6,62 @@ import Month from '../components/month'
 
 class ScreenCalendar extends Component {
 
-    state = {
-        currentDate: new Date(),
-        currentMonth: new Date().getMonth(),
-        lastRenderedMonth: new Date().getMonth()
+  state = {
+    currentDate: new Date(),
+    currentMonth: new Date().getMonth(),
+    lastRenderedMonth: new Date().getMonth()
+  }
+
+  render() {
+    let months = []
+    for (let i = this.state.lastRenderedMonth; i <= this.state.currentMonth; i++ ) {
+      months.push((
+        <Month monthNum={i} key={i} openModal={this.props.openModal} />
+      ))
     }
 
-    render() {
+    return (
+      <section className='calendar'>
+        <Button className='calendar__button' title='^' onClickHandler={this.setLastRenderedMonth.bind(this)} />
+        <div className='calendar__container'>
+          {months}
+        </div>
+      </section>
+    )
+  }
 
-        let months = []
-        for (let i = this.state.lastRenderedMonth; i <= this.state.currentMonth; i++ ) {
-            months.push((
-                <Month monthNum={i} key={i} openModal={this.props.openModal} />
-            ))
-        }
+  setLastRenderedMonth() {
+    this.setState({
+      lastRenderedMonth: this.state.lastRenderedMonth-1
+    })
+    this.getLastMonthWorkouts(this.state.lastRenderedMonth-1)
+  }
 
-        return (
-            <section className='calendar'>
-                <Button className='calendar__button' title='^' onClickHandler={this.setLastRenderedMonth.bind(this)} />
-                <div className='calendar__container'>
-                    {months}
-                </div>
-            </section>
-        )
-    }
+  getLastMonthWorkouts(month) {
+    let date = new Date()
+    date.setDate(1)
+    date.setMonth(month)
+    firebase_getMonthWorkouts(date).then(() => {
+      this.setState({})
+    })
+  }
 
-    setLastRenderedMonth() {
-        this.setState({
-            lastRenderedMonth: this.state.lastRenderedMonth-1
-        })
-        this.getLastMonthWorkouts(this.state.lastRenderedMonth-1);
-    }
+  highlightCurrentDay() {
+    const date = new Date()
+    const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    const currentDay = document.getElementById(dateString)
+    currentDay.classList.add('calendar__day--current')
+  }
 
-    getLastMonthWorkouts(month) {
-        let date = new Date();
-        date.setDate(1);
-        date.setMonth(month);
-        firebase_getMonthWorkouts(date).then(() => {
-            this.setState({});
-        });
-    }
+  componentDidMount() {
+    this.highlightCurrentDay()
+    // get current month workouts
+    this.getLastMonthWorkouts(this.state.lastRenderedMonth)
+  }
 
-    highlightCurrentDay() {
-        const date = new Date();
-        const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
-        const currentDay = document.getElementById(dateString);
-        currentDay.classList.add('calendar__day--current');
-    }
-
-    componentDidMount() {
-        this.highlightCurrentDay();
-        // get current month workouts
-        this.getLastMonthWorkouts(this.state.lastRenderedMonth);
-    }
-
-    componentDidUpdate() {
-        this.highlightCurrentDay();
-    }
+  componentDidUpdate() {
+    this.highlightCurrentDay()
+  }
 }
 
 export default ScreenCalendar

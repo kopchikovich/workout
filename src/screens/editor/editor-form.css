@@ -1,101 +1,100 @@
 .editor-form {
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto 50px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto 50px;
 }
 .editor-form__container {
-    width: 300px;
-    padding: 10px 0 5px;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+  width: 300px;
+  padding: 10px 0 5px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .editor-form__label {
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
 }
 .editor-form__label--radio, .editor-form__label--checkbox {
-    flex-flow: row nowrap;
-    justify-content: flex-start;
-    margin-bottom: 5px;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+  margin-bottom: 5px;
 }
 .editor-form__text {
-    width: 100%;
-    margin-bottom: 10px;
+  width: 100%;
+  margin-bottom: 10px;
 }
 .editor-form__text--small {
-    font-size: 17px;
-    margin-bottom: 0;
+  font-size: 17px;
+  margin-bottom: 0;
 }
 .editor-form__text-input {
-    box-sizing: border-box;
-    width: 100%;
-    height: 30px;
-    padding: 0;
-    font-size: 16px;
-    border: none;
-    border-radius: 0;
-    border-bottom: 1px solid var(--main-text-color);
+  box-sizing: border-box;
+  width: 100%;
+  height: 30px;
+  padding: 0;
+  font-size: 16px;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--main-text-color);
 }
 .editor-form__textarea {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 2px 5px;
-    font-size: 16px;
-    font-family: inherit;
-    min-width: 100%;
-    max-width: 100%;
-    min-height: 200px;
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
+  box-sizing: border-box;
+  margin: 0;
+  padding: 2px 5px;
+  font-size: 16px;
+  font-family: inherit;
+  min-width: 100%;
+  max-width: 100%;
+  min-height: 200px;
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
 }
 .editor-form__button {
-    margin-top: 20px;
-    padding: 3px 10px;
-    border: 1px solid var(--main-text-color);
-    border-radius: 10px;
+  margin-top: 20px;
+  padding: 3px 10px;
+  border: 1px solid var(--main-text-color);
+  border-radius: 10px;
 }
 .editor-form__button--middle {
-    margin: 10px auto;
-    font-size: 18px;
+  margin: 10px auto;
+  font-size: 18px;
 }
 .editor-form__radio, .editor-form__checkbox {
-    transform: scale(1.4);
-    margin-right: 10px;
+  transform: scale(1.4);
+  margin-right: 10px;
 }
 .editor-form__list {
-    margin: 0 0 0 25px;
-    padding: 0;
+  margin: 0 0 0 25px;
+  padding: 0;
 }
 .editor-form__list-element {
-    list-style-type: decimal;
-    margin-bottom: 3px;
-    font-size: 18px;
+  list-style-type: decimal;
+  margin-bottom: 3px;
+  font-size: 18px;
 }
 .editor-form__select {
-    width: 100%;
-    height: 200px;
-    box-sizing: border-box;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 10px;
-    box-shadow: inset 0 0 3px 1px var(--main-text-color);
-    overflow: auto;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin: 10px 0;
+  border-radius: 10px;
+  box-shadow: inset 0 0 3px 1px var(--main-text-color);
+  overflow: auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
-
 .editor-form__option {
-    padding: 0;
-    margin: 1px 0;
-    font-size: 17px;
-    line-height: 17px;
+  padding: 0;
+  margin: 1px 0;
+  font-size: 17px;
+  line-height: 17px;
 }

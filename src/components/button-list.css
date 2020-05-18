@@ -1,22 +1,22 @@
 .buttons-list {
-    width: 100%;
-    height: 70vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .buttons-list__button {
-    padding: 3px;
-    margin-bottom: 7px;
+  padding: 3px;
+  margin-bottom: 7px;
 }
 
 /* exercise list with description */
 .buttons-list--description {
-    height: 60vh;
-    padding-left: 50px;
-    align-items: flex-start;
+  height: 60vh;
+  padding-left: 50px;
+  align-items: flex-start;
 }
 .buttons-list--description .buttons-list__item {
-    list-style-type: circle;
+  list-style-type: circle;
 }

@@ -1,19 +1,19 @@
 .header {
-    width: 100%;
-    max-width: inherit;
-    height: var(--header-footer-height);
-    background-color: var(--main-bg-color);
-    color: var(--main-text-color);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    border-bottom: 1px solid var(--main-text-color);
-    position: fixed;
-    top: 0;
-    z-index: 555;
+  width: 100%;
+  max-width: inherit;
+  height: var(--header-footer-height);
+  background-color: var(--main-bg-color);
+  color: var(--main-text-color);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--main-text-color);
+  position: fixed;
+  top: 0;
+  z-index: 555;
 }
 .header__text {
-    font: inherit;
-    font-size: 24px;
+  font: inherit;
+  font-size: 24px;
 }

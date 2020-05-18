@@ -1,39 +1,39 @@
 .user {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .user__text {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 .user__text span {
-    margin-left: 10px;
-    text-align: center;
+  margin-left: 10px;
+  text-align: center;
 }
 .user__text--column {
-    flex-direction: column;
+  flex-direction: column;
 }
 .user__text--column span {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 .user__text--warning {
-    padding: 5px;
-    border: 1px dashed var(--main-text-color);
+  padding: 5px;
+  border: 1px dashed var(--main-text-color);
 }
 .user__button {
-    padding: 5px 10px;
-    margin-bottom: 10px;
+  padding: 5px 10px;
+  margin-bottom: 10px;
 }
 .user__button--send {
-    margin-top: 5px;
+  margin-top: 5px;
 }
 .user__checkbox {
-    width: 25px;
-    height: 25px;
-    margin: 0;
-    margin-left: 25px;
+  width: 25px;
+  height: 25px;
+  margin: 0;
+  margin-left: 25px;
 }

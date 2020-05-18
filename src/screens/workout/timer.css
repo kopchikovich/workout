@@ -1,13 +1,13 @@
 .timer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 50%;
-    max-width: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 50%;
+  max-width: 400px;
 }
 .timer__time {
-    font-size: 58px;
-    font-weight: normal;
-    color: var(--second-bg-color);
+  font-size: 58px;
+  font-weight: normal;
+  color: var(--second-bg-color);
 }

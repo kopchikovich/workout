@@ -3,13 +3,13 @@ import ButtonList from '../components/button-list'
 
 const ScreenIndex = (props) => {
 
-    return (
-        <ButtonList
-            className='buttons-list'
-            onClickHandler={props.openWorkoutScreen}
-        />
-    )
-    
+  return (
+    <ButtonList
+      className='buttons-list'
+      onClickHandler={props.openWorkoutScreen}
+    />
+  )
+  
 }
 
 export default ScreenIndex

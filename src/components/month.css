@@ -1,15 +1,15 @@
 .workout-data {
-    font-size: 18px;
-    margin: 10px;
+  font-size: 18px;
+  margin: 10px;
 }
 .workout-data__header {
-    font-size: 20px;
-    margin: 0;
+  font-size: 20px;
+  margin: 0;
 }
 .workout-data__text {
-    font-size: inherit;
-    margin: 0;
+  font-size: inherit;
+  margin: 0;
 }
 .workout-data ol {
-    margin: 0;
+  margin: 0;
 }
