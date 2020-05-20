@@ -1,0 +1,10 @@
+.loader__wrapper {
+  width: 100%;
+  min-height: 500px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.loader path {
+  fill: var(--second-bg-color);
+}
