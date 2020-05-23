@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import './timer.css'
 
-class Timer extends Component {
+class Timer extends React.Component {
 
   initialState = {
     minutes: this.props.minutes? this.props.minutes : '00',

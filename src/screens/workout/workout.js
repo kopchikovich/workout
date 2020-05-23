@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { firebase_recordWorkout, firebase_getMonthWorkouts } from '../../firebase'
 import './workout.css'
 import Local_db from '../../local-db'
@@ -10,7 +10,7 @@ import Sets from '../../components/sets'
 // workoutTemplate это шаблон тренировки (тренировка в базе данных)
 // workout это практическая тренировка, действие. Запись которой и происходит
 
-class ScreenWorkout extends Component {
+class ScreenWorkout extends React.Component {
 
   constructor(props) {
     super(props)

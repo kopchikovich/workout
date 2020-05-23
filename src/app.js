@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
@@ -13,7 +13,7 @@ import ModalForm from './components/modal-form'
 import Login from './components/login'
 
 
-class App extends Component {
+class App extends React.Component {
 
   state = {
     screen: 'index',

@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { firebase_getMonthWorkouts } from '../firebase'
 import './calendar.css'
 import Button from '../components/button'
 import Month from '../components/month'
 
-class ScreenCalendar extends Component {
+class ScreenCalendar extends React.Component {
 
   state = {
     currentDate: new Date(),
