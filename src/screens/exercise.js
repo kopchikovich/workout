@@ -1,16 +1,14 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import './exercise.css'
 import Local_db from '../local-db'
 import ButtonList from '../components/button-list'
 import Button from '../components/button'
 
-class ScreenExercise extends Component {
+const ScreenExercise = (props) => {
 
-  state = {
-    description: ''
-  }
+  const [ state, setState ] = useState({description: ''})
 
-  makeDescription(e) {
+  const makeDescription = (e) => {
     const workoutTemplate_db = new Local_db('workout-templates').open()
     const exercise_db = new Local_db('exercises').open()
     const workoutTemplate = workoutTemplate_db[e.target.value]
@@ -23,7 +21,12 @@ class ScreenExercise extends Component {
         )
       })
     }
-
+    const clearDescription = () => {
+      setState({
+        description: ''
+      })
+      props.printHeader('Тренировки')
+    }
     const exercises = workoutTemplate.exercises.map((exs, index) => {
       return (
         <details className='description__exercise' key={index}>
@@ -34,18 +37,16 @@ class ScreenExercise extends Component {
         </details>
       )
     })
-
     const returnButton = (
       <Button
         className='description__button button--arrow'
         title='<'
         value={'exercise'}
-        onClickHandler={this.clearDescription.bind(this)}
+        onClickHandler={clearDescription}
       />
     )
-
-    this.props.printHeader(workoutTemplate.name)
-    this.setState({
+    props.printHeader(workoutTemplate.name)
+    setState({
       description: (
       <article className='description'>
         {workoutTemplate.description}
@@ -56,37 +57,27 @@ class ScreenExercise extends Component {
     })
   }
 
-  clearDescription() {
-    this.setState({
-      description: ''
-    })
-    this.props.printHeader('Тренировки')
-  }
+  const exerciseList = (
+    <ButtonList
+      className='buttons-list buttons-list--description'
+      onClickHandler={makeDescription.bind(this)}
+    />
+  )
+  const editorButton = (
+    <Button
+      className='button--editor'
+      title='Редактировать'
+      onClickHandler={props.switchScreen}
+      value='editor'
+    />
+  )
 
-  render() {
-    const exerciseList = (
-      <ButtonList
-        className='buttons-list buttons-list--description'
-        onClickHandler={this.makeDescription.bind(this)}
-      />
-    )
-    const editorButton = (
-      <Button
-        className='button--editor'
-        title='Редактировать'
-        onClickHandler={this.props.switchScreen}
-        value='editor'
-      />
-    )
-
-    return (
-      <section>
-        {!!this.state.description? null : editorButton}
-        {!!this.state.description? this.state.description : exerciseList}
-      </section>
-    )
-  }
-
+  return (
+    <section>
+      {!!state.description? null : editorButton}
+      {!!state.description? state.description : exerciseList}
+    </section>
+  )
 }
 
 export default ScreenExercise
