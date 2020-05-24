@@ -1,11 +1,11 @@
 :root {
-  --main-bg-color: #fff;
-  --second-bg-color: #f55;
-  --main-text-color: #222;
-  --second-text-color: #fff;
+  --main-bg-color: #333;
+  --second-bg-color: #61dafb;
+  --main-text-color: #ddd;
+  --second-text-color: #333;
+  --modal-bg-color: #666;
+  --modal-text-color: #fff;
   --wrapper-bg-color: rgba(0,0,0,.85);
-  --modal-bg-color: #ddd;
-  --modal-text-color: #111;
   --max-width: 800px;
   --header-footer-height: 65px;
 }
