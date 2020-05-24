@@ -2,7 +2,7 @@ import React from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import { firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserWorkoutTemplates, firebase_getUserExercises, firebase_getMonthWorkouts } from './firebase'
+import { user, firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserWorkoutTemplates, firebase_getUserExercises, firebase_getMonthWorkouts } from './firebase'
 import './app.css'
 import Local_db from './local-db'
 import Header from './components/header'
@@ -17,7 +17,7 @@ class App extends React.Component {
 
   state = {
     screen: 'login',
-    darkTheme: true,
+    darkTheme: localStorage.getItem('dark-theme') === 'true'? true : false,
     isLogin: false,
     headerText: '',
     workoutTemplateKey: '',
@@ -73,7 +73,7 @@ class App extends React.Component {
     this.closeModal(e, true)
   }
 
-  switchTheme() {
+  switchTheme(setCurrent = false) {
     // 0 - dark theme, 1 - ligth theme
     const colors = {
       '--main-bg-color': ['#333', '#fff'],
@@ -85,7 +85,9 @@ class App extends React.Component {
     }
     const root = document.querySelector('html')
     let themeIndex = 0
-    if (!this.state.darkTheme) {
+    if (setCurrent) {
+      themeIndex = this.state.darkTheme? 0 : 1
+    } else if (!this.state.darkTheme) {
       themeIndex = 0
       this.setState({
         darkTheme: true
@@ -95,6 +97,11 @@ class App extends React.Component {
       this.setState({
         darkTheme: false
       })
+    }
+    if (this.state.isLogin) {
+      user.update({
+        darkTheme: !themeIndex
+      }).then(firebase_getUserData).catch((e) => console.error(e))
     }
     Object.keys(colors).forEach((color) => {
       root.style.setProperty(color, colors[color][themeIndex])
@@ -193,7 +200,12 @@ class App extends React.Component {
         })
       })
       firebase_getUserExercises()
-      firebase_getUserData()
+      firebase_getUserData().then(() => {
+        this.setState({
+          darkTheme: localStorage.getItem('dark-theme') === 'true'? true : false
+        })
+        this.switchTheme(true)
+      })
       // get last 2 month workouts
       const date = new Date()
       firebase_getMonthWorkouts(date)
@@ -219,6 +231,8 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    // set current theme
+    this.switchTheme(true)
     // check is login
     const checkLogin = () => {
       const CHECK_NUMBER = 10

@@ -60,7 +60,7 @@ const ScreenUser = (props) => {
         </p>
         <p className='user__text'>
           Тёмная тема
-          <Checkbox className='user__checkbox' onChangeHandler={props.switchTheme} isChecked={props.darkTheme} />
+          <Checkbox className='user__checkbox' onChangeHandler={() => props.switchTheme(false)} isChecked={props.darkTheme} />
         </p>
 
         {/* если есть бэкап, написать об этом и отправить */}

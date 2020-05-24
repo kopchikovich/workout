@@ -38,6 +38,7 @@ const firebase_getUserData = () => {
       localStorage.setItem('user-mileage', `${(userData.mileageInMeters/METERS_IN_KILOMETERS).toFixed(1)}`)
       localStorage.setItem('user-last-workout' , userData.lastWorkout)
       localStorage.setItem('last-workouts' , userData.lastWorkouts)
+      localStorage.setItem('dark-theme' , userData.darkTheme)
     }
   }).catch(printError)
 }
@@ -159,4 +160,4 @@ const firebase_setUserWorkoutTemplates = () => {
   })
 }
 
-export {firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserExercises, firebase_setUserExercises, firebase_getUserWorkoutTemplates, firebase_setUserWorkoutTemplates}
+export {user, firebase_db, firebase_signOut, firebase_getUserData, firebase_recordWorkout, firebase_getMonthWorkouts, firebase_getUserExercises, firebase_setUserExercises, firebase_getUserWorkoutTemplates, firebase_setUserWorkoutTemplates}
