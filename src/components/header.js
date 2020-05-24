@@ -30,6 +30,9 @@ const Header = (props) => {
       case 'editor':
         renderedText = 'Редактор';
         break;
+      case 'login':
+        renderedText = '';
+        break;
       default:
         renderedText = 'Where is i';
         break;

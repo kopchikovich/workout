@@ -10,13 +10,13 @@ import Main from './components/main'
 import Footer from './components/footer'
 import ModalWindow from './components/modal-window'
 import ModalForm from './components/modal-form'
-import Login from './components/login'
+import Login from './screens/login'
 
 
 class App extends React.Component {
 
   state = {
-    screen: 'index',
+    screen: 'login',
     darkTheme: true,
     isLogin: false,
     headerText: '',
@@ -187,9 +187,13 @@ class App extends React.Component {
       this.setState({
         isLogin: true
       })
-      firebase_getUserData()
+      firebase_getUserWorkoutTemplates().then(() => {
+        this.setState({
+          screen: 'index'
+        })
+      })
       firebase_getUserExercises()
-      firebase_getUserWorkoutTemplates()
+      firebase_getUserData()
       // get last 2 month workouts
       const date = new Date()
       firebase_getMonthWorkouts(date)
@@ -209,22 +213,31 @@ class App extends React.Component {
   logout() {
     firebase_signOut()
     this.setState({
-      isLogin: false
+      isLogin: false,
+      screen: 'login'
     })
   }
 
   componentDidMount() {
     // check is login
-    const CHECK_NUMBER = 10
-    const CHECK_INTERVAL = 1000
-    let checkCounter = 0
-    let loginCheckTimeout = setInterval(() => {
-      this.setState({
-        isLogin: this.isLogin()
-      })
-      checkCounter++
-      if (checkCounter >= CHECK_NUMBER || this.isLogin()) clearInterval(loginCheckTimeout)
-    }, CHECK_INTERVAL)
+    const checkLogin = () => {
+      const CHECK_NUMBER = 10
+      const CHECK_INTERVAL = 1000
+      let checkCounter = 0
+      let loginCheckTimeout = setInterval(() => {
+        this.setState({
+          isLogin: this.isLogin()
+        })
+        checkCounter++
+        if (checkCounter >= CHECK_NUMBER || this.isLogin()) {
+          this.setState({
+            screen: 'index'
+          })
+          clearInterval(loginCheckTimeout)
+        }
+      }, CHECK_INTERVAL)
+    }
+    if (localStorage.getItem('user-name')) checkLogin()
   }
 }
 

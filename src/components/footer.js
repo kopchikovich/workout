@@ -21,6 +21,8 @@ const Footer = (props) => {
         />
       </li>
     )
+  } else if (props.screen === 'login') {
+    footerList = []
   } else {
     footerList = footerTitles.map((title, key) => {
       return (
