@@ -12,6 +12,8 @@ const InputNumber = (props) => {
     e.preventDefault()
     if (state >= MAX_VALUE) {
       setState(MAX_VALUE)
+    } else if (state <= MIN_VALUE) {
+      setState(MIN_VALUE+1)
     } else {
       setState(state+1)
     }
@@ -20,6 +22,8 @@ const InputNumber = (props) => {
     e.preventDefault()
     if (state <= MIN_VALUE) {
       setState(MIN_VALUE)
+    } else if (state >= MAX_VALUE) {
+      setState(MAX_VALUE-1)
     } else {
       setState(state-1)
     }
@@ -38,7 +42,7 @@ const InputNumber = (props) => {
         name={props.name}
         id={props.id}
         value={state}
-        onChange={(e) => setState(e.currentTarget.value)}
+        onChange={(e) => setState(+e.currentTarget.value)}
         min={MIN_VALUE}
         max={MAX_VALUE}
         step='1'
