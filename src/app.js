@@ -244,10 +244,15 @@ class App extends React.Component {
         })
         checkCounter++
         if (checkCounter >= CHECK_NUMBER || this.isLogin()) {
-          this.setState({
-            screen: 'index'
-          })
           clearInterval(loginCheckTimeout)
+          // check backup
+          if (localStorage.getItem('backup-workout-template-key')) {
+            this.openWorkoutScreen({target: {value: JSON.parse(localStorage.getItem('backup-workout-template-key'))}})
+          } else {
+            this.setState({
+              screen: 'index'
+            })
+          }
         }
       }, CHECK_INTERVAL)
     }

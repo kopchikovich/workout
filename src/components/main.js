@@ -15,12 +15,14 @@ const Main = (props) => {
       openWorkoutScreen={props.openWorkoutScreen}
     />
   )
+  const workoutBackup = !!localStorage.getItem('backup-workout-template-key')
   const workout = (
     <ScreenWorkout
       state={props.state}
       switchScreen={props.switchScreen}
       openModal={props.openModal}
       closeModal={props.closeModal}
+      backup={workoutBackup}
     />
   )
   const calendar = (

@@ -18,32 +18,59 @@ class ScreenWorkout extends React.Component {
     const workoutTemplate_db = new Local_db('workout-templates').open()
     this.exercise_db = new Local_db('exercises').open()
     this.workoutTemplate = workoutTemplate_db[this.props.state.workoutTemplateKey]
-    this.workout = {
-      name: this.workoutTemplate.name,
-      type: this.workoutTemplate.type,
-      timeStart: new Date(),
-      timeStop: '',
-      durationInMinutes: ''
+
+    if (props.backup) {
+      const backupData = JSON.parse(localStorage.getItem('backup-workout-data'))
+      this.workout = {
+        name: backupData.name,
+        type: backupData.type,
+        timeStart: new Date(backupData.timeStart),
+        timeStop: '',
+        durationInMinutes: ''
+      }
+      this.state = {...JSON.parse(localStorage.getItem('backup-workout-state'))}
+    } else {
+      this.workout = {
+        name: this.workoutTemplate.name,
+        type: this.workoutTemplate.type,
+        timeStart: new Date(),
+        timeStop: '',
+        durationInMinutes: ''
+      }
+      this.initialState = {
+        currentExs: this.exercise_db[this.workoutTemplate.exercises[0]],
+        currentExsIndex: 0,
+        exercises: {}
+      }
+      this.state = this.initialState
     }
-    this.initialState = {
-      currentExs: this.exercise_db[this.workoutTemplate.exercises[0]],
-      currentExsIndex: 0,
-      exercises: {}
-    }
-    this.state = this.initialState
 
     document.controller.recordWorkout = this.confirmExit.bind(this)
   }
 
   render() {
+    let backupRestTimer = null
+    let backupTimer = null
+    if (this.props.backup) {
+      backupRestTimer = JSON.parse(localStorage.getItem('backup-rest-timer'))
+      backupTimer = JSON.parse(localStorage.getItem('backup-timer'))
+    }
     return (
       <section className='training-table'>
         <section className='training-table__cell training-table__cell--timers'>
-          <article className=' timer'>
-            <Timer control={true} />
+          <article className='timer'>
+            {
+              backupRestTimer ?
+                <Timer control={true} minutes={backupRestTimer.minutes} seconds={backupRestTimer.seconds} /> :
+                <Timer control={true} />
+            }
           </article>
           <article className='timer'>
-            <Timer />
+            {
+              backupTimer ?
+                <Timer minutes={backupTimer.minutes} seconds={backupTimer.seconds} /> :
+                <Timer />
+            }
           </article>
         </section>
         <article className='training-table__cell training-table__cell--exercise exercise'>
@@ -95,6 +122,8 @@ class ScreenWorkout extends React.Component {
       currentExs: newExs,
       currentExsIndex: newExsIndex
     })
+    // save backup
+    localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
   recordSet(e) {
@@ -118,6 +147,8 @@ class ScreenWorkout extends React.Component {
     })
 
     document.controller.resetRestTimer()
+    // save backup
+    localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
   deleteSet(index) {
@@ -127,6 +158,8 @@ class ScreenWorkout extends React.Component {
     this.setState({
       exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
     })
+    // save backup
+    localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
   recordWorkout(e) {
@@ -202,8 +235,19 @@ class ScreenWorkout extends React.Component {
     this.props.openModal('Выход', content)
   }
 
+  componentDidMount() {
+    // save backup
+    localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
+    localStorage.setItem('backup-workout-data', JSON.stringify(this.workout))
+    localStorage.setItem('backup-workout-template-key', JSON.stringify(this.props.state.workoutTemplateKey))
+  }
+
   componentWillUnmount() {
     delete document.controller.recordWorkout
+    // remove backup
+    localStorage.removeItem('backup-workout-state')
+    localStorage.removeItem('backup-workout-data')
+    localStorage.removeItem('backup-workout-template-key')
   }
 }
 

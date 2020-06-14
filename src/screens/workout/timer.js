@@ -27,15 +27,20 @@ class Timer extends React.Component {
     let minutes = +this.state.minutes
     let seconds = +this.state.seconds
     seconds++
-      if (seconds === 60) {
-        seconds = 0
-        minutes++
-      }
-      if (minutes === 60) minutes = 0
+    if (seconds === 60) {
+      seconds = 0
+      minutes++
+    }
+    if (minutes === 60) minutes = 0
     this.setState({
       minutes: minutes < 10? '0' + minutes: minutes,
       seconds: seconds < 10? '0' + seconds: seconds
     })
+    if (this.props.control) {
+      localStorage.setItem('backup-rest-timer', JSON.stringify(this.state))
+    } else {
+      localStorage.setItem('backup-timer', JSON.stringify(this.state))
+    }
   }
 
   reset() {
@@ -56,6 +61,11 @@ class Timer extends React.Component {
     clearInterval(this.timerInterval)
     if (this.props.control) {
       delete document.controller.resetRestTimer
+    }
+    if (this.props.control) {
+      localStorage.removeItem('backup-rest-timer')
+    } else {
+      localStorage.removeItem('backup-timer')
     }
   }
 }
