@@ -1,0 +1,22 @@
+{
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "semi": "off",
+    "linebreak-style": "off",
+    "comma-dangle": "off",
+    "eol-last": "off",
+    "object-curly-spacing": "off",
+    "require-jsdoc": "off",
+    "operator-linebreak": "off",
+    "react/prop-types": "off",
+    "max-len": "off",
+    "array-bracket-spacing": "off",
+    "camelcase": "off"
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended", "google"]
+}
