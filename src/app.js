@@ -2,9 +2,10 @@ import React from 'react'
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import { user, firebase_getUserData, firebase_signOut, firebase_recordWorkout, firebase_getUserWorkoutTemplates, firebase_getUserExercises, firebase_getMonthWorkouts } from './firebase'
+import { user, firebase_recordWorkout } from './firebase'
 import './app.css'
-import Local_db from './local-db'
+import cloudData from '@/data/CloudData'
+import localData from '@/data/LocalData'
 import Header from './components/header'
 import Main from './components/main'
 import Footer from './components/footer'
@@ -14,7 +15,6 @@ import Login from './screens/login'
 
 
 class App extends React.Component {
-
   state = {
     screen: 'login',
     darkTheme: localStorage.getItem('dark-theme') === 'true'? true : false,
@@ -101,7 +101,7 @@ class App extends React.Component {
     if (this.state.isLogin) {
       user.update({
         darkTheme: !themeIndex
-      }).then(firebase_getUserData).catch((e) => console.error(e))
+      }).then(() => cloudData.getUserData()).catch((e) => console.error(e))
     }
     Object.keys(colors).forEach((color) => {
       root.style.setProperty(color, colors[color][themeIndex])
@@ -112,7 +112,7 @@ class App extends React.Component {
     if (!this.state.isLogin) {
       return document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00')
     }
-    const workoutTemplate_db = new Local_db('workout-templates').open()
+    const workoutTemplate_db = localData('workout-templates').open()
     const workoutTemplate = workoutTemplate_db[e.target.value]
     if (workoutTemplate.type === 'power') {
       this.setState({
@@ -139,7 +139,7 @@ class App extends React.Component {
     if (!localStorage.getItem(dateString)) {
       localStorage.setItem(dateString, JSON.stringify([workout]))
     } else {
-      let array = JSON.parse(localStorage.getItem(dateString))
+      const array = JSON.parse(localStorage.getItem(dateString))
       array.push(workout)
       localStorage.setItem(dateString, JSON.stringify(array))
     }
@@ -184,46 +184,20 @@ class App extends React.Component {
 
   login(e) {
     e.preventDefault()
-    const form = e.target
-    const USER_NAME = 'user-name'
 
-    firebase.auth().signInWithEmailAndPassword(form.email.value, form.password.value).then(() => {
-      localStorage.setItem(USER_NAME, firebase.auth().currentUser.displayName)
-      console.log('Sign in as', localStorage.getItem(USER_NAME))
-      document.controller.renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green')
-      this.setState({
-        isLogin: true
-      })
-      firebase_getUserWorkoutTemplates().then(() => {
-        this.setState({
-          screen: 'index'
+    cloudData.signIn(e.target.email.value, e.target.password.value, this.setState.bind(this))
+        .then(() => {
+          cloudData.getUserData().then(() => {
+            this.setState({
+              darkTheme: localStorage.getItem('dark-theme') === 'true'? true : false
+            })
+            this.switchTheme(true)
+          })
         })
-      })
-      firebase_getUserExercises()
-      firebase_getUserData().then(() => {
-        this.setState({
-          darkTheme: localStorage.getItem('dark-theme') === 'true'? true : false
-        })
-        this.switchTheme(true)
-      })
-      // get last 2 month workouts
-      const date = new Date()
-      firebase_getMonthWorkouts(date)
-      date.setDate(1)
-      date.setMonth(date.getMonth() - 1)
-      firebase_getMonthWorkouts(date)
-    }).catch((error) => {
-      console.log(error.code + ' : ' + error.message)
-      document.controller.renderMessage(`${error.code} : ${error.message}`, 'red')
-      form.classList.add('shake')
-      setTimeout(() => {
-        form.classList.remove('shake')
-      }, 300)
-    })
   }
 
   logout() {
-    firebase_signOut()
+    cloudData.signOut()
     this.setState({
       isLogin: false,
       screen: 'login'
@@ -238,7 +212,7 @@ class App extends React.Component {
       const CHECK_NUMBER = 10
       const CHECK_INTERVAL = 1000
       let checkCounter = 0
-      let loginCheckTimeout = setInterval(() => {
+      const loginCheckTimeout = setInterval(() => {
         this.setState({
           isLogin: this.isLogin()
         })

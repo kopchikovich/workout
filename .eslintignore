@@ -1,1 +1,5 @@
-src/*
+src/components/*
+src/screens/*
+src/firebase.js
+src/local-db.js
+src/serviceWorker.js
