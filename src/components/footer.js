@@ -1,14 +1,13 @@
 import React from 'react'
 import './footer.css'
-import Button from '../components/button'
+import Button from './button'
 
 const Footer = (props) => {
-
   const footerTitles = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']]
   const isCurrent = (screen) => {
     return props.screen === screen
   }
-  
+
   let footerList = []
   if (props.screen === 'workout') {
     footerList = (

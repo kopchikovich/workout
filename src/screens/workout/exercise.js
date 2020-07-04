@@ -1,6 +1,6 @@
 import React from 'react'
 import './exercise.css'
-import Button from '../../components/button'
+import Button from '@/components/button'
 import OptionWeight from './options/weight'
 import OptionRepeats from './options/repeats'
 import OptionRepeatsOneHand from './options/repeats-one-hand'
@@ -8,11 +8,10 @@ import OptionTime from './options/time'
 import OptionTimeOneHand from './options/time-one-hand'
 
 const Exercise = (props) => {
-
   const exercise = props.state.currentExs
   const options = exercise.options
 
-  let renderedOptions = []
+  const renderedOptions = []
 
   if (options.includes('weight')) {
     renderedOptions.push(<OptionWeight key='weight' />)

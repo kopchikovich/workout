@@ -1,15 +1,14 @@
 import React from 'react'
 import './header.css'
-import Local_db from '../local-db'
+import localData from '@/data/LocalData'
 
 const Header = (props) => {
+  const workoutTemplate_db = localData('workout-templates').open()
+  const { screen, headerText, workoutTemplateKey } = props.state
+  let renderedText = ''
 
-  const workoutTemplate_db = new Local_db('workout-templates').open()
-  const { screen, headerText, workoutTemplateKey } = props.state  
-  let renderedText = ''  
-  
   if (headerText) {
-    renderedText = headerText  
+    renderedText = headerText
   } else {
     switch (screen) {
       case 'index':

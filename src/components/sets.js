@@ -2,7 +2,6 @@ import React from 'react'
 import './sets.css'
 
 const Sets = (props) => {
-
   const makeSetString = (set) => {
     const options = Object.keys(set)
     const GRAM_IN_KILOGRAM = 1000
@@ -49,7 +48,7 @@ const Sets = (props) => {
   const renderSet = (set, index) => {
     return (
       <li className='sets__set' key={index} id={index}>
-        <span onClick={toggleDeleteButton.bind(this)}>{makeSetString(set)}</span>
+        <span onClick={toggleDeleteButton}>{makeSetString(set)}</span>
       </li>
     )
   }
@@ -60,7 +59,6 @@ const Sets = (props) => {
       {sets}
     </ol>
   )
-
 }
 
 export default Sets

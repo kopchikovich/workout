@@ -4,18 +4,17 @@ import Sets from './sets'
 
 // class with helping methods
 class Calendar {
-
   getMonth(monthNum) {
-    let date = new Date()
+    const date = new Date()
     date.setDate(1)
     date.setMonth(monthNum)
-    let days = []
+    const days = []
     let day = 1 - this._getFirstEmptyWeekDays(date)
     for (day; day <= this._getAmountOfDaysInMonth(date); day++) {
-      let value = day > 0? `${date.getFullYear()}-${date.getMonth()+1}-${day}` : null
+      const value = day > 0? `${date.getFullYear()}-${date.getMonth()+1}-${day}` : null
       let className = 'calendar__day'
       if (localStorage.getItem(value)) {
-        let workouts = JSON.parse(localStorage.getItem(value))
+        const workouts = JSON.parse(localStorage.getItem(value))
         if (workouts.length > 1) {
           className += ' calendar__day-train calendar__day-train--power-and-run'
         } else if (workouts[0].type === 'power') {
@@ -26,7 +25,7 @@ class Calendar {
           className += ' calendar__day-train calendar__day-train--swim'
         }
       }
-      let newDay = (
+      const newDay = (
         <span className={className} key={day} id={value}>
           {day > 0? day : null}
         </span>
@@ -69,7 +68,6 @@ class Calendar {
 
 // Component
 const Month = (props) => {
-
   const days = Calendar.prototype.getMonth(props.monthNum)
 
   const openWorkoutData = (e) => {
@@ -86,7 +84,7 @@ const Month = (props) => {
             </article>
           ))
         } else if (workout.type === 'power') {
-          let exercises = []
+          const exercises = []
           Object.entries(workout.exercises).forEach((exercise, index) => {
             exercises.push((
               <div className='workout-data__exercise' key={index}>

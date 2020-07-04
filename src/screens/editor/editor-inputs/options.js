@@ -1,7 +1,6 @@
 import React from 'react'
 
 const InputOptions = (props) => {
-
   const names = {
     'weight': 'Вес',
     'repeats': 'Повторения',

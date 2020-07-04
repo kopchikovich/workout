@@ -1,7 +1,6 @@
 import React from 'react'
 
 const InputType = (props) => {
-
   const names = {
     power: 'Силовая',
     running: 'Бег',

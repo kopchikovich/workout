@@ -9,7 +9,6 @@ import ScreenEditor from '../screens/editor/editor'
 import Loader from './loader'
 
 const Main = (props) => {
-
   const index = (
     <ScreenIndex
       openWorkoutScreen={props.openWorkoutScreen}
@@ -26,7 +25,7 @@ const Main = (props) => {
     />
   )
   const calendar = (
-    <ScreenCalendar 
+    <ScreenCalendar
       openModal={props.openModal}
     />
   )

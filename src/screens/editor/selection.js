@@ -1,9 +1,8 @@
 import React from 'react'
-import Button from '../../components/button'
+import Button from '@/components/button'
 import List from './list'
 
 const Selection = (props) => {
-
   const selectHandler = (e) => {
     props.setCurrentView((
       <List
@@ -12,7 +11,7 @@ const Selection = (props) => {
         setCurrentView={props.setCurrentView}
       />
     ))
-  }  
+  }
 
   return (
     <div className='editor-section__selection'>

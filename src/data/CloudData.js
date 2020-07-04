@@ -4,16 +4,16 @@ import 'firebase/firestore'
 import localData from '@/data/LocalData'
 import { Calendar } from '@/components/month'
 
-// const dbName = 'users'
-const dbName = 'test'
+const dbName = 'users'
+// const dbName = 'test'
 
 class CloudData {
   constructor(dbName) {
-    // firebase.initializeApp({
-    //   apiKey: 'AIzaSyAwC7CYUq5hC-a3wbJ-Io9oOl7HCDes-g8',
-    //   authDomain: 'my-awesome-workout-diary.firebaseapp.com',
-    //   projectId: 'my-awesome-workout-diary'
-    // })
+    firebase.initializeApp({
+      apiKey: 'AIzaSyAwC7CYUq5hC-a3wbJ-Io9oOl7HCDes-g8',
+      authDomain: 'my-awesome-workout-diary.firebaseapp.com',
+      projectId: 'my-awesome-workout-diary'
+    })
     this.cloudDb = firebase.firestore()
     this.user = this.cloudDb.doc(`${dbName}/kopchikovich`)
   }
@@ -52,6 +52,10 @@ class CloudData {
       document.controller.renderMessage(`До свидания, ${localStorage.getItem('user-name')}`, 'green')
       localStorage.clear()
     }).catch(this._printError)
+  }
+
+  isLogin() {
+    return !!firebase.auth().currentUser
   }
 
   getUserData() {
@@ -96,7 +100,7 @@ class CloudData {
           if (workout.type === 'running') {
             this.user.update({
               mileageInMeters: firebase.firestore.FieldValue.increment(+workout.distance)
-            }).then(this.getUserData)
+            }).then(() => this.getUserData())
           }
           // remove backup
           document.controller.workoutAppendPromise = null

@@ -1,11 +1,10 @@
 import React from 'react'
 import './button-list.css'
-import Local_db from '../local-db'
+import localData from '@/data/LocalData'
 import Button from './button'
 
 const ButtonList = (props) => {
-
-  const workoutTemplate_db = new Local_db('workout-templates').open()
+  const workoutTemplate_db = localData('workout-templates').open()
   const compare = (a, b) => {
     if (a.type === 'power' && b.type !== 'power') {
       return -1
@@ -27,7 +26,6 @@ const ButtonList = (props) => {
       </li>
     )
   })
-  
 
   return (
     <ul className={props.className}>

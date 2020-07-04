@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import './input-number.css'
-import Button from '../../components/button'
+import Button from '@/components/button'
 
 const InputNumber = (props) => {
-
-  const [state, setState] = useState(0)
+  const [ state, setState ] = useState(0)
   const MIN_VALUE = 0
   const MAX_VALUE = 100
 
@@ -36,7 +35,7 @@ const InputNumber = (props) => {
         onClickHandler={decrement}
         title='^'
       />
-      <input 
+      <input
         type='number'
         className='input-number'
         name={props.name}

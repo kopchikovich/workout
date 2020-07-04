@@ -1,11 +1,10 @@
 import React from 'react'
-import { firebase_getMonthWorkouts } from '../firebase'
 import './calendar.css'
-import Button from '../components/button'
-import Month from '../components/month'
+import cloudData from '@/data/CloudData'
+import Button from '@/components/button'
+import Month from '@/components/month'
 
 class ScreenCalendar extends React.Component {
-
   state = {
     currentDate: new Date(),
     currentMonth: new Date().getMonth(),
@@ -13,7 +12,7 @@ class ScreenCalendar extends React.Component {
   }
 
   render() {
-    let months = []
+    const months = []
     for (let i = this.state.lastRenderedMonth; i <= this.state.currentMonth; i++ ) {
       months.push((
         <Month monthNum={i} key={i} openModal={this.props.openModal} />
@@ -38,10 +37,10 @@ class ScreenCalendar extends React.Component {
   }
 
   getLastMonthWorkouts(month) {
-    let date = new Date()
+    const date = new Date()
     date.setDate(1)
     date.setMonth(month)
-    firebase_getMonthWorkouts(date).then(() => {
+    cloudData.getMonthWorkouts(date).then(() => {
       this.setState({})
     })
   }
@@ -55,7 +54,6 @@ class ScreenCalendar extends React.Component {
 
   componentDidMount() {
     this.highlightCurrentDay()
-    // get current month workouts
     this.getLastMonthWorkouts(this.state.lastRenderedMonth)
   }
 

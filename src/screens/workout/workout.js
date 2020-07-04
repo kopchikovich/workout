@@ -1,22 +1,21 @@
 import React from 'react'
-import { firebase_recordWorkout, firebase_getMonthWorkouts } from '../../firebase'
 import './workout.css'
-import Local_db from '../../local-db'
-import Button from '../../components/button'
+import cloudData from '@/data/CloudData'
+import localData from '@/data/LocalData'
+import Button from '@/components/button'
+import Sets from '@/components/sets'
 import Timer from './timer'
 import Exercise from './exercise'
-import Sets from '../../components/sets'
 
 // workoutTemplate это шаблон тренировки (тренировка в базе данных)
 // workout это практическая тренировка, действие. Запись которой и происходит
 
 class ScreenWorkout extends React.Component {
-
   constructor(props) {
     super(props)
 
-    const workoutTemplate_db = new Local_db('workout-templates').open()
-    this.exercise_db = new Local_db('exercises').open()
+    const workoutTemplate_db = localData('workout-templates').open()
+    this.exercise_db = localData('exercises').open()
     this.workoutTemplate = workoutTemplate_db[this.props.state.workoutTemplateKey]
 
     if (props.backup) {
@@ -95,7 +94,7 @@ class ScreenWorkout extends React.Component {
             />
           </div>
         </article>
-        <Button 
+        <Button
           className='description__button button--arrow'
           title='<'
           onClickHandler={this.confirmExit.bind(this)}
@@ -129,7 +128,7 @@ class ScreenWorkout extends React.Component {
   recordSet(e) {
     e.preventDefault()
     const options = Array.from(e.target.elements).filter((el) => el.nodeName !== 'BUTTON')
-    let set = {}
+    const set = {}
     for (let i = 0; i < options.length; i++) {
       set[options[i].name] = options[i].value
     }
@@ -153,7 +152,7 @@ class ScreenWorkout extends React.Component {
 
   deleteSet(index) {
     const currentExsLink = this.state.exercises[this.state.currentExs.name]
-    let sets = Array.from(currentExsLink)
+    const sets = Array.from(currentExsLink)
     sets.splice(+index, 1)
     this.setState({
       exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
@@ -172,13 +171,13 @@ class ScreenWorkout extends React.Component {
     if (!localStorage.getItem(dateString)) {
       localStorage.setItem(dateString, JSON.stringify([workout]))
     } else {
-      let array = JSON.parse(localStorage.getItem(dateString))
+      const array = JSON.parse(localStorage.getItem(dateString))
       array.push(workout)
       localStorage.setItem(dateString, JSON.stringify(array))
     }
 
     // записываю тренировку в список последних тренировок по названию
-    let lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'))
+    const lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'))
     lastWorkouts[workout.name] = dateString
     localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts))
     // переключаю экран
@@ -186,7 +185,7 @@ class ScreenWorkout extends React.Component {
     this.props.switchScreen(e)
     // make backup and append workout to firestore
     localStorage.setItem('workout-backup', JSON.stringify(workout))
-    firebase_recordWorkout(workout)
+    cloudData.recordWorkout(workout)
   }
 
   getLastWorkoutSets() {
@@ -203,7 +202,7 @@ class ScreenWorkout extends React.Component {
         lastSets = lastWorkoutData.exercises[this.state.currentExs.name]
       }
     } else if (isLastWorkoutExist) {
-      firebase_getMonthWorkouts(new Date(lastAllWorkouts[this.workout.name]))
+      cloudData.getMonthWorkouts(new Date(lastAllWorkouts[this.workout.name]))
     }
     return lastSets
   }
@@ -216,7 +215,7 @@ class ScreenWorkout extends React.Component {
         <>
           <p>Тренировка действительно закончилась?</p>
           <div className='modal__buttons'>
-            <Button title='Да' onClickHandler={this.recordWorkout.bind(this)}  value='index' />
+            <Button title='Да' onClickHandler={this.recordWorkout.bind(this)} value='index' />
             <Button title='Нет' onClickHandler={this.props.closeModal} />
           </div>
         </>
@@ -226,7 +225,7 @@ class ScreenWorkout extends React.Component {
         <>
           <p>Вернуться к списку тренировок без сохранения данных?</p>
           <div className='modal__buttons'>
-            <Button title='Да' onClickHandler={this.props.switchScreen}  value='index' />
+            <Button title='Да' onClickHandler={this.props.switchScreen} value='index' />
             <Button title='Нет' onClickHandler={this.props.closeModal} />
           </div>
         </>

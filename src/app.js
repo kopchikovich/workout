@@ -1,17 +1,13 @@
 import React from 'react'
-import * as firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import { user, firebase_recordWorkout } from './firebase'
 import './app.css'
 import cloudData from '@/data/CloudData'
 import localData from '@/data/LocalData'
-import Header from './components/header'
-import Main from './components/main'
-import Footer from './components/footer'
-import ModalWindow from './components/modal-window'
-import ModalForm from './components/modal-form'
-import Login from './screens/login'
+import Header from '@/components/header'
+import Main from '@/components/main'
+import Footer from '@/components/footer'
+import ModalWindow from '@/components/modal-window'
+import ModalForm from '@/components/modal-form'
+import Login from '@/screens/login'
 
 
 class App extends React.Component {
@@ -99,7 +95,7 @@ class App extends React.Component {
       })
     }
     if (this.state.isLogin) {
-      user.update({
+      cloudData.user.update({
         darkTheme: !themeIndex
       }).then(() => cloudData.getUserData()).catch((e) => console.error(e))
     }
@@ -147,7 +143,7 @@ class App extends React.Component {
 
     // make backup and append workout to firestore
     localStorage.setItem('workout-backup', JSON.stringify(workout))
-    firebase_recordWorkout(workout)
+    cloudData.recordWorkout(workout)
   }
 
   printHeader(text) {
@@ -176,10 +172,6 @@ class App extends React.Component {
         }
       })
     }
-  }
-
-  isLogin() {
-    return !!firebase.auth().currentUser
   }
 
   login(e) {
@@ -214,10 +206,10 @@ class App extends React.Component {
       let checkCounter = 0
       const loginCheckTimeout = setInterval(() => {
         this.setState({
-          isLogin: this.isLogin()
+          isLogin: cloudData.isLogin()
         })
         checkCounter++
-        if (checkCounter >= CHECK_NUMBER || this.isLogin()) {
+        if (checkCounter >= CHECK_NUMBER || cloudData.isLogin()) {
           clearInterval(loginCheckTimeout)
           // check backup
           if (localStorage.getItem('backup-workout-template-key')) {

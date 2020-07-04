@@ -1,8 +1,8 @@
 import React from 'react'
 import './editor-form.css'
-import Local_db from '../../local-db'
-import { firebase_setUserExercises, firebase_setUserWorkoutTemplates } from '../../firebase'
-import Button from '../../components/button'
+import cloudData from '@/data/CloudData'
+import localData from '@/data/LocalData'
+import Button from '@/components/button'
 import InputName from './editor-inputs/name'
 import InputDescription from './editor-inputs/description'
 import InputSets from './editor-inputs/sets'
@@ -11,11 +11,10 @@ import InputOptions from './editor-inputs/options'
 import InputExercises from './editor-inputs/exercises'
 
 const EditorForm = (props) => {
-
   let [ editableItemId, editableItem ] = Object.entries(props.targetObj).find((el) => el[1].name === props.target)
 
   let exercises = editableItem.exercises
-  let setExercises = (newExercises) => {
+  const setExercises = (newExercises) => {
     exercises = newExercises
   }
 
@@ -26,20 +25,17 @@ const EditorForm = (props) => {
     const inputs = e.target.elements
 
     if (editableItem.exercises) {
-
       editableItem = Object.assign(editableItem, {
         name: inputs.name.value,
         description: inputs.description.value,
         type: inputs.type.value,
         exercises
       })
-      db = new Local_db('workout-templates')
+      db = localData('workout-templates')
       db.edit(editableItem, editableItemId)
-      firebase_setUserWorkoutTemplates()
-
+      cloudData.setUserWorkoutTemplates()
     } else if (editableItem.options) {
-
-      let options = []
+      const options = []
       inputs.options.forEach((el) => {
         if (el.checked) {
           options.push(el.value)
@@ -51,15 +47,14 @@ const EditorForm = (props) => {
         sets: inputs.sets.value,
         options
       })
-      db = new Local_db('exercises')
+      db = localData('exercises')
       db.edit(editableItem, editableItemId)
-      firebase_setUserExercises()
-
+      cloudData.setUserExercises()
     }
     document.controller.renderMessage('Сохранено', 'green')
     props.switchScreen({target: {value: 'exercise'}})
   }
-  
+
   const names = {
     options: 'Параметры упражнения',
     sets: 'Количество подходов (продолжительность)',
@@ -73,7 +68,7 @@ const EditorForm = (props) => {
     type: <InputType value={editableItem.type} />,
     exercises: <InputExercises value={editableItem.exercises} setExercises={setExercises} />
   }
-  
+
   const differentInputs = Object.keys(editableItem).map((el, i) => {
     if (!names[el]) return null
     return (
