@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
-import Local_db from '../../../local-db'
+import localData from '@/data/LocalData'
 
 const InputExercises = (props) => {
-
   const [ state, setState ] = useState(props.value)
-  const exercises_db = new Local_db('exercises').open()
+  const exercises_db = localData('exercises').open()
 
   const getIdByName = (name) => {
     const db = Object.entries(exercises_db)
@@ -48,7 +47,7 @@ const InputExercises = (props) => {
     props.setExercises(newState)
     setState(newState)
   }
-  
+
   return (
     <>
       <div className='editor-form__select' onChange={changeHandler}>

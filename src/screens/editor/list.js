@@ -1,11 +1,10 @@
 import React from 'react'
-import Local_db from '../../local-db'
-import Button from '../../components/button'
+import localData from '@/data/LocalData'
+import Button from '@/components/button'
 import EditorForm from './editor-form'
 
 const List = (props) => {
-
-  const targetObj = new Local_db(props.target).open()
+  const targetObj = localData(props.target).open()
 
   const list = Object.values(targetObj).map((elem, i) => {
     return (

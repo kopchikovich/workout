@@ -2,12 +2,14 @@ import React from 'react'
 import './timer.css'
 
 class Timer extends React.Component {
-
-  initialState = {
-    minutes: this.props.minutes? this.props.minutes : '00',
-    seconds: this.props.seconds? this.props.seconds : '00'
+  constructor(props) {
+    super()
+    const initialState = {
+      minutes: props.minutes? props.minutes : '00',
+      seconds: props.seconds? props.seconds : '00'
+    }
+    this.state = initialState
   }
-  state = this.initialState
 
   render() {
     return (

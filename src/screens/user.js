@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import './user.css'
-import { firebase_recordWorkout, firebase_getUserData, firebase_getUserWorkoutTemplates, firebase_getUserExercises } from '../firebase'
-import Button from '../components/button'
-import Checkbox from '../components/checkbox'
+import cloudData from '@/data/CloudData'
+import Button from '@/components/button'
+import Checkbox from '@/components/checkbox'
 
 const ScreenUser = (props) => {
-
   const [ mileage, setMileage ] = useState(0)
   const [ lastWorkout, setLastWorkout ] = useState(<i>Ещё впереди</i>)
 
@@ -17,12 +16,12 @@ const ScreenUser = (props) => {
   }, [])
 
   const updateUserData = () => {
-    firebase_getUserData().then(() => {
+    cloudData.getUserData().then(() => {
       setMileage(localStorage.getItem('user-mileage'))
       setLastWorkout(localStorage.getItem('user-last-workout'))
     })
-    firebase_getUserWorkoutTemplates()
-    firebase_getUserExercises()
+    cloudData.getUserWorkoutTemplates()
+    cloudData.getUserExercises()
     document.controller.renderMessage('Синхронизируем..', 'green')
   }
 
@@ -30,7 +29,7 @@ const ScreenUser = (props) => {
   const backupWorkout = JSON.parse(localStorage.getItem('workout-backup'))
   const sendBackup = (e) => {
     e.target.parentNode.style.display = 'none'
-    firebase_recordWorkout(backupWorkout)
+    cloudData.recordWorkout(backupWorkout)
   }
   const backupMessage = (
     <p className='user__text user__text--column user__text--warning'>

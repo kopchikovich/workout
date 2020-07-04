@@ -3,7 +3,6 @@ import './editor.css'
 import Selection from './selection'
 
 const ScreenEditor = (props) => {
-
   const [ currentView, setCurrentView ] = useState(null)
 
   useEffect(() => {

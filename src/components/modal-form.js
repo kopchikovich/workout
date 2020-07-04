@@ -2,7 +2,6 @@ import React from 'react'
 import Button from './button'
 
 const ModalForm = (props) => {
-
   const submit = (e) => {
     e.preventDefault()
     props.recordCardioWorkout(e, props.workoutTemplate)

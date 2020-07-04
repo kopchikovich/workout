@@ -1,16 +1,15 @@
 import React, { useState } from 'react'
 import './exercise.css'
-import Local_db from '../local-db'
-import ButtonList from '../components/button-list'
-import Button from '../components/button'
+import localData from '@/data/LocalData'
+import ButtonList from '@/components/button-list'
+import Button from '@/components/button'
 
 const ScreenExercise = (props) => {
-
   const [ state, setState ] = useState({description: ''})
 
   const makeDescription = (e) => {
-    const workoutTemplate_db = new Local_db('workout-templates').open()
-    const exercise_db = new Local_db('exercises').open()
+    const workoutTemplate_db = localData('workout-templates').open()
+    const exercise_db = localData('exercises').open()
     const workoutTemplate = workoutTemplate_db[e.target.value]
     const parseArrayOfP = (arr) => {
       return arr.map((text, i) => {
@@ -48,11 +47,11 @@ const ScreenExercise = (props) => {
     props.printHeader(workoutTemplate.name)
     setState({
       description: (
-      <article className='description'>
-        {workoutTemplate.description}
-        {exercises}
-        {returnButton}
-      </article>
+        <article className='description'>
+          {workoutTemplate.description}
+          {exercises}
+          {returnButton}
+        </article>
       )
     })
   }
@@ -60,7 +59,7 @@ const ScreenExercise = (props) => {
   const exerciseList = (
     <ButtonList
       className='buttons-list buttons-list--description'
-      onClickHandler={makeDescription.bind(this)}
+      onClickHandler={makeDescription}
     />
   )
   const editorButton = (
@@ -74,8 +73,8 @@ const ScreenExercise = (props) => {
 
   return (
     <section>
-      {!!state.description? null : editorButton}
-      {!!state.description? state.description : exerciseList}
+      {state.description? null : editorButton}
+      {state.description? state.description : exerciseList}
     </section>
   )
 }
