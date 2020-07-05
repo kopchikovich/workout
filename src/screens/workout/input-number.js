@@ -3,28 +3,30 @@ import './input-number.css'
 import Button from '@/components/button'
 
 const InputNumber = (props) => {
-  const [ state, setState ] = useState(0)
+  const [ state, setState ] = useState('0')
   const MIN_VALUE = 0
   const MAX_VALUE = 100
 
   const increment = (e) => {
+    const value = +state
     e.preventDefault()
-    if (state >= MAX_VALUE) {
+    if (value >= MAX_VALUE) {
       setState(MAX_VALUE)
-    } else if (state <= MIN_VALUE) {
+    } else if (value <= MIN_VALUE) {
       setState(MIN_VALUE+1)
     } else {
-      setState(state+1)
+      setState(value+1)
     }
   }
   const decrement = (e) => {
+    const value = +state
     e.preventDefault()
-    if (state <= MIN_VALUE) {
+    if (value <= MIN_VALUE) {
       setState(MIN_VALUE)
-    } else if (state >= MAX_VALUE) {
+    } else if (value >= MAX_VALUE) {
       setState(MAX_VALUE-1)
     } else {
-      setState(state-1)
+      setState(value-1)
     }
   }
 
@@ -41,7 +43,7 @@ const InputNumber = (props) => {
         name={props.name}
         id={props.id}
         value={state}
-        onChange={(e) => setState(+e.currentTarget.value)}
+        onChange={(e) => setState(e.currentTarget.value)}
         min={MIN_VALUE}
         max={MAX_VALUE}
         step='1'
