@@ -7,7 +7,7 @@ import Main from '@/components/main'
 import Footer from '@/components/footer'
 import ModalWindow from '@/components/modal-window'
 import ModalForm from '@/components/modal-form'
-import Login from '@/screens/login'
+import ScreenLogin from '@/screens/login'
 
 
 class App extends React.Component {
@@ -28,18 +28,16 @@ class App extends React.Component {
     return (
       <div className='app'>
 
-        {this.state.isLogin? null : <Login login={this.login.bind(this)} />}
+        {this.state.isLogin? null : <ScreenLogin login={this.login.bind(this)} />}
 
-        <Header
-          state={this.state}
-        />
+        <Header state={this.state} />
 
         <Main
           state={this.state}
           switchScreen={this.switchScreen.bind(this)}
           switchTheme={this.switchTheme.bind(this)}
           openWorkoutScreen={this.openWorkoutScreen.bind(this)}
-          printHeader={this.printHeader.bind(this)}
+          writeHeader={this.writeHeader.bind(this)}
           login={this.login.bind(this)}
           logout={this.logout.bind(this)}
           openModal={this.openModal.bind(this)}
@@ -108,8 +106,8 @@ class App extends React.Component {
     if (!this.state.isLogin) {
       return document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00')
     }
-    const workoutTemplate_db = localData('workout-templates').open()
-    const workoutTemplate = workoutTemplate_db[e.target.value]
+    const workoutTemplateDb = localData('workout-templates').open()
+    const workoutTemplate = workoutTemplateDb[e.target.value]
     if (workoutTemplate.type === 'power') {
       this.setState({
         screen: 'workout',
@@ -130,7 +128,6 @@ class App extends React.Component {
       duration: e.target[0].value,
       distance: e.target[1].value
     }
-
     const dateString = `${workout.timeStop.getFullYear()}-${workout.timeStop.getMonth()+1}-${workout.timeStop.getDate()}`
     if (!localStorage.getItem(dateString)) {
       localStorage.setItem(dateString, JSON.stringify([workout]))
@@ -140,13 +137,12 @@ class App extends React.Component {
       localStorage.setItem(dateString, JSON.stringify(array))
     }
     document.controller.renderMessage('Тренировка записана', 'green')
-
     // make backup and append workout to firestore
     localStorage.setItem('workout-backup', JSON.stringify(workout))
     cloudData.recordWorkout(workout)
   }
 
-  printHeader(text) {
+  writeHeader(text) {
     this.setState({
       headerText: text
     })
@@ -176,7 +172,6 @@ class App extends React.Component {
 
   login(e) {
     e.preventDefault()
-
     cloudData.signIn(e.target.email.value, e.target.password.value, this.setState.bind(this))
         .then(() => {
           cloudData.getUserData().then(() => {
@@ -196,33 +191,34 @@ class App extends React.Component {
     })
   }
 
+  checkLogin() {
+    const CHECK_NUMBER = 10
+    const CHECK_INTERVAL = 1000
+    let checkCounter = 0
+    const loginCheckTimeout = setInterval(() => {
+      this.setState({
+        isLogin: cloudData.isLogin()
+      })
+      checkCounter++
+      if (checkCounter >= CHECK_NUMBER || cloudData.isLogin()) {
+        clearInterval(loginCheckTimeout)
+        // check backup
+        if (localStorage.getItem('backup-workout-template-key')) {
+          this.openWorkoutScreen({target: {value: JSON.parse(localStorage.getItem('backup-workout-template-key'))}})
+        } else {
+          this.setState({
+            screen: 'index'
+          })
+        }
+      }
+    }, CHECK_INTERVAL)
+  }
+
   componentDidMount() {
     // set current theme
     this.switchTheme(true)
     // check is login
-    const checkLogin = () => {
-      const CHECK_NUMBER = 10
-      const CHECK_INTERVAL = 1000
-      let checkCounter = 0
-      const loginCheckTimeout = setInterval(() => {
-        this.setState({
-          isLogin: cloudData.isLogin()
-        })
-        checkCounter++
-        if (checkCounter >= CHECK_NUMBER || cloudData.isLogin()) {
-          clearInterval(loginCheckTimeout)
-          // check backup
-          if (localStorage.getItem('backup-workout-template-key')) {
-            this.openWorkoutScreen({target: {value: JSON.parse(localStorage.getItem('backup-workout-template-key'))}})
-          } else {
-            this.setState({
-              screen: 'index'
-            })
-          }
-        }
-      }, CHECK_INTERVAL)
-    }
-    if (localStorage.getItem('user-name')) checkLogin()
+    if (localStorage.getItem('user-name')) this.checkLogin()
   }
 }
 

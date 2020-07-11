@@ -2,7 +2,7 @@ import React from 'react'
 import './login.css'
 import Button from '@/components/button'
 
-const Login = (props) => {
+const ScreenLogin = (props) => {
   return (
     <div className='login__wrapper'>
       <form className='login' onSubmit={props.login}>
@@ -20,4 +20,4 @@ const Login = (props) => {
   )
 }
 
-export default Login
+export default ScreenLogin

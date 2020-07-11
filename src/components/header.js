@@ -3,39 +3,23 @@ import './header.css'
 import localData from '@/data/LocalData'
 
 const Header = (props) => {
-  const workoutTemplate_db = localData('workout-templates').open()
+  const workoutTemplateDb = localData('workout-templates').open()
   const { screen, headerText, workoutTemplateKey } = props.state
+  const headerNames = {
+    index: 'Начать тренировку',
+    calendar: 'Календарь',
+    exercise: 'Тренировки',
+    user: 'Аккаунт',
+    editor: 'Редактор',
+    login: '',
+    workout: workoutTemplateKey? workoutTemplateDb[workoutTemplateKey].name : ''
+  }
   let renderedText = ''
 
   if (headerText) {
     renderedText = headerText
   } else {
-    switch (screen) {
-      case 'index':
-        renderedText = 'Начать тренировку';
-        break;
-      case 'workout':
-        renderedText = workoutTemplate_db[workoutTemplateKey].name;
-        break;
-      case 'calendar':
-        renderedText = 'Календарь';
-        break;
-      case 'exercise':
-        renderedText = 'Тренировки';
-        break;
-      case 'user':
-        renderedText = 'Аккаунт';
-        break;
-      case 'editor':
-        renderedText = 'Редактор';
-        break;
-      case 'login':
-        renderedText = '';
-        break;
-      default:
-        renderedText = 'Where is i';
-        break;
-    }
+    renderedText = headerNames[screen] || 'Where i am'
   }
 
   return (

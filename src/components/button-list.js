@@ -4,7 +4,7 @@ import localData from '@/data/LocalData'
 import Button from './button'
 
 const ButtonList = (props) => {
-  const workoutTemplate_db = localData('workout-templates').open()
+  const workoutTemplateDb = localData('workout-templates').open()
   const compare = (a, b) => {
     if (a.type === 'power' && b.type !== 'power') {
       return -1
@@ -14,7 +14,7 @@ const ButtonList = (props) => {
       return 0
     }
   }
-  const list = Object.values(workoutTemplate_db).sort(compare).map((workoutTemplate, key) => {
+  const list = Object.values(workoutTemplateDb).sort(compare).map((workoutTemplate, key) => {
     return (
       <li className='buttons-list__item' key={key}>
         <Button
