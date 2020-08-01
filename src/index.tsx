@@ -9,9 +9,9 @@ import * as serviceWorker from './serviceWorker'
 document.controller = {}
 
 // message api
-document.controller.renderMessage = (text, color) => {
-  const TOP_POSITION = 0
-  const TIMEOUT = 3000
+document.controller.renderMessage = (text: string, color: string) => {
+  const TOP_POSITION: string = '0'
+  const TIMEOUT: number = 3000
   const container = document.getElementById('message')
   const message = makeMessage(text, color)
 
