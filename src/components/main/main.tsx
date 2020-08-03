@@ -6,7 +6,7 @@ import ScreenCalendar from '@/screens/calendar'
 import ScreenExercise from '@/screens/exercise'
 import ScreenUser from '@/screens/user'
 import ScreenEditor from '@/screens/editor/editor'
-import Loader from './loader'
+import Loader from '@/components/loader'
 
 const Main = (props) => {
   const workoutBackup = !!localStorage.getItem('backup-workout-template-key')
