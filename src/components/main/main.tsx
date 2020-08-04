@@ -1,12 +1,12 @@
 import React from 'react'
 import './main.css'
-import ScreenIndex from '@/screens/index'
-import ScreenWorkout from '@/screens/workout/workout'
-import ScreenCalendar from '@/screens/calendar'
-import ScreenExercise from '@/screens/exercise'
-import ScreenUser from '@/screens/user'
-import ScreenEditor from '@/screens/editor/editor'
-import Loader from '@/components/loader'
+import ScreenIndex from '../../screens/index/index'
+import ScreenWorkout from '../../screens/workout/workout'
+import ScreenCalendar from '../../screens/calendar/calendar'
+import ScreenExercise from '../../screens/exercise/exercise'
+import ScreenUser from '../../screens/user/user'
+import ScreenEditor from '../../screens/editor/editor'
+import Loader from '../../components/loader/loader'
 
 const Main = (props) => {
   const workoutBackup = !!localStorage.getItem('backup-workout-template-key')

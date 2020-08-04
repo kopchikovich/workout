@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import './exercise.css'
-import localData from '@/data/LocalData'
-import ButtonList from '@/components/button-list'
-import Button from '@/components/button'
+import localData from '../../data/LocalData'
+import ButtonList from '../../components/button-list/button-list'
+import Button from '../../components/button/button'
 
 const ScreenExercise = (props) => {
   const [ state, setState ] = useState({description: ''})

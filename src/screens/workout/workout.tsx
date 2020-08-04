@@ -1,9 +1,9 @@
 import React from 'react'
 import './workout.css'
-import cloudData from '@/data/CloudData'
-import localData from '@/data/LocalData'
-import Button from '@/components/button'
-import Sets from '@/components/sets'
+import cloudData from '../../data/CloudData'
+import localData from '../../data/LocalData'
+import Button from '../../components/button/button'
+import Sets from '../../components/sets/sets'
 import Timer from './timer'
 import Exercise from './exercise'
 

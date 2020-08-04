@@ -1,6 +1,6 @@
 import React from 'react'
 import './footer.css'
-import Button from '@/components/button'
+import Button from '../../components/button/button'
 
 const Footer = (props) => {
   const footerTitles = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']]

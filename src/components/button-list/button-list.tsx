@@ -1,7 +1,7 @@
 import React from 'react'
 import './button-list.css'
-import localData from '@/data/LocalData'
-import Button from './button'
+import localData from '../../data/LocalData'
+import Button from '../button/button'
 
 const ButtonList = (props) => {
   const workoutTemplateDb = localData('workout-templates').open()

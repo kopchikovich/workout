@@ -1,14 +1,15 @@
 import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
-import localData from '@/data/LocalData'
-import { Calendar } from '@/components/month'
+import localData from './LocalData'
+import { Calendar } from '../components/month/month'
 
-const dbName = 'users'
-// const dbName = 'test'
+const dbName: string = 'users'
+// const dbName: string = 'test'
 
 class CloudData {
-  constructor(dbName) {
+  cloudDb = null
+  constructor(dbName: string) {
     firebase.initializeApp({
       apiKey: 'AIzaSyAwC7CYUq5hC-a3wbJ-Io9oOl7HCDes-g8',
       authDomain: 'my-awesome-workout-diary.firebaseapp.com',

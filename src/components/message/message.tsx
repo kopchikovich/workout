@@ -1,6 +1,6 @@
 import './message.css'
 
-const makeMessage = (text, color) => {
+const makeMessage = (text: string, color: string) => {
   const message = document.createElement('div')
   const renderColor = color === 'green'? '#0a0' : '#a00'
 

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import './user.css'
-import cloudData from '@/data/CloudData'
-import Button from '@/components/button'
-import Checkbox from '@/components/checkbox'
+import cloudData from '../../data/CloudData'
+import Button from '../../components/button/button'
+import Checkbox from '../../components/checkbox/checkbox'
 
 const ScreenUser = (props) => {
   const [ mileage, setMileage ] = useState(0)

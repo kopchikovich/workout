@@ -1,13 +1,13 @@
 import React from 'react'
 import './app.css'
-import cloudData from '@/data/CloudData'
-import localData from '@/data/LocalData'
-import Header from '@/components/header/header'
-import Main from '@/components/main/main'
-import Footer from '@/components/footer/footer'
-import ModalWindow from '@/components/modal-window'
-import ModalForm from '@/components/modal-form'
-import ScreenLogin from '@/screens/login'
+import cloudData from '../../data/CloudData'
+import localData from '../../data/LocalData'
+import Header from '../../components/header/header'
+import Main from '../../components/main/main'
+import Footer from '../../components/footer/footer'
+import ModalWindow from '../../components/modal-window/modal-window'
+import ModalForm from '../../components/modal-form/modal-form'
+import ScreenLogin from '../../screens/login/login'
 
 
 class App extends React.Component {

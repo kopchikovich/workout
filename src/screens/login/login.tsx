@@ -1,6 +1,6 @@
 import React from 'react'
 import './login.css'
-import Button from '@/components/button'
+import Button from '../../components/button/button'
 
 const ScreenLogin = (props) => {
   return (

@@ -1,8 +1,8 @@
 import React from 'react'
 import './calendar.css'
-import cloudData from '@/data/CloudData'
-import Button from '@/components/button'
-import Month from '@/components/month'
+import cloudData from '../../data/CloudData'
+import Button from '../../components/button/button'
+import Month from '../../components/month/month'
 
 class ScreenCalendar extends React.Component {
   state = {

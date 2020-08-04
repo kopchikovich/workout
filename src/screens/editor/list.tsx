@@ -1,6 +1,6 @@
 import React from 'react'
-import localData from '@/data/LocalData'
-import Button from '@/components/button'
+import localData from '../../data/LocalData'
+import Button from '../../components/button/button'
 import EditorForm from './editor-form'
 
 const List = (props) => {

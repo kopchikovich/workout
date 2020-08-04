@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '@/components/button'
+import Button from '../../components/button/button'
 import List from './list'
 
 const Selection = (props) => {

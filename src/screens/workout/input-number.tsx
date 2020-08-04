@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './input-number.css'
-import Button from '@/components/button'
+import Button from '../../components/button/button'
 
 const InputNumber = (props) => {
   const [ state, setState ] = useState('0')

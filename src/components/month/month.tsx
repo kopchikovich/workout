@@ -1,6 +1,6 @@
 import React from 'react'
 import './month.css'
-import Sets from './sets'
+import Sets from '../sets/sets'
 
 // class with helping methods
 class Calendar {

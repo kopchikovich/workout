@@ -1,6 +1,6 @@
 import React from 'react'
 import './header.css'
-import localData from '@/data/LocalData'
+import localData from '../../data/LocalData'
 
 const Header = (props) => {
   const workoutTemplateDb = localData('workout-templates').open()
