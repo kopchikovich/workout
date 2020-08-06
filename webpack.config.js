@@ -30,17 +30,14 @@ const jsLoaders = () => {
 module.exports = {
   context: path.resolve(__dirname, 'src'),
   mode: 'development',
-  entry: ['./index.js'],
+  entry: ['./index.tsx'],
   output: {
     filename: filename('js'),
     path: path.resolve(__dirname, 'dist'),
     publicPath: '/'
   },
   resolve: {
-    extensions: ['.js'],
-    alias: {
-      '@': path.resolve(__dirname, 'src')
-    }
+    extensions: ['.tsx', '.ts', '.js']
   },
   devtool: isDev ? 'source-map' : false,
   devServer: {
@@ -90,9 +87,14 @@ module.exports = {
       },
       {
         test: /\.js$/,
+        use: jsLoaders(),
+        exclude: /node_modules/
+      },
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        use: jsLoaders()
-      }
+      },
     ]
   }
 }
