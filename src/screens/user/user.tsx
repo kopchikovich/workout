@@ -4,18 +4,24 @@ import cloudData from '../../data/CloudData'
 import Button from '../../components/button/button'
 import Checkbox from '../../components/checkbox/checkbox'
 
-const ScreenUser = (props) => {
-  const [ mileage, setMileage ] = useState(0)
-  const [ lastWorkout, setLastWorkout ] = useState(<i>Ещё впереди</i>)
+type propsTypes = {
+  switchTheme: any
+  darkTheme: any
+  logout: any
+}
+
+const ScreenUser = (props: propsTypes) => {
+  const [ mileage, setMileage ]: any = useState('0')
+  const [ lastWorkout, setLastWorkout ]: any = useState(<i>Ещё впереди</i>)
 
   useEffect(() => {
-    const userMileage = localStorage.getItem('user-mileage')
-    const userLastWorkout = localStorage.getItem('user-last-workout')
+    const userMileage: string | null = localStorage.getItem('user-mileage')
+    const userLastWorkout: string | null = localStorage.getItem('user-last-workout')
     if (userMileage) setMileage(userMileage)
     if (userLastWorkout && userLastWorkout !== 'undefined') setLastWorkout(userLastWorkout)
   }, [])
 
-  const updateUserData = () => {
+  const updateUserData = (): void => {
     cloudData.getUserData().then(() => {
       setMileage(localStorage.getItem('user-mileage'))
       setLastWorkout(localStorage.getItem('user-last-workout'))
@@ -26,12 +32,13 @@ const ScreenUser = (props) => {
   }
 
   // BACKUP
-  const backupWorkout = JSON.parse(localStorage.getItem('workout-backup'))
-  const sendBackup = (e) => {
+  // @ts-ignore
+  const backupWorkout: any = JSON.parse(localStorage.getItem('workout-backup'))
+  const sendBackup = (e: any): void => {
     e.target.parentNode.style.display = 'none'
     cloudData.recordWorkout(backupWorkout)
   }
-  const backupMessage = (
+  const backupMessage: any = (
     <p className='user__text user__text--column user__text--warning'>
       <span>Найдена несохранённа тренировка: <i>{backupWorkout? backupWorkout.name : null}</i></span>
       <Button className='user__button user__button--send' title='Отправить' onClickHandler={sendBackup} />

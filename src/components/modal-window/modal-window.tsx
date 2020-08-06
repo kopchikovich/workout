@@ -1,7 +1,14 @@
 import React from 'react'
 import './modal-window.css'
 
-const ModalWindow = (props) => {
+type propsTypes = {
+  isVisible: boolean
+  header: string
+  content: string
+  closeModal: any
+}
+
+const ModalWindow = (props: propsTypes) => {
   const display = props.isVisible? 'flex' : 'none';
   const displayHeader = props.header? 'flex' : 'none';
 

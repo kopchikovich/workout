@@ -4,14 +4,20 @@ import localData from '../../data/LocalData'
 import ButtonList from '../../components/button-list/button-list'
 import Button from '../../components/button/button'
 
-const ScreenExercise = (props) => {
-  const [ state, setState ] = useState({description: ''})
+type propsTypes = {
+  writeHeader: any
+  switchScreen: any
+}
 
-  const makeDescription = (e) => {
-    const workoutTemplate_db = localData('workout-templates').open()
-    const exercise_db = localData('exercises').open()
-    const workoutTemplate = workoutTemplate_db[e.target.value]
-    const parseArrayOfP = (arr) => {
+const ScreenExercise = (props: propsTypes) => {
+  const inititalState: {description: any} = {description: null}
+  const [ state, setState ] = useState(inititalState)
+
+  const makeDescription = (e: any): void => {
+    const workoutTemplate_db: any = localData('workout-templates').open()
+    const exercise_db: any = localData('exercises').open()
+    const workoutTemplate: any = workoutTemplate_db[e.target.value]
+    const parseArrayOfP = (arr: Array<string>) => {
       return arr.map((text, i) => {
         return (
           <p key={i}>
@@ -20,13 +26,13 @@ const ScreenExercise = (props) => {
         )
       })
     }
-    const clearDescription = () => {
+    const clearDescription = (): void => {
       setState({
         description: ''
       })
-      props.printHeader('Тренировки')
+      props.writeHeader('Тренировки')
     }
-    const exercises = workoutTemplate.exercises.map((exs, index) => {
+    const exercises: Array<any> = workoutTemplate.exercises.map((exs: any, index: number) => {
       return (
         <details className='description__exercise' key={index}>
           <summary>{exercise_db[exs].name}</summary>
@@ -36,7 +42,7 @@ const ScreenExercise = (props) => {
         </details>
       )
     })
-    const returnButton = (
+    const returnButton: any = (
       <Button
         className='description__button button--arrow'
         title='<'
@@ -44,7 +50,7 @@ const ScreenExercise = (props) => {
         onClickHandler={clearDescription}
       />
     )
-    props.printHeader(workoutTemplate.name)
+    props.writeHeader(workoutTemplate.name)
     setState({
       description: (
         <article className='description'>
@@ -56,13 +62,13 @@ const ScreenExercise = (props) => {
     })
   }
 
-  const exerciseList = (
+  const exerciseList: any = (
     <ButtonList
       className='buttons-list buttons-list--description'
       onClickHandler={makeDescription}
     />
   )
-  const editorButton = (
+  const editorButton: any = (
     <Button
       className='button--editor'
       title='Редактировать'

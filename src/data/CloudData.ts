@@ -8,7 +8,9 @@ const dbName: string = 'users'
 // const dbName: string = 'test'
 
 class CloudData {
-  cloudDb = null
+  cloudDb: any
+  user: any
+
   constructor(dbName: string) {
     firebase.initializeApp({
       apiKey: 'AIzaSyAwC7CYUq5hC-a3wbJ-Io9oOl7HCDes-g8',
@@ -19,15 +21,17 @@ class CloudData {
     this.user = this.cloudDb.doc(`${dbName}/kopchikovich`)
   }
 
-  _printError(error) {
+  _printError(error: any) {
     console.log(error.code + ' : ' + error.message)
     document.controller.renderMessage(`${error.code} : ${error.message}`, 'red')
   }
 
-  signIn(email, password, setAppState) {
+  signIn(email: string, password: string, setAppState: any) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
+      // @ts-ignore
       localStorage.setItem('user-name', firebase.auth().currentUser.displayName)
       console.log('Sign in as', localStorage.getItem('user-name'))
+      // @ts-ignore
       document.controller.renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green')
       setAppState({
         isLogin: true
@@ -60,8 +64,9 @@ class CloudData {
   }
 
   getUserData() {
+    // @ts-ignore
     localStorage.setItem('user-name', firebase.auth().currentUser.displayName)
-    return this.user.get().then((doc) => {
+    return this.user.get().then((doc: any) => {
       if (doc.exists) {
         const userData = doc.data()
         const METERS_IN_KILOMETERS = 1000
@@ -73,7 +78,7 @@ class CloudData {
     }).catch(this._printError)
   }
 
-  recordWorkout(workout) {
+  recordWorkout(workout: any) {
     // get workout date data
     const workoutDate = typeof workout.timeStop === 'string'? new Date(workout.timeStop) : workout.timeStop
     const workoutMonth = workoutDate.getMonth()
@@ -88,7 +93,7 @@ class CloudData {
     document.controller.workoutAppendPromise = this.user
         .collection(`workouts/${workoutYear}/${workoutMonthNameEng}`)
         .add(workout)
-        .then((docRef) => {
+        .then((docRef: any) => {
           console.log('Workout written with ID: ', docRef.id)
           document.controller.renderMessage(`Тренировка записана в облако`, 'green')
           // write last workout id and string
@@ -110,19 +115,20 @@ class CloudData {
         .catch(this._printError)
   }
 
-  getMonthWorkouts(date) {
+  getMonthWorkouts(date: Date) {
     const year = date.getFullYear()
     const monthNameEng = Calendar.prototype.getMonthNameInEng(date.getMonth())
-    return this.user.collection(`workouts/${year}/${monthNameEng}`).get().then((querySnapshot) => {
+    return this.user.collection(`workouts/${year}/${monthNameEng}`).get().then((querySnapshot: any) => {
       if (querySnapshot.docs.length > 0) {
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc: any) => {
           const workout = doc.data()
           const MILLISECONDS_IN_SECONDS = 1000
           const workoutDate = new Date(+workout.timeStop.seconds*MILLISECONDS_IN_SECONDS)
           const dateString = `${year}-${workoutDate.getMonth()+1}-${workoutDate.getDate()}`
           if (localStorage.getItem(dateString)) {
+            // @ts-ignore
             const workoutsArray = JSON.parse(localStorage.getItem(dateString))
-            const isSame = (elem) => {
+            const isSame = (elem: any) => {
               return elem.name === workout.name
             }
             if (!workoutsArray.some(isSame)) {
@@ -143,10 +149,10 @@ class CloudData {
   }
 
   getUserExercises() {
-    return this.user.collection('exercises').get().then((querySnapshot) => {
-      const exercises = {}
+    return this.user.collection('exercises').get().then((querySnapshot: any) => {
+      const exercises: any = {}
       if (querySnapshot.docs.length > 0) {
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc: any) => {
           exercises[doc.id] = doc.data()
         })
       }
@@ -170,10 +176,10 @@ class CloudData {
   }
 
   getUserWorkoutTemplates() {
-    return this.user.collection('workoutTemplates').get().then((querySnapshot) => {
-      const workoutTemplates = {}
+    return this.user.collection('workoutTemplates').get().then((querySnapshot: any) => {
+      const workoutTemplates: any = {}
       if (querySnapshot.docs.length > 1) {
-        querySnapshot.forEach((doc) => {
+        querySnapshot.forEach((doc: any) => {
           workoutTemplates[doc.id] = doc.data()
         })
       }

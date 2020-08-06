@@ -2,10 +2,18 @@ import React from 'react'
 import './header.css'
 import localData from '../../data/LocalData'
 
-const Header = (props) => {
-  const workoutTemplateDb = localData('workout-templates').open()
+type propsTypes = {
+  state: {
+    screen: string
+    headerText: string
+    workoutTemplateKey: string
+  }
+}
+
+const Header = (props: propsTypes) => {
+  const workoutTemplateDb: any = localData('workout-templates').open()
   const { screen, headerText, workoutTemplateKey } = props.state
-  const headerNames = {
+  const headerNames: any = {
     index: 'Начать тренировку',
     calendar: 'Календарь',
     exercise: 'Тренировки',
@@ -14,7 +22,7 @@ const Header = (props) => {
     login: '',
     workout: workoutTemplateKey? workoutTemplateDb[workoutTemplateKey].name : ''
   }
-  let renderedText = ''
+  let renderedText: string = ''
 
   if (headerText) {
     renderedText = headerText

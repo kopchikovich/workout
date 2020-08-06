@@ -1,16 +1,21 @@
 import React, { useState } from 'react'
-import localData from '@/data/LocalData'
+import localData from '../../../data/LocalData'
 
-const InputExercises = (props) => {
+type propsTypes = {
+  value: any
+  setExercises: any
+}
+
+const InputExercises = (props: propsTypes) => {
   const [ state, setState ] = useState(props.value)
-  const exercises_db = localData('exercises').open()
+  const exercises_db: any = localData('exercises').open()
 
-  const getIdByName = (name) => {
-    const db = Object.entries(exercises_db)
-    return db[db.findIndex((el) => name === el[1].name)][0]
+  const getIdByName = (name: string) => {
+    const db: any = Object.entries(exercises_db)
+    return db[db.findIndex((el: any) => name === el[1].name)][0]
   }
 
-  const exerciseList = state.map((el) => {
+  const exerciseList = state.map((el: any) => {
     return (
       <li className='editor-form__list-element' key={el}>
         {exercises_db[el].name}
@@ -18,8 +23,8 @@ const InputExercises = (props) => {
     )
   })
 
-  const exerciseOptions = Object.values(exercises_db).map((el) => {
-    const id = getIdByName(el.name)
+  const exerciseOptions = Object.values(exercises_db).map((el: any) => {
+    const id: string = getIdByName(el.name)
     return (
       <label className='editor-form__option' key={id}>
         <input
@@ -34,14 +39,14 @@ const InputExercises = (props) => {
     )
   })
 
-  const changeHandler = (e) => {
-    const value = e.target.value? e.target.value : e.target.firstChild.value
-    let newState = null
+  const changeHandler = (e: any) => {
+    const value: string = e.target.value? e.target.value : e.target.firstChild.value
+    let newState: any = null
 
     if (!state.includes(value)) {
       newState = [...state, value]
     } else {
-      newState = state.filter((el) => el !== value)
+      newState = state.filter((el: any) => el !== value)
     }
 
     props.setExercises(newState)

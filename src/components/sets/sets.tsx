@@ -1,9 +1,14 @@
 import React from 'react'
 import './sets.css'
 
-const Sets = (props) => {
-  const makeSetString = (set) => {
-    const options = Object.keys(set)
+type propsTypes = {
+  deleteSet?: any
+  exercise: any
+}
+
+const Sets = (props: propsTypes) => {
+  const makeSetString = (set: any) => {
+    const options: Array<string> = Object.keys(set)
     const GRAM_IN_KILOGRAM = 1000
 
     if (options.includes('time-left') && options.includes('time-right')) {
@@ -22,15 +27,15 @@ const Sets = (props) => {
     return 'error'
   }
 
-  const toggleDeleteButton = (e) => {
+  const toggleDeleteButton = (e: any): void => {
     if (props.deleteSet) {
-      const parent = e.target.parentNode
-      const deleteButtonNode = parent.querySelector('.sets__btn')
+      const parent: HTMLElement = e.target.parentNode
+      const deleteButtonNode: HTMLElement | null = parent.querySelector('.sets__btn')
 
       if (deleteButtonNode) {
         parent.removeChild(deleteButtonNode)
       } else {
-        const deleteButton = document.createElement('button')
+        const deleteButton: HTMLElement = document.createElement('button')
         deleteButton.className = 'sets__btn'
         deleteButton.addEventListener('click', clickHandler)
         parent.appendChild(deleteButton)
@@ -38,14 +43,14 @@ const Sets = (props) => {
     }
   }
 
-  const clickHandler = (e) => {
+  const clickHandler = (e: any) => {
     const parent = e.target.parentNode
 
     parent.removeChild(e.target)
     props.deleteSet(parent.id)
   }
 
-  const renderSet = (set, index) => {
+  const renderSet = (set: object, index: string) => {
     return (
       <li className='sets__set' key={index} id={index}>
         <span onClick={toggleDeleteButton}>{makeSetString(set)}</span>

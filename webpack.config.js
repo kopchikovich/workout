@@ -87,8 +87,8 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
-        use: jsLoaders()
+        use: jsLoaders(),
+        exclude: /node_modules/
       },
       {
         test: /\.tsx?$/,

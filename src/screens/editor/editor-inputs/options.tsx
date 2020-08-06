@@ -1,7 +1,11 @@
 import React from 'react'
 
-const InputOptions = (props) => {
-  const names = {
+type propsTypes = {
+  value: any
+}
+
+const InputOptions = (props: propsTypes) => {
+  const names: any = {
     'weight': 'Вес',
     'repeats': 'Повторения',
     'one hand': 'Для каждой руки отдельно',
@@ -17,7 +21,7 @@ const InputOptions = (props) => {
           type='checkbox'
           name='options'
           value={el}
-          defaultChecked={props.value.includes(el)? true : false}
+          defaultChecked={props.value.includes(el)}
         />
         <span className='editor-form__text editor-form__text--small'>
           {names[el]}

@@ -10,19 +10,25 @@ import InputType from './editor-inputs/type'
 import InputOptions from './editor-inputs/options'
 import InputExercises from './editor-inputs/exercises'
 
-const EditorForm = (props) => {
-  let [ editableItemId, editableItem ] = Object.entries(props.targetObj).find((el) => el[1].name === props.target)
+type propsTypes = {
+  targetObj: any
+  target: string
+  switchScreen: any
+}
 
-  let exercises = editableItem.exercises
-  const setExercises = (newExercises) => {
+const EditorForm = (props: propsTypes) => {
+  let [ editableItemId, editableItem ]: any = Object.entries(props.targetObj).find((el: Array<any>) => el[1].name === props.target)
+
+  let exercises: any = editableItem.exercises
+  const setExercises = (newExercises: any) => {
     exercises = newExercises
   }
 
-  const submitHandler = (e) => {
+  const submitHandler = (e: any) => {
     e.preventDefault()
 
-    let db = null
-    const inputs = e.target.elements
+    let db: any = null
+    const inputs: any = e.target.elements
 
     if (editableItem.exercises) {
       editableItem = Object.assign(editableItem, {
@@ -35,8 +41,8 @@ const EditorForm = (props) => {
       db.edit(editableItem, editableItemId)
       cloudData.setUserWorkoutTemplates()
     } else if (editableItem.options) {
-      const options = []
-      inputs.options.forEach((el) => {
+      const options: Array<any> = []
+      inputs.options.forEach((el: any) => {
         if (el.checked) {
           options.push(el.value)
         }
@@ -55,21 +61,21 @@ const EditorForm = (props) => {
     props.switchScreen({target: {value: 'exercise'}})
   }
 
-  const names = {
+  const names: any = {
     options: 'Параметры упражнения',
     sets: 'Количество подходов (продолжительность)',
     type: 'Тип тренировки',
     exercises: 'Упражнения'
   }
 
-  const components = {
+  const components: any = {
     options: <InputOptions value={editableItem.options} />,
     sets: <InputSets value={editableItem.sets} />,
     type: <InputType value={editableItem.type} />,
     exercises: <InputExercises value={editableItem.exercises} setExercises={setExercises} />
   }
 
-  const differentInputs = Object.keys(editableItem).map((el, i) => {
+  const differentInputs: any = Object.keys(editableItem).map((el, i) => {
     if (!names[el]) return null
     return (
       <div className='editor-form__container' key={i}>

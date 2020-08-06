@@ -11,10 +11,11 @@ class ScreenCalendar extends React.Component {
     lastRenderedMonth: new Date().getMonth()
   }
 
-  render() {
+  render(): any {
     const months = []
     for (let i = this.state.lastRenderedMonth; i <= this.state.currentMonth; i++ ) {
       months.push((
+        // @ts-ignore
         <Month monthNum={i} key={i} openModal={this.props.openModal} />
       ))
     }
@@ -29,15 +30,15 @@ class ScreenCalendar extends React.Component {
     )
   }
 
-  setLastRenderedMonth() {
+  setLastRenderedMonth(): void {
     this.setState({
       lastRenderedMonth: this.state.lastRenderedMonth-1
     })
     this.getLastMonthWorkouts(this.state.lastRenderedMonth-1)
   }
 
-  getLastMonthWorkouts(month) {
-    const date = new Date()
+  getLastMonthWorkouts(month: number): void {
+    const date: Date = new Date()
     date.setDate(1)
     date.setMonth(month)
     cloudData.getMonthWorkouts(date).then(() => {
@@ -45,19 +46,21 @@ class ScreenCalendar extends React.Component {
     })
   }
 
-  highlightCurrentDay() {
-    const date = new Date()
-    const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-    const currentDay = document.getElementById(dateString)
-    currentDay.classList.add('calendar__day--current')
+  highlightCurrentDay(): void {
+    const date: Date = new Date()
+    const dateString: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    const currentDay: HTMLElement | null = document.getElementById(dateString)
+    if (currentDay) {
+      currentDay.classList.add('calendar__day--current')
+    }
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.highlightCurrentDay()
     this.getLastMonthWorkouts(this.state.lastRenderedMonth)
   }
 
-  componentDidUpdate() {
+  componentDidUpdate(): void {
     this.highlightCurrentDay()
   }
 }

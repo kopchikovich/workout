@@ -1,10 +1,20 @@
 import React from 'react'
 import './timer.css'
 
+type propsTypes = {
+  minutes?: number | string
+  seconds?: number | string
+  control?: boolean
+}
+
 class Timer extends React.Component {
-  constructor(props) {
+  state: propsTypes
+  timerInterval: any
+
+  constructor(props: propsTypes) {
+    // @ts-ignore
     super()
-    const initialState = {
+    const initialState: propsTypes = {
       minutes: props.minutes? props.minutes : '00',
       seconds: props.seconds? props.seconds : '00'
     }
@@ -26,7 +36,9 @@ class Timer extends React.Component {
   }
 
   tick() {
+    // @ts-ignore
     let minutes = +this.state.minutes
+    // @ts-ignore
     let seconds = +this.state.seconds
     seconds++
     if (seconds === 60) {
@@ -38,6 +50,7 @@ class Timer extends React.Component {
       minutes: minutes < 10? '0' + minutes: minutes,
       seconds: seconds < 10? '0' + seconds: seconds
     })
+    // @ts-ignore
     if (this.props.control) {
       localStorage.setItem('backup-rest-timer', JSON.stringify(this.state))
     } else {
@@ -54,6 +67,7 @@ class Timer extends React.Component {
 
   componentDidMount() {
     this.timerInterval = setInterval(this.tick.bind(this), 1000)
+    // @ts-ignore
     if (this.props.control) {
       document.controller.resetRestTimer = this.reset.bind(this)
     }
@@ -61,9 +75,11 @@ class Timer extends React.Component {
 
   componentWillUnmount() {
     clearInterval(this.timerInterval)
+    // @ts-ignore
     if (this.props.control) {
       delete document.controller.resetRestTimer
     }
+    // @ts-ignore
     if (this.props.control) {
       localStorage.removeItem('backup-rest-timer')
     } else {

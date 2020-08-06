@@ -59,17 +59,19 @@ class App extends React.Component {
     )
   }
 
-  switchScreen(e) {
-    this.setState({
-      headerText: '',
-      screen: e.target.value
-    })
-    this.closeModal(e, true)
+  switchScreen(e: any) {
+    if (e.target && e.target.value) {
+      this.setState({
+        headerText: '',
+        screen: e.target.value
+      })
+      this.closeModal(e, true)
+    }
   }
 
   switchTheme(setCurrent = false) {
     // 0 - dark theme, 1 - ligth theme
-    const colors = {
+    const colors: any = {
       '--main-bg-color': ['#333', '#fff'],
       '--second-bg-color': ['#61dafb', '#f55'],
       '--main-text-color': ['#ddd', '#222'],
@@ -77,7 +79,7 @@ class App extends React.Component {
       '--modal-bg-color': ['#666', '#ddd'],
       '--modal-text-color': ['#fff', '#111']
     }
-    const root = document.querySelector('html')
+    const root: any = document.querySelector('html')
     let themeIndex = 0
     if (setCurrent) {
       themeIndex = this.state.darkTheme? 0 : 1
@@ -95,18 +97,21 @@ class App extends React.Component {
     if (this.state.isLogin) {
       cloudData.user.update({
         darkTheme: !themeIndex
-      }).then(() => cloudData.getUserData()).catch((e) => console.error(e))
+      }).then(() => cloudData.getUserData()).catch((e: any) => console.error(e))
     }
     Object.keys(colors).forEach((color) => {
       root.style.setProperty(color, colors[color][themeIndex])
     })
   }
 
-  openWorkoutScreen(e) {
+  openWorkoutScreen(e: any) {
+    if (!e.target.value) {
+      return null
+    }
     if (!this.state.isLogin) {
       return document.controller.renderMessage('Для тренировки необходимо выполнить вход в аккаунт', '#a00')
     }
-    const workoutTemplateDb = localData('workout-templates').open()
+    const workoutTemplateDb: any = localData('workout-templates').open()
     const workoutTemplate = workoutTemplateDb[e.target.value]
     if (workoutTemplate.type === 'power') {
       this.setState({
@@ -114,13 +119,14 @@ class App extends React.Component {
         workoutTemplateKey: e.target.value
       })
     } else if (workoutTemplate.type === 'running' || workoutTemplate.type === 'swimming') {
+      // @ts-ignore
       this.openModal(workoutTemplate.name, <ModalForm workoutTemplate={workoutTemplate} recordCardioWorkout={this.recordCardioWorkout.bind(this)} closeModal={this.closeModal.bind(this)} />)
     } else {
       this.openModal('Error', 'Some arror, check app.js')
     }
   }
 
-  recordCardioWorkout(e, workoutTemplate) {
+  recordCardioWorkout(e: any, workoutTemplate: any) {
     const workout = {
       name: workoutTemplate.name,
       type: workoutTemplate.type,
@@ -132,6 +138,7 @@ class App extends React.Component {
     if (!localStorage.getItem(dateString)) {
       localStorage.setItem(dateString, JSON.stringify([workout]))
     } else {
+      // @ts-ignore
       const array = JSON.parse(localStorage.getItem(dateString))
       array.push(workout)
       localStorage.setItem(dateString, JSON.stringify(array))
@@ -142,13 +149,13 @@ class App extends React.Component {
     cloudData.recordWorkout(workout)
   }
 
-  writeHeader(text) {
+  writeHeader(text: string) {
     this.setState({
       headerText: text
     })
   }
 
-  openModal(header, content) {
+  openModal(header: string, content: string) {
     this.setState({
       modal: {
         isVisible: true,
@@ -158,7 +165,7 @@ class App extends React.Component {
     })
   }
 
-  closeModal(e, forcibly) {
+  closeModal(e: any, forcibly: boolean) {
     if (forcibly || e.target === e.currentTarget) {
       this.setState({
         modal: {
@@ -170,7 +177,7 @@ class App extends React.Component {
     }
   }
 
-  login(e) {
+  login(e: any) {
     e.preventDefault()
     cloudData.signIn(e.target.email.value, e.target.password.value, this.setState.bind(this))
         .then(() => {
@@ -204,6 +211,7 @@ class App extends React.Component {
         clearInterval(loginCheckTimeout)
         // check backup
         if (localStorage.getItem('backup-workout-template-key')) {
+          // @ts-ignore
           this.openWorkoutScreen({target: {value: JSON.parse(localStorage.getItem('backup-workout-template-key'))}})
         } else {
           this.setState({

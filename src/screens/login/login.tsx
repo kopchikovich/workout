@@ -2,7 +2,11 @@ import React from 'react'
 import './login.css'
 import Button from '../../components/button/button'
 
-const ScreenLogin = (props) => {
+type propsTypes = {
+  login: any
+}
+
+const ScreenLogin = (props: propsTypes) => {
   return (
     <div className='login__wrapper'>
       <form className='login' onSubmit={props.login}>

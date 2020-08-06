@@ -2,13 +2,18 @@ import React from 'react'
 import './footer.css'
 import Button from '../../components/button/button'
 
-const Footer = (props) => {
-  const footerTitles = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']]
-  const isCurrent = (screen) => {
+type propsTypes = {
+  screen: string
+  switchScreen: any
+}
+
+const Footer = (props: propsTypes) => {
+  const footerTitles: Array<Array<string>> = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']]
+  const isCurrent = (screen: string) => {
     return props.screen === screen
   }
 
-  let footerList = []
+  let footerList: any = []
   if (props.screen === 'workout') {
     footerList = (
       <li>
@@ -16,14 +21,14 @@ const Footer = (props) => {
           className='footer-list__button'
           title='Закончить тренировку'
           value='index'
-          onClickHandler={(e) => document.controller.recordWorkout(e, true)}
+          onClickHandler={(e: any) => document.controller.recordWorkout(e, true)}
         />
       </li>
     )
   } else if (props.screen === 'login') {
     footerList = []
   } else {
-    footerList = footerTitles.map((title, key) => {
+    footerList = footerTitles.map((title: Array<string>, key: number) => {
       return (
         <li key={key}>
           <Button

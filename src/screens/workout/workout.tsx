@@ -10,15 +10,27 @@ import Exercise from './exercise'
 // workoutTemplate это шаблон тренировки (тренировка в базе данных)
 // workout это практическая тренировка, действие. Запись которой и происходит
 
+type propsTypes = {
+  backup: boolean
+}
+
 class ScreenWorkout extends React.Component {
-  constructor(props) {
+  exercise_db: any
+  workoutTemplate: any
+  workout: any
+  initialState: any
+  props: any
+  state: any
+
+  constructor(props: propsTypes) {
     super(props)
 
-    const workoutTemplate_db = localData('workout-templates').open()
+    const workoutTemplate_db: any = localData('workout-templates').open()
     this.exercise_db = localData('exercises').open()
     this.workoutTemplate = workoutTemplate_db[this.props.state.workoutTemplateKey]
 
     if (props.backup) {
+      // @ts-ignore
       const backupData = JSON.parse(localStorage.getItem('backup-workout-data'))
       this.workout = {
         name: backupData.name,
@@ -27,6 +39,7 @@ class ScreenWorkout extends React.Component {
         timeStop: '',
         durationInMinutes: ''
       }
+      // @ts-ignore
       this.state = {...JSON.parse(localStorage.getItem('backup-workout-state'))}
     } else {
       this.workout = {
@@ -51,7 +64,9 @@ class ScreenWorkout extends React.Component {
     let backupRestTimer = null
     let backupTimer = null
     if (this.props.backup) {
+      // @ts-ignore
       backupRestTimer = JSON.parse(localStorage.getItem('backup-rest-timer'))
+      // @ts-ignore
       backupTimer = JSON.parse(localStorage.getItem('backup-timer'))
     }
     return (
@@ -60,13 +75,16 @@ class ScreenWorkout extends React.Component {
           <article className='timer'>
             {
               backupRestTimer ?
+                // @ts-ignore
                 <Timer control={true} minutes={backupRestTimer.minutes} seconds={backupRestTimer.seconds} /> :
+                // @ts-ignore
                 <Timer control={true} />
             }
           </article>
           <article className='timer'>
             {
               backupTimer ?
+                // @ts-ignore
                 <Timer minutes={backupTimer.minutes} seconds={backupTimer.seconds} /> :
                 <Timer />
             }
@@ -104,7 +122,7 @@ class ScreenWorkout extends React.Component {
     )
   }
 
-  switchExercise(e) {
+  switchExercise(e: any) {
     let newExs = null
     let newExsIndex = 0
 
@@ -125,16 +143,16 @@ class ScreenWorkout extends React.Component {
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
-  recordSet(e) {
+  recordSet(e: any) {
     e.preventDefault()
-    const options = Array.from(e.target.elements).filter((el) => el.nodeName !== 'BUTTON')
-    const set = {}
+    const options: Array<any> = Array.from(e.target.elements).filter((el: any) => el.nodeName !== 'BUTTON')
+    const set: any = {}
     for (let i = 0; i < options.length; i++) {
       set[options[i].name] = options[i].value
     }
 
-    const currentExsLink = this.state.exercises[this.state.currentExs.name]
-    let sets = null
+    const currentExsLink: any = this.state.exercises[this.state.currentExs.name]
+    let sets: any = null
     if (currentExsLink) {
       sets = Array.from(currentExsLink)
       sets.push(set)
@@ -150,9 +168,9 @@ class ScreenWorkout extends React.Component {
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
-  deleteSet(index) {
-    const currentExsLink = this.state.exercises[this.state.currentExs.name]
-    const sets = Array.from(currentExsLink)
+  deleteSet(index: string | number) {
+    const currentExsLink: any = this.state.exercises[this.state.currentExs.name]
+    const sets: Array<any> = Array.from(currentExsLink)
     sets.splice(+index, 1)
     this.setState({
       exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
@@ -161,23 +179,25 @@ class ScreenWorkout extends React.Component {
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
-  recordWorkout(e) {
-    const MILLISECONDS_IN_MINUTE = 60000
-    const date = this.workout.timeStop = new Date()
+  recordWorkout(e: any) {
+    const MILLISECONDS_IN_MINUTE: number = 60000
+    const date: Date = this.workout.timeStop = new Date()
     this.workout.durationInMinutes = Math.floor((this.workout.timeStop - this.workout.timeStart)/MILLISECONDS_IN_MINUTE)
-    const workout = Object.assign(this.workout, {exercises: this.state.exercises})
-    const dateString = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
+    const workout: any = Object.assign(this.workout, {exercises: this.state.exercises})
+    const dateString: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
 
     if (!localStorage.getItem(dateString)) {
       localStorage.setItem(dateString, JSON.stringify([workout]))
     } else {
+      // @ts-ignore
       const array = JSON.parse(localStorage.getItem(dateString))
       array.push(workout)
       localStorage.setItem(dateString, JSON.stringify(array))
     }
 
     // записываю тренировку в список последних тренировок по названию
-    const lastWorkouts = JSON.parse(localStorage.getItem('last-workouts'))
+    // @ts-ignore
+    const lastWorkouts: any = JSON.parse(localStorage.getItem('last-workouts'))
     lastWorkouts[workout.name] = dateString
     localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts))
     // переключаю экран
@@ -189,13 +209,15 @@ class ScreenWorkout extends React.Component {
   }
 
   getLastWorkoutSets() {
-    let lastSets = null
-    const lastAllWorkouts = JSON.parse(localStorage.getItem('last-workouts'))
-    const isLastWorkoutExist = lastAllWorkouts && lastAllWorkouts[this.workout.name]
-    const lastWorkout = isLastWorkoutExist? JSON.parse(localStorage.getItem(lastAllWorkouts[this.workout.name])) : null
+    let lastSets: any = null
+    // @ts-ignore
+    const lastAllWorkouts: any = JSON.parse(localStorage.getItem('last-workouts'))
+    const isLastWorkoutExist: boolean = lastAllWorkouts && lastAllWorkouts[this.workout.name]
+    // @ts-ignore
+    const lastWorkout: any = isLastWorkoutExist? JSON.parse(localStorage.getItem(lastAllWorkouts[this.workout.name])) : null
 
     if (lastWorkout) {
-      const lastWorkoutData = lastWorkout.find((el) => {
+      const lastWorkoutData: any = lastWorkout.find((el: any) => {
         return el.name === this.workout.name
       })
       if (Object.keys(lastWorkoutData.exercises).includes(this.state.currentExs.name)) {
@@ -207,8 +229,8 @@ class ScreenWorkout extends React.Component {
     return lastSets
   }
 
-  confirmExit(e, isWorkoutEnd) {
-    let content = null
+  confirmExit(e: any, isWorkoutEnd: boolean) {
+    let content: any = null
 
     if (isWorkoutEnd) {
       content = (

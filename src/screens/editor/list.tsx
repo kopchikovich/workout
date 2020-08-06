@@ -3,10 +3,16 @@ import localData from '../../data/LocalData'
 import Button from '../../components/button/button'
 import EditorForm from './editor-form'
 
-const List = (props) => {
-  const targetObj = localData(props.target).open()
+type propsTypes = {
+  target: string
+  setCurrentView: any
+  switchScreen: any
+}
 
-  const list = Object.values(targetObj).map((elem, i) => {
+const List = (props: propsTypes) => {
+  const targetObj: any = localData(props.target).open()
+
+  const list: Array<any> = Object.values(targetObj).map((elem: any, i: number) => {
     return (
       <li className='editor-section__item' key={i}>
         <Button
@@ -18,7 +24,7 @@ const List = (props) => {
     )
   })
 
-  const clickHandler = (e) => {
+  const clickHandler = (e: any): void => {
     props.setCurrentView(<EditorForm target={e.target.value} targetObj={targetObj} switchScreen={props.switchScreen} />)
   }
 

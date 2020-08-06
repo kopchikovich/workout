@@ -3,9 +3,14 @@ import './button-list.css'
 import localData from '../../data/LocalData'
 import Button from '../button/button'
 
-const ButtonList = (props) => {
+type propsTypes = {
+  onClickHandler?: any
+  className?: string
+}
+
+const ButtonList = (props: propsTypes) => {
   const workoutTemplateDb = localData('workout-templates').open()
-  const compare = (a, b) => {
+  const compare = (a: {type: string}, b: {type: string}) => {
     if (a.type === 'power' && b.type !== 'power') {
       return -1
     } else if (a.type !== 'power' && b.type === 'power') {
@@ -21,14 +26,16 @@ const ButtonList = (props) => {
           className='buttons-list__button'
           title={workoutTemplate.name}
           value={workoutTemplate.key}
-          onClickHandler={props.onClickHandler}
         />
       </li>
     )
   })
 
   return (
-    <ul className={props.className}>
+    <ul
+      className={props.className}
+      onClick={props.onClickHandler}
+    >
       {list.length > 0? list : 'Тренировок пока нет'}
     </ul>
   )

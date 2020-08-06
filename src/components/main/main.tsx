@@ -8,10 +8,22 @@ import ScreenUser from '../../screens/user/user'
 import ScreenEditor from '../../screens/editor/editor'
 import Loader from '../../components/loader/loader'
 
-const Main = (props) => {
+type propsTypes = {
+  state: any
+  openWorkoutScreen: any
+  switchScreen: any
+  openModal: any
+  closeModal: any
+  writeHeader: any
+  switchTheme: any
+  login: any
+  logout: any
+}
+
+const Main = (props: propsTypes) => {
   const workoutBackup = !!localStorage.getItem('backup-workout-template-key')
   const { screen } = props.state
-  const screens = {
+  const screens: any = {
     index: (
       <ScreenIndex openWorkoutScreen={props.openWorkoutScreen} />
     ),
@@ -26,6 +38,7 @@ const Main = (props) => {
     ),
     calendar: (
       <ScreenCalendar
+        // @ts-ignore
         openModal={props.openModal}
       />
     ),

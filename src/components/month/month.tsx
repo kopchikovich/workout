@@ -4,16 +4,17 @@ import Sets from '../sets/sets'
 
 // class with helping methods
 class Calendar {
-  getMonth(monthNum) {
-    const date = new Date()
+  getMonth(monthNum: number): Array<any> {
+    const date: Date = new Date()
     date.setDate(1)
     date.setMonth(monthNum)
-    const days = []
-    let day = 1 - this._getFirstEmptyWeekDays(date)
+    const days: Array<any> = []
+    let day: number = 1 - this._getFirstEmptyWeekDays(date)
     for (day; day <= this._getAmountOfDaysInMonth(date); day++) {
-      const value = day > 0? `${date.getFullYear()}-${date.getMonth()+1}-${day}` : null
-      let className = 'calendar__day'
-      if (localStorage.getItem(value)) {
+      const value: string | undefined = day > 0? `${date.getFullYear()}-${date.getMonth()+1}-${day}` : undefined
+      let className: string = 'calendar__day'
+      if (value && localStorage.getItem(value)) {
+        // @ts-ignore
         const workouts = JSON.parse(localStorage.getItem(value))
         if (workouts.length > 1) {
           className += ' calendar__day-train calendar__day-train--power-and-run'
@@ -35,24 +36,24 @@ class Calendar {
     return days
   }
 
-  getMonthName(monthNum) {
+  getMonthName(monthNum: number): string {
     if (monthNum < 0) monthNum += 12
     const monthNames = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь']
     return monthNames[monthNum]
   }
 
-  getMonthNameInEng(monthNum) {
+  getMonthNameInEng(monthNum: number): string {
     if (monthNum < 0) monthNum += 12
     const monthNames = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december']
     return monthNames[monthNum]
   }
 
-  _getAmountOfDaysInMonth(date) {
+  _getAmountOfDaysInMonth(date: Date): number {
     return 33 - new Date(date.getFullYear(), date.getMonth(), 33).getDate()
   }
 
-  _getFirstEmptyWeekDays(date) {
-    const weekday = date.getDay()
+  _getFirstEmptyWeekDays(date: Date): number {
+    const weekday: number = date.getDay()
     switch (weekday) {
       case 0: return 6 // Sunday
       case 1: return 0 // Monday
@@ -66,15 +67,20 @@ class Calendar {
   }
 }
 
+type propsTypes = {
+  monthNum: number
+  openModal: any
+}
+
 // Component
-const Month = (props) => {
+const Month = (props: propsTypes) => {
   const days = Calendar.prototype.getMonth(props.monthNum)
 
-  const openWorkoutData = (e) => {
+  const openWorkoutData = (e: any) => {
     if (localStorage.getItem(e.target.id)) {
-      const workouts = JSON.parse(localStorage[e.target.id])
-      const dataToRender = []
-      workouts.forEach((workout, index) => {
+      const workouts: any = JSON.parse(localStorage[e.target.id])
+      const dataToRender: Array<any> = []
+      workouts.forEach((workout: any, index: number) => {
         if (workout.type !== 'power') {
           dataToRender.push((
             <article className='workout-data' key={index}>
@@ -84,7 +90,7 @@ const Month = (props) => {
             </article>
           ))
         } else if (workout.type === 'power') {
-          const exercises = []
+          const exercises: Array<any> = []
           Object.entries(workout.exercises).forEach((exercise, index) => {
             exercises.push((
               <div className='workout-data__exercise' key={index}>

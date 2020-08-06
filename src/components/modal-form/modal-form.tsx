@@ -1,8 +1,14 @@
 import React from 'react'
 import Button from '../button/button'
 
-const ModalForm = (props) => {
-  const submit = (e) => {
+type propsTypes = {
+  recordCardioWorkout: any
+  closeModal: any
+  workoutTemplate: object
+}
+
+const ModalForm = (props: propsTypes) => {
+  const submit = (e: any): void => {
     e.preventDefault()
     props.recordCardioWorkout(e, props.workoutTemplate)
     props.closeModal(e, true)

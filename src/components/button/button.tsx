@@ -1,7 +1,15 @@
 import React from 'react'
 import './button.css'
 
-const Button = (props) => {
+type propsTypes = {
+  className?: string
+  onClickHandler?: any
+  value?: string
+  disabled?: boolean
+  title?: string
+}
+
+const Button = (props: propsTypes) => {
   return (
     <button
       className={props.className}

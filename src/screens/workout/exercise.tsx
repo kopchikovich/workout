@@ -7,7 +7,15 @@ import OptionRepeatsOneHand from './options/repeats-one-hand'
 import OptionTime from './options/time'
 import OptionTimeOneHand from './options/time-one-hand'
 
-const Exercise = (props) => {
+type propsTypes = {
+  state: any
+  workoutTemplate: any
+  openModal: any
+  switchExercise: any
+  recordSet: any
+}
+
+const Exercise = (props: propsTypes) => {
   const exercise = props.state.currentExs
   const options = exercise.options
 
