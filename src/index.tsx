@@ -1,9 +1,12 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider, connect } from 'react-redux'
 import './index.css'
 import App from './components/app/app'
 import makeMessage from './components/message/message'
 import * as serviceWorker from './serviceWorker'
+import { store } from './store/store'
+import { mapStateToProps } from './store/initialState'
 
 // make global contoller for app
 document.controller = {}
@@ -30,6 +33,11 @@ document.controller.renderMessage = (text: string, color: string) => {
 // !null when append workout data to firestore
 document.controller.workoutAppendPromise = null
 
-ReactDOM.render(<App />, document.getElementById('root'))
+const ConectedApp = connect(mapStateToProps)(App)
+ReactDOM.render(
+  <Provider store={store}>
+    <ConectedApp />
+  </Provider>,
+  document.getElementById('root'))
 
 serviceWorker.register()

@@ -8,23 +8,27 @@ import Footer from '../../components/footer/footer'
 import ModalWindow from '../../components/modal-window/modal-window'
 import ModalForm from '../../components/modal-form/modal-form'
 import ScreenLogin from '../../screens/login/login'
+import { initialState } from '../../store/initialState'
+import { switchScreenAction } from '../../store/actions'
 
 
 class App extends React.Component {
-  state = {
-    screen: 'login',
-    darkTheme: localStorage.getItem('dark-theme') === 'true'? true : false,
-    isLogin: false,
-    headerText: '',
-    workoutTemplateKey: '',
+  props: any
+  state: typeof initialState = {
+    screen: this.props.screen,
+    darkTheme: this.props.darkTheme,
+    isLogin: this.props.isLogin,
+    headerText: this.props.headerText,
+    workoutTemplateKey: this.props.workoutTemplateKey,
     modal: {
-      isVisible: false,
-      header: '',
-      content: ''
+      isVisible: this.props.modal.isVisible,
+      header: this.props.modal.header,
+      content: this.props.modal.content
     }
   }
 
   render() {
+    console.log(this.props)
     return (
       <div className='app'>
 
@@ -43,6 +47,13 @@ class App extends React.Component {
           openModal={this.openModal.bind(this)}
           closeModal={this.closeModal.bind(this)}
         />
+
+        <button onClick={
+          // @ts-ignore
+          e => this.props.dispatch(switchScreenAction('user'))
+        }>
+          REDUX AWESOME BUTTON
+        </button>
 
         <Footer
           screen={this.state.screen}
