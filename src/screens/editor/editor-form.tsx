@@ -57,6 +57,7 @@ const EditorForm = (props: propsTypes) => {
       db.edit(editableItem, editableItemId)
       cloudData.setUserExercises()
     }
+    // @ts-ignore
     document.controller.renderMessage('Сохранено', 'green')
     props.switchScreen({target: {value: 'exercise'}})
   }

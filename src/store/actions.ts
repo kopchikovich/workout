@@ -5,7 +5,7 @@ export type actionType = {
   payload?: any
 }
 
-export const switchScreenAction = (screen: string): actionType => {
+export const switchScreen = (screen: string): actionType => {
   return {
     type: SWITCH_SCREEN,
     payload: screen

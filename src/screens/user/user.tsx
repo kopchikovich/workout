@@ -28,6 +28,7 @@ const ScreenUser = (props: propsTypes) => {
     })
     cloudData.getUserWorkoutTemplates()
     cloudData.getUserExercises()
+    // @ts-ignore
     document.controller.renderMessage('Синхронизируем..', 'green')
   }
 
@@ -70,7 +71,8 @@ const ScreenUser = (props: propsTypes) => {
         </p>
 
         {/* если есть бэкап, написать об этом и отправить */}
-        {!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
+        {// @ts-ignore
+        !document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
 
         <Button className='user__button' title='Синхронизировать с облаком' onClickHandler={updateUserData} />
         <Button className='user__button' title='Выйти' onClickHandler={props.logout} />

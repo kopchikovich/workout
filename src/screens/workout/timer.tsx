@@ -69,6 +69,7 @@ class Timer extends React.Component {
     this.timerInterval = setInterval(this.tick.bind(this), 1000)
     // @ts-ignore
     if (this.props.control) {
+      // @ts-ignore
       document.controller.resetRestTimer = this.reset.bind(this)
     }
   }
@@ -77,6 +78,7 @@ class Timer extends React.Component {
     clearInterval(this.timerInterval)
     // @ts-ignore
     if (this.props.control) {
+      // @ts-ignore
       delete document.controller.resetRestTimer
     }
     // @ts-ignore

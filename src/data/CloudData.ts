@@ -23,6 +23,7 @@ class CloudData {
 
   _printError(error: any) {
     console.log(error.code + ' : ' + error.message)
+    // @ts-ignore
     document.controller.renderMessage(`${error.code} : ${error.message}`, 'red')
   }
 
@@ -54,6 +55,7 @@ class CloudData {
   signOut() {
     firebase.auth().signOut().then(() => {
       console.log('Sign out')
+      // @ts-ignore
       document.controller.renderMessage(`До свидания, ${localStorage.getItem('user-name')}`, 'green')
       localStorage.clear()
     }).catch(this._printError)
@@ -90,11 +92,13 @@ class CloudData {
     const lastWorkoutString = `${workout.name} - ${workoutDate.getDate()} ${workoutMonthName}`
     localStorage.setItem('user-last-workout', lastWorkoutString)
     // record workout data to cloud
+    // @ts-ignore
     document.controller.workoutAppendPromise = this.user
         .collection(`workouts/${workoutYear}/${workoutMonthNameEng}`)
         .add(workout)
         .then((docRef: any) => {
           console.log('Workout written with ID: ', docRef.id)
+          // @ts-ignore
           document.controller.renderMessage(`Тренировка записана в облако`, 'green')
           // write last workout id and string
           this.user.update({
@@ -109,6 +113,7 @@ class CloudData {
             }).then(() => this.getUserData())
           }
           // remove backup
+          // @ts-ignore
           document.controller.workoutAppendPromise = null
           localStorage.removeItem('workout-backup')
         })
@@ -143,6 +148,7 @@ class CloudData {
         const monthNum = +date.getMonth()
         let monthName = Calendar.prototype.getMonthName(monthNum).toLowerCase()
         monthName = monthNum === 2 || monthNum === 7 ? monthName + 'е' : monthName.slice(0, -1) + 'е'
+        // @ts-ignore
         document.controller.renderMessage(`В ${monthName} нет тренировок записанных в облако`, 'green')
       }
     }).catch(this._printError)

@@ -56,7 +56,7 @@ class ScreenWorkout extends React.Component {
       }
       this.state = this.initialState
     }
-
+    // @ts-ignore
     document.controller.recordWorkout = this.confirmExit.bind(this)
   }
 
@@ -162,7 +162,7 @@ class ScreenWorkout extends React.Component {
     this.setState({
       exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
     })
-
+    // @ts-ignore
     document.controller.resetRestTimer()
     // save backup
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
@@ -201,6 +201,7 @@ class ScreenWorkout extends React.Component {
     lastWorkouts[workout.name] = dateString
     localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts))
     // переключаю экран
+    // @ts-ignore
     document.controller.renderMessage('Тренировка записана', 'green')
     this.props.switchScreen(e)
     // make backup and append workout to firestore
@@ -264,6 +265,7 @@ class ScreenWorkout extends React.Component {
   }
 
   componentWillUnmount() {
+    // @ts-ignore
     delete document.controller.recordWorkout
     // remove backup
     localStorage.removeItem('backup-workout-state')
