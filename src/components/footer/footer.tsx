@@ -11,7 +11,12 @@ type propTypes = {
 }
 
 const Footer = ({screen, dispatch}: propTypes) => {
-  const footerTitles: Array<Array<string>> = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']]
+  const footerTitles: Array<Array<string>> = [
+    ['index', 'Начать'],
+    ['calendar', 'Календарь'],
+    ['exercise', 'Тренировки'],
+    ['user', 'Аккаунт']
+  ]
   const isCurrent = (testedScreen: string) => {
     return screen === testedScreen
   }
