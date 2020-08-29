@@ -1,1 +1,5 @@
 export const SWITCH_SCREEN: string = 'SWITCH_SCREEN'
+export const OPEN_WORKOUT_SCREEN: string = 'OPEN_WORKOUT_SCREEN'
+export const OPEN_MODAL: string = 'OPEN_MODAL'
+export const CLOSE_MODAL: string = 'CLOSE_MODAL'
+export const WRITE_HEADER: string = 'WRITE_HEADER'

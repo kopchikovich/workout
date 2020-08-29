@@ -1,4 +1,10 @@
 export const initialState = {
-  screen: 'editor',
-  headerText: ''
+  screen: 'index',
+  headerText: '',
+  workoutTemplateKey: '',
+  modal: {
+    isVisible: false,
+    header: '',
+    content: ''
+  }
 }

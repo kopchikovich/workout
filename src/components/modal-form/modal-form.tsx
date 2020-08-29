@@ -1,17 +1,18 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import Button from '../button/button'
+import { closeModal } from '../../store/actions'
 
-type propsTypes = {
-  recordCardioWorkout: any
-  closeModal: any
-  workoutTemplate: object
+type propTypes = {
+  workoutTemplate: any
+  dispatch: any
 }
 
-const ModalForm = (props: propsTypes) => {
+const ModalForm = ({ workoutTemplate, dispatch }: propTypes) => {
   const submit = (e: any): void => {
     e.preventDefault()
-    props.recordCardioWorkout(e, props.workoutTemplate)
-    props.closeModal(e, true)
+    // props.recordCardioWorkout(e, props.workoutTemplate)
+    dispatch(closeModal())
   }
 
   return (
@@ -29,4 +30,6 @@ const ModalForm = (props: propsTypes) => {
   )
 }
 
-export default ModalForm
+
+
+export default connect()(ModalForm)
