@@ -1,23 +1,24 @@
 import { initialState } from './initialState'
 import { actionType } from './actions'
-import { SWITCH_SCREEN, OPEN_WORKOUT_SCREEN, OPEN_MODAL, CLOSE_MODAL, WRITE_HEADER } from './types'
+import * as types from './types'
 
 export const rootReducer = (state = initialState, action: actionType) => {
   console.log('dispatch action: ', action)
+  console.log('prev state: ', state)
   switch (action.type) {
-    case SWITCH_SCREEN:
+    case types.SWITCH_SCREEN:
       return {
         ...state,
         screen: action.payload
       }
-    case OPEN_WORKOUT_SCREEN: {
+    case types.OPEN_WORKOUT_SCREEN: {
       return {
         ...state,
         screen: 'workout',
         workoutTemplateKey: action.payload
       }
     }
-    case OPEN_MODAL: {
+    case types.OPEN_MODAL: {
       return {
         ...state,
         modal: {
@@ -27,7 +28,7 @@ export const rootReducer = (state = initialState, action: actionType) => {
         }
       }
     }
-    case CLOSE_MODAL: {
+    case types.CLOSE_MODAL: {
       return {
         ...state,
         modal: {
@@ -37,10 +38,22 @@ export const rootReducer = (state = initialState, action: actionType) => {
         }
       }
     }
-    case WRITE_HEADER: {
+    case types.WRITE_HEADER: {
       return {
         ...state,
         headerText: action.payload
+      }
+    }
+    case types.SET_IS_LOGIN: {
+      return {
+        ...state,
+        isLogin: action.payload
+      }
+    }
+    case types.SET_DARK_THEME: {
+      return {
+        ...state,
+        darkTheme: action.payload
       }
     }
     default:

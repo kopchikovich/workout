@@ -6,7 +6,7 @@ import ScreenIndex from '../../screens/index/index'
 // import ScreenWorkout from '../../screens/workout/workout'
 import ScreenCalendar from '../../screens/calendar/calendar'
 import ScreenExercise from '../../screens/exercise/exercise'
-// import ScreenUser from '../../screens/user/user'
+import ScreenUser from '../../screens/user/user'
 // import ScreenEditor from '../../screens/editor/editor'
 import Loader from '../../components/loader/loader'
 
@@ -21,7 +21,7 @@ const Main = ({ screen }: propTypes) => {
     // workout: <ScreenWorkout />,
     calendar: <ScreenCalendar />,
     exercise: <ScreenExercise />,
-    // user: <ScreenUser />,
+    user: <ScreenUser />,
     // editor: <ScreenEditor />,
     login: <Loader />
   }

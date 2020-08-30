@@ -3,14 +3,16 @@ import './user.css'
 import cloudData from '../../data/CloudData'
 import Button from '../../components/button/button'
 import Checkbox from '../../components/checkbox/checkbox'
+import { switchScreen, setIsLogin, setDarkTheme } from '../../store/actions'
+import { connect } from 'react-redux'
+import { initialState } from '../../store/initialState'
 
 type propsTypes = {
-  switchTheme: any
-  darkTheme: any
-  logout: any
+  dispatch: any
+  darkTheme: boolean
 }
 
-const ScreenUser = (props: propsTypes) => {
+const ScreenUser = ({ dispatch, darkTheme }: propsTypes) => {
   const [ mileage, setMileage ]: any = useState('0')
   const [ lastWorkout, setLastWorkout ]: any = useState(<i>Ещё впереди</i>)
 
@@ -46,6 +48,12 @@ const ScreenUser = (props: propsTypes) => {
     </p>
   )
 
+  const logout = () => {
+    cloudData.signOut()
+    dispatch(setIsLogin(false))
+    dispatch(switchScreen('login'))
+  }
+
   return (
     <section>
       <div className='user'>
@@ -67,18 +75,29 @@ const ScreenUser = (props: propsTypes) => {
         </p>
         <p className='user__text'>
           Тёмная тема
-          <Checkbox className='user__checkbox' onChangeHandler={() => props.switchTheme(false)} isChecked={props.darkTheme} />
+          <Checkbox
+            className='user__checkbox'
+            onChangeHandler={() => dispatch(setDarkTheme(!darkTheme))}
+            isChecked={darkTheme}
+          />
         </p>
 
-        {/* если есть бэкап, написать об этом и отправить */}
-        {// @ts-ignore
-        !document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
+        {
+          /* если есть бэкап, написать об этом и отправить */
+          //!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null
+        }
 
         <Button className='user__button' title='Синхронизировать с облаком' onClickHandler={updateUserData} />
-        <Button className='user__button' title='Выйти' onClickHandler={props.logout} />
+        <Button className='user__button' title='Выйти' onClickHandler={logout} />
       </div>
     </section>
   )
 }
 
-export default ScreenUser
+const mapStateToProps = (state: typeof initialState) => {
+  return {
+    darkTheme: state.darkTheme
+  }
+}
+
+export default connect(mapStateToProps)(ScreenUser)
