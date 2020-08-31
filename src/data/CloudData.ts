@@ -4,8 +4,8 @@ import 'firebase/firestore'
 import localData from './LocalData'
 import { Calendar } from '../components/month/month'
 
-const dbName: string = 'users'
-// const dbName: string = 'test'
+// const dbName: string = 'users'
+const dbName: string = 'test'
 
 class CloudData {
   cloudDb: any

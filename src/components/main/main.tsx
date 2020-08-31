@@ -7,7 +7,7 @@ import ScreenIndex from '../../screens/index/index'
 import ScreenCalendar from '../../screens/calendar/calendar'
 import ScreenExercise from '../../screens/exercise/exercise'
 import ScreenUser from '../../screens/user/user'
-// import ScreenEditor from '../../screens/editor/editor'
+import ScreenEditor from '../../screens/editor/editor'
 import Loader from '../../components/loader/loader'
 
 type propTypes = {
@@ -22,7 +22,7 @@ const Main = ({ screen }: propTypes) => {
     calendar: <ScreenCalendar />,
     exercise: <ScreenExercise />,
     user: <ScreenUser />,
-    // editor: <ScreenEditor />,
+    editor: <ScreenEditor />,
     login: <Loader />
   }
 

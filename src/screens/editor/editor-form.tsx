@@ -9,15 +9,20 @@ import InputSets from './editor-inputs/sets'
 import InputType from './editor-inputs/type'
 import InputOptions from './editor-inputs/options'
 import InputExercises from './editor-inputs/exercises'
+import { connect } from 'react-redux'
+import { switchScreen } from '../../store/actions'
 
-type propsTypes = {
+type propTypes = {
   targetObj: any
   target: string
-  switchScreen: any
+  dispatch: any
 }
 
-const EditorForm = (props: propsTypes) => {
-  let [ editableItemId, editableItem ]: any = Object.entries(props.targetObj).find((el: Array<any>) => el[1].name === props.target)
+const EditorForm = ({ targetObj, target, dispatch }: propTypes) => {
+  let [ editableItemId, editableItem ]: any = Object.entries(targetObj)
+      .find((el: Array<any>) => {
+        return el[1].name === target
+      })
 
   let exercises: any = editableItem.exercises
   const setExercises = (newExercises: any) => {
@@ -57,9 +62,9 @@ const EditorForm = (props: propsTypes) => {
       db.edit(editableItem, editableItemId)
       cloudData.setUserExercises()
     }
+    dispatch(switchScreen('exercise'))
     // @ts-ignore
     document.controller.renderMessage('Сохранено', 'green')
-    props.switchScreen({target: {value: 'exercise'}})
   }
 
   const names: any = {
@@ -109,4 +114,4 @@ const EditorForm = (props: propsTypes) => {
   )
 }
 
-export default EditorForm
+export default connect()(EditorForm)

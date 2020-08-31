@@ -3,14 +3,13 @@ import localData from '../../data/LocalData'
 import Button from '../../components/button/button'
 import EditorForm from './editor-form'
 
-type propsTypes = {
+type propTypes = {
   target: string
   setCurrentView: any
-  switchScreen: any
 }
 
-const List = (props: propsTypes) => {
-  const targetObj: any = localData(props.target).open()
+const List = ({ target, setCurrentView }: propTypes) => {
+  const targetObj: any = localData(target).open()
 
   const list: Array<any> = Object.values(targetObj).map((elem: any, i: number) => {
     return (
@@ -25,7 +24,11 @@ const List = (props: propsTypes) => {
   })
 
   const clickHandler = (e: any): void => {
-    props.setCurrentView(<EditorForm target={e.target.value} targetObj={targetObj} switchScreen={props.switchScreen} />)
+    setCurrentView(
+      <EditorForm
+        target={e.target.value}
+        targetObj={targetObj}
+      />)
   }
 
   return (
