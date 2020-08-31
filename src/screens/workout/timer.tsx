@@ -70,7 +70,7 @@ class Timer extends React.Component {
     // @ts-ignore
     if (this.props.control) {
       // @ts-ignore
-      document.controller.resetRestTimer = this.reset.bind(this)
+      // document.controller.resetRestTimer = this.reset.bind(this)
     }
   }
 
@@ -79,7 +79,7 @@ class Timer extends React.Component {
     // @ts-ignore
     if (this.props.control) {
       // @ts-ignore
-      delete document.controller.resetRestTimer
+      // delete document.controller.resetRestTimer
     }
     // @ts-ignore
     if (this.props.control) {
