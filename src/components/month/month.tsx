@@ -1,6 +1,8 @@
 import React from 'react'
 import './month.css'
 import Sets from '../sets/sets'
+import { connect } from 'react-redux'
+import { openModal } from '../../store/actions'
 
 // class with helping methods
 class Calendar {
@@ -67,14 +69,14 @@ class Calendar {
   }
 }
 
-type propsTypes = {
+type propTypes = {
   monthNum: number
-  openModal: any
+  dispatch: any
 }
 
 // Component
-const Month = (props: propsTypes) => {
-  const days = Calendar.prototype.getMonth(props.monthNum)
+const Month = ({ monthNum, dispatch }: propTypes) => {
+  const days = Calendar.prototype.getMonth(monthNum)
 
   const openWorkoutData = (e: any) => {
     if (localStorage.getItem(e.target.id)) {
@@ -113,15 +115,14 @@ const Month = (props: propsTypes) => {
           dataToRender.push('Error reading workout from localStorage')
         }
       })
-
-      props.openModal(false, dataToRender)
+      dispatch(openModal('', dataToRender))
     }
   }
 
   return (
     <article className='calendar__month'>
       <h3 className='calendar__header'>
-        {Calendar.prototype.getMonthName(props.monthNum)}
+        {Calendar.prototype.getMonthName(monthNum)}
       </h3>
       <div className='calendar__days' onClick={openWorkoutData}>
         {days}
@@ -131,4 +132,4 @@ const Month = (props: propsTypes) => {
 }
 
 export { Calendar }
-export default Month
+export default connect()(Month)

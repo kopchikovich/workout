@@ -10,5 +10,6 @@ export const initialState = {
     content: ''
   },
   recordWorkoutLink: null,
+  workoutPromiseLink: null,
   resetTimerLink: null
 }

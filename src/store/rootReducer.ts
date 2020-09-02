@@ -5,7 +5,6 @@ import renderMessage from './side-effects/renderMessage'
 
 export const rootReducer = (state = initialState, action: actionType) => {
   console.log('dispatch action: ', action)
-  console.log('prev state: ', state)
   switch (action.type) {
     case types.SWITCH_SCREEN:
       return { ...state, screen: action.payload }

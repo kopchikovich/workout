@@ -10,7 +10,7 @@ import InputType from './editor-inputs/type'
 import InputOptions from './editor-inputs/options'
 import InputExercises from './editor-inputs/exercises'
 import { connect } from 'react-redux'
-import { switchScreen } from '../../store/actions'
+import { switchScreen, renderMessage } from '../../store/actions'
 
 type propTypes = {
   targetObj: any
@@ -63,8 +63,7 @@ const EditorForm = ({ targetObj, target, dispatch }: propTypes) => {
       cloudData.setUserExercises()
     }
     dispatch(switchScreen('exercise'))
-    // @ts-ignore
-    document.controller.renderMessage('Сохранено', 'green')
+    dispatch(renderMessage('Сохранено', 'green'))
   }
 
   const names: any = {

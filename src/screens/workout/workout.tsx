@@ -64,8 +64,8 @@ class ScreenWorkout extends React.Component {
   }
 
   render() {
-    let backupRestTimer = null
-    let backupTimer = null
+    let backupRestTimer: any = null
+    let backupTimer: any = null
     if (this.backup) {
       // @ts-ignore
       backupRestTimer = JSON.parse(localStorage.getItem('backup-rest-timer'))
@@ -99,7 +99,6 @@ class ScreenWorkout extends React.Component {
             workoutTemplate={this.workoutTemplate}
             switchExercise={this.switchExercise.bind(this)}
             recordSet={this.recordSet.bind(this)}
-            openModal={this.props.openModal}
           />
         </article>
         <article className='training-table__cell training-table__cell--sets sets'>

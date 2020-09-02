@@ -3,16 +3,17 @@ import './user.css'
 import cloudData from '../../data/CloudData'
 import Button from '../../components/button/button'
 import Checkbox from '../../components/checkbox/checkbox'
-import { switchScreen, setIsLogin, setDarkTheme } from '../../store/actions'
+import { switchScreen, setIsLogin, setDarkTheme, renderMessage } from '../../store/actions'
 import { connect } from 'react-redux'
 import { initialState } from '../../store/initialState'
 
 type propsTypes = {
   dispatch: any
   darkTheme: boolean
+  workoutPromiseLink: any
 }
 
-const ScreenUser = ({ dispatch, darkTheme }: propsTypes) => {
+const ScreenUser = ({ dispatch, darkTheme, workoutPromiseLink }: propsTypes) => {
   const [ mileage, setMileage ]: any = useState('0')
   const [ lastWorkout, setLastWorkout ]: any = useState(<i>Ещё впереди</i>)
 
@@ -31,7 +32,7 @@ const ScreenUser = ({ dispatch, darkTheme }: propsTypes) => {
     cloudData.getUserWorkoutTemplates()
     cloudData.getUserExercises()
     // @ts-ignore
-    document.controller.renderMessage('Синхронизируем..', 'green')
+    dispatch(renderMessage('Синхронизируем..', 'green'))
   }
 
   // BACKUP
@@ -84,7 +85,7 @@ const ScreenUser = ({ dispatch, darkTheme }: propsTypes) => {
 
         {
           /* если есть бэкап, написать об этом и отправить */
-          //!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null
+          !workoutPromiseLink && localStorage.getItem('workout-backup') ? backupMessage : null
         }
 
         <Button className='user__button' title='Синхронизировать с облаком' onClickHandler={updateUserData} />
@@ -96,7 +97,8 @@ const ScreenUser = ({ dispatch, darkTheme }: propsTypes) => {
 
 const mapStateToProps = (state: typeof initialState) => {
   return {
-    darkTheme: state.darkTheme
+    darkTheme: state.darkTheme,
+    workoutPromiseLink: state.workoutPromiseLink
   }
 }
 
