@@ -8,7 +8,7 @@ import Timer from './timer'
 import Exercise from './exercise'
 import { connect } from 'react-redux'
 import { initialState } from '../../store/initialState'
-import { openModal, closeModal, switchScreen } from '../../store/actions'
+import { openModal, closeModal, switchScreen, renderMessage, setRecordWorkoutLink } from '../../store/actions'
 
 // workoutTemplate это шаблон тренировки (тренировка в базе данных)
 // workout это практическая тренировка, действие. Запись которой и происходит
@@ -16,6 +16,7 @@ import { openModal, closeModal, switchScreen } from '../../store/actions'
 type propTypes = {
   dispatch: any
   workoutTemplateKey: string
+  resetRestTimer: any
 }
 
 class ScreenWorkout extends React.Component {
@@ -60,8 +61,6 @@ class ScreenWorkout extends React.Component {
         exercises: {}
       }
     }
-    // @ts-ignore
-    // document.controller.recordWorkout = this.confirmExit.bind(this)
   }
 
   render() {
@@ -166,8 +165,7 @@ class ScreenWorkout extends React.Component {
     this.setState({
       exercises: Object.assign(this.state.exercises, {[this.state.currentExs.name]: sets})
     })
-    // @ts-ignore
-    document.controller.resetRestTimer()
+    this.props.resetRestTimer()
     // save backup
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
@@ -198,16 +196,15 @@ class ScreenWorkout extends React.Component {
       array.push(workout)
       localStorage.setItem(dateString, JSON.stringify(array))
     }
-
     // записываю тренировку в список последних тренировок по названию
     // @ts-ignore
     const lastWorkouts: any = JSON.parse(localStorage.getItem('last-workouts'))
     lastWorkouts[workout.name] = dateString
     localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts))
     // переключаю экран
-    // @ts-ignore
-    document.controller.renderMessage('Тренировка записана', 'green')
-    this.props.switchScreen(e)
+    this.props.dispatch(renderMessage('Тренировка записана', 'green'))
+    this.props.dispatch(closeModal())
+    this.props.dispatch(switchScreen('index'))
     // make backup and append workout to firestore
     localStorage.setItem('workout-backup', JSON.stringify(workout))
     cloudData.recordWorkout(workout)
@@ -265,6 +262,8 @@ class ScreenWorkout extends React.Component {
   }
 
   componentDidMount() {
+    // add save workout link for footer button
+    this.props.dispatch(setRecordWorkoutLink(this.confirmExit.bind(this)))
     // save backup
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
     localStorage.setItem('backup-workout-data', JSON.stringify(this.workout))
@@ -272,8 +271,7 @@ class ScreenWorkout extends React.Component {
   }
 
   componentWillUnmount() {
-    // @ts-ignore
-    // delete document.controller.recordWorkout
+    this.props.dispatch(setRecordWorkoutLink(null))
     // remove backup
     localStorage.removeItem('backup-workout-state')
     localStorage.removeItem('backup-workout-data')
@@ -283,7 +281,8 @@ class ScreenWorkout extends React.Component {
 
 const mapStateToProps = (state: typeof initialState) => {
   return {
-    workoutTemplateKey: state.workoutTemplateKey
+    workoutTemplateKey: state.workoutTemplateKey,
+    resetRestTimer: state.resetTimerLink
   }
 }
 

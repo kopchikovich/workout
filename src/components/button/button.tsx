@@ -7,6 +7,7 @@ type propsTypes = {
   value?: string
   disabled?: boolean
   title?: string
+  id?: string
 }
 
 const Button = (props: propsTypes) => {
@@ -16,6 +17,7 @@ const Button = (props: propsTypes) => {
       onClick={props.onClickHandler}
       value={props.value}
       disabled={props.disabled}
+      id={props.id}
     >
       {props.title}
     </button>

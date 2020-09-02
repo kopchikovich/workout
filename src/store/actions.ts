@@ -52,3 +52,24 @@ export const setDarkTheme = (darkTheme: boolean): actionType => {
     payload: darkTheme
   }
 }
+
+export const setRecordWorkoutLink = (link: any | null): actionType => {
+  return {
+    type: types.SET_RECORD_WORKOUT_LINK,
+    payload: link
+  }
+}
+
+export const setResetTimerLink = (link: any | null): actionType => {
+  return {
+    type: types.SET_RESET_TIMER_LINK,
+    payload: link
+  }
+}
+
+export const renderMessage = (text: string, color: string): actionType => {
+  return {
+    type: types.RENDER_MESSAGE,
+    payload: { text, color }
+  }
+}

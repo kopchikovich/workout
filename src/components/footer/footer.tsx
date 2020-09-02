@@ -7,10 +7,11 @@ import { connect } from 'react-redux'
 
 type propTypes = {
   screen: string
+  recordWorkout: any
   dispatch: any
 }
 
-const Footer = ({screen, dispatch}: propTypes) => {
+const Footer = ({ screen, recordWorkout, dispatch }: propTypes) => {
   const footerTitles: Array<Array<string>> = [
     ['index', 'Начать'],
     ['calendar', 'Календарь'],
@@ -29,8 +30,7 @@ const Footer = ({screen, dispatch}: propTypes) => {
           className='footer-list__button'
           title='Закончить тренировку'
           value='index'
-          // @ts-ignore
-          onClickHandler={(e: any) => document.controller.recordWorkout(e, true)}
+          onClickHandler={(e: any) => recordWorkout(e, true)}
         />
       </li>
     )
@@ -63,7 +63,8 @@ const Footer = ({screen, dispatch}: propTypes) => {
 
 const mapStateToProps = (state: typeof initialState) => {
   return {
-    screen: state.screen
+    screen: state.screen,
+    recordWorkout: state.recordWorkoutLink
   }
 }
 

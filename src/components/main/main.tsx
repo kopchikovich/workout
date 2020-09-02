@@ -15,7 +15,6 @@ type propTypes = {
 }
 
 const Main = ({ screen }: propTypes) => {
-  // const workoutBackup: boolean = !!localStorage.getItem('backup-workout-template-key')
   const screens: any = {
     index: <ScreenIndex />,
     workout: <ScreenWorkout />,

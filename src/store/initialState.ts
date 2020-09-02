@@ -8,5 +8,7 @@ export const initialState = {
     isVisible: false,
     header: '',
     content: ''
-  }
+  },
+  recordWorkoutLink: null,
+  resetTimerLink: null
 }

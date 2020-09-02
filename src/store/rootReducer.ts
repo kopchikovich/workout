@@ -1,16 +1,14 @@
 import { initialState } from './initialState'
 import { actionType } from './actions'
 import * as types from './types'
+import renderMessage from './side-effects/renderMessage'
 
 export const rootReducer = (state = initialState, action: actionType) => {
   console.log('dispatch action: ', action)
   console.log('prev state: ', state)
   switch (action.type) {
     case types.SWITCH_SCREEN:
-      return {
-        ...state,
-        screen: action.payload
-      }
+      return { ...state, screen: action.payload }
     case types.OPEN_WORKOUT_SCREEN: {
       return {
         ...state,
@@ -39,22 +37,23 @@ export const rootReducer = (state = initialState, action: actionType) => {
       }
     }
     case types.WRITE_HEADER: {
-      return {
-        ...state,
-        headerText: action.payload
-      }
+      return { ...state, headerText: action.payload }
     }
     case types.SET_IS_LOGIN: {
-      return {
-        ...state,
-        isLogin: action.payload
-      }
+      return { ...state, isLogin: action.payload }
     }
     case types.SET_DARK_THEME: {
-      return {
-        ...state,
-        darkTheme: action.payload
-      }
+      return { ...state, darkTheme: action.payload }
+    }
+    case types.SET_RECORD_WORKOUT_LINK: {
+      return { ...state, recordWorkoutLink: action.payload }
+    }
+    case types.SET_RESET_TIMER_LINK: {
+      return { ...state, resetTimerLink: action.payload }
+    }
+    case types.RENDER_MESSAGE: {
+      renderMessage(action.payload.text, action.payload.color)
+      return state
     }
     default:
       return state
