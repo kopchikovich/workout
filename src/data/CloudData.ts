@@ -28,21 +28,13 @@ class CloudData {
     dispatch(renderMessage(`${error.code} : ${error.message}`, 'red'))
   }
 
-  signIn(email: string, password: string, setAppState: any) {
+  signIn(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
       // @ts-ignore
       localStorage.setItem('user-name', firebase.auth().currentUser.displayName)
       console.log('Sign in as', localStorage.getItem('user-name'))
       // @ts-ignore
       dispatch(renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green'))
-      setAppState({
-        isLogin: true
-      })
-      this.getUserWorkoutTemplates().then(() => {
-        setAppState({
-          screen: 'index'
-        })
-      })
       this.getUserExercises()
       // get last 2 month workouts
       const date = new Date()

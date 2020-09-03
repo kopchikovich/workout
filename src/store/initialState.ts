@@ -1,6 +1,6 @@
 export const initialState = {
-  isLogin: true,
-  screen: 'index',
+  isLogin: false,
+  screen: 'login',
   darkTheme: true,
   headerText: '',
   workoutTemplateKey: '',

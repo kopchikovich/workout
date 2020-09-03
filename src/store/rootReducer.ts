@@ -2,6 +2,8 @@ import { initialState } from './initialState'
 import { actionType } from './actions'
 import * as types from './types'
 import renderMessage from './side-effects/renderMessage'
+import loginEffects from './side-effects/loginEffects'
+import cloudData from '../data/CloudData'
 
 export const rootReducer = (state = initialState, action: actionType) => {
   console.log('dispatch action: ', action)
@@ -38,9 +40,6 @@ export const rootReducer = (state = initialState, action: actionType) => {
     case types.WRITE_HEADER: {
       return { ...state, headerText: action.payload }
     }
-    case types.SET_IS_LOGIN: {
-      return { ...state, isLogin: action.payload }
-    }
     case types.SET_DARK_THEME: {
       return { ...state, darkTheme: action.payload }
     }
@@ -53,6 +52,23 @@ export const rootReducer = (state = initialState, action: actionType) => {
     case types.RENDER_MESSAGE: {
       renderMessage(action.payload.text, action.payload.color)
       return state
+    }
+    case types.SET_IS_LOGIN: {
+      return { ...state, isLogin: action.payload }
+    }
+    case types.LOGIN: {
+      cloudData.signIn(action.payload.email, action.payload.password).then(() => {
+        loginEffects()
+      })
+      return state
+    }
+    case types.LOGOUT: {
+      cloudData.signOut()
+      return {
+        ...state,
+        isLogin: false,
+        screen: 'login'
+      }
     }
     default:
       return state

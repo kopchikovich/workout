@@ -39,13 +39,6 @@ export const writeHeader = (headerText: string): actionType => {
   }
 }
 
-export const setIsLogin = (isLogin: boolean): actionType => {
-  return {
-    type: types.SET_IS_LOGIN,
-    payload: isLogin
-  }
-}
-
 export const setDarkTheme = (darkTheme: boolean): actionType => {
   return {
     type: types.SET_DARK_THEME,
@@ -74,10 +67,29 @@ export const setResetTimerLink = (link: any | null): actionType => {
   }
 }
 
-
 export const renderMessage = (text: string, color: string): actionType => {
   return {
     type: types.RENDER_MESSAGE,
     payload: { text, color }
+  }
+}
+
+export const setIsLogin = (isLogin: boolean): actionType => {
+  return {
+    type: types.SET_IS_LOGIN,
+    payload: isLogin
+  }
+}
+
+export const login = (email: string, password: string): actionType => {
+  return {
+    type: types.LOGIN,
+    payload: { email, password }
+  }
+}
+
+export const logout = (): actionType => {
+  return {
+    type: types.LOGOUT
   }
 }
