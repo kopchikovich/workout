@@ -93,3 +93,9 @@ export const logout = (): actionType => {
     type: types.LOGOUT
   }
 }
+
+export const checkLogin = (): actionType => {
+  return {
+    type: types.CHECK_LOGIN
+  }
+}

@@ -2,8 +2,8 @@ import { initialState } from './initialState'
 import { actionType } from './actions'
 import * as types from './types'
 import renderMessage from './side-effects/renderMessage'
-import loginEffects from './side-effects/loginEffects'
 import cloudData from '../data/CloudData'
+import checkLogin from './side-effects/checkLogin'
 
 export const rootReducer = (state = initialState, action: actionType) => {
   console.log('dispatch action: ', action)
@@ -57,9 +57,7 @@ export const rootReducer = (state = initialState, action: actionType) => {
       return { ...state, isLogin: action.payload }
     }
     case types.LOGIN: {
-      cloudData.signIn(action.payload.email, action.payload.password).then(() => {
-        loginEffects()
-      })
+      cloudData.signIn(action.payload.email, action.payload.password)
       return state
     }
     case types.LOGOUT: {
@@ -69,6 +67,10 @@ export const rootReducer = (state = initialState, action: actionType) => {
         isLogin: false,
         screen: 'login'
       }
+    }
+    case types.CHECK_LOGIN: {
+      checkLogin()
+      return state
     }
     default:
       return state

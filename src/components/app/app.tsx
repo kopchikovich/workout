@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEffect } from 'react'
 import { connect } from 'react-redux'
 import './app.css'
 import Header from '../../components/header/header'
@@ -7,16 +8,23 @@ import Footer from '../../components/footer/footer'
 import ModalWindow from '../../components/modal-window/modal-window'
 import ScreenLogin from '../../screens/login/login'
 import { initialState } from '../../store/initialState'
+import { switchScreen, checkLogin } from '../../store/actions'
 
 type propTypes = {
   isLogin: boolean
+  dispatch: any
 }
 
-const App = ({ isLogin }: propTypes) => {
+const App = ({ isLogin, dispatch }: propTypes) => {
+  useEffect(() => {
+    if (!isLogin) dispatch(switchScreen('login'))
+    dispatch(checkLogin())
+  }, [])
+
   return (
     <div className='app'>
 
-      {isLogin? null : <ScreenLogin />}
+      {!isLogin && <ScreenLogin />}
 
       <Header />
       <Main />

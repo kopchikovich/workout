@@ -4,7 +4,7 @@ import 'firebase/firestore'
 import localData from './LocalData'
 import { Calendar } from '../components/month/month'
 import { dispatch } from '../store/store'
-import { renderMessage, setWorkoutPromiseLink } from '../store/actions'
+import { renderMessage, setWorkoutPromiseLink, setIsLogin, switchScreen, setDarkTheme } from '../store/actions'
 
 // const dbName: string = 'users'
 const dbName: string = 'test'
@@ -35,6 +35,13 @@ class CloudData {
       console.log('Sign in as', localStorage.getItem('user-name'))
       // @ts-ignore
       dispatch(renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green'))
+      dispatch(setIsLogin(true))
+      this.getUserWorkoutTemplates().then(
+        dispatch(switchScreen('index'))
+      )
+      this.getUserData().then(() => {
+        dispatch(setDarkTheme(localStorage.getItem('dark-theme') === 'true'? true : false))
+      })
       this.getUserExercises()
       // get last 2 month workouts
       const date = new Date()
