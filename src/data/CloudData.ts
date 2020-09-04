@@ -20,7 +20,9 @@ class CloudData {
       projectId: 'my-awesome-workout-diary'
     })
     this.cloudDb = firebase.firestore()
-    this.user = this.cloudDb.doc(`${dbName}/kopchikovich`)
+    this.user = localStorage.getItem('user-name')
+        ? this.cloudDb.doc(`${dbName}/${localStorage.getItem('user-name')}`)
+        : null
   }
 
   _printError(error: any) {
@@ -31,24 +33,19 @@ class CloudData {
   signIn(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
       // @ts-ignore
-      localStorage.setItem('user-name', firebase.auth().currentUser.displayName)
+      const USER_NAME: string = firebase.auth().currentUser.displayName
+      this.user = this.cloudDb.doc(`${dbName}/${USER_NAME}`)
+      localStorage.setItem('user-name', USER_NAME)
       console.log('Sign in as', localStorage.getItem('user-name'))
-      // @ts-ignore
-      dispatch(renderMessage(`Привет, ${firebase.auth().currentUser.displayName}!`, 'green'))
+      dispatch(renderMessage(`Привет, ${USER_NAME}!`, 'green'))
       dispatch(setIsLogin(true))
       this.getUserWorkoutTemplates().then(
         dispatch(switchScreen('index'))
       )
       this.getUserData().then(() => {
-        dispatch(setDarkTheme(localStorage.getItem('dark-theme') === 'true'? true : false))
+        dispatch(setDarkTheme(localStorage.getItem('dark-theme') === 'true'))
       })
       this.getUserExercises()
-      // get last 2 month workouts
-      const date = new Date()
-      this.getMonthWorkouts(date)
-      date.setDate(1)
-      date.setMonth(date.getMonth() - 1)
-      this.getMonthWorkouts(date)
     }).catch(this._printError)
   }
 

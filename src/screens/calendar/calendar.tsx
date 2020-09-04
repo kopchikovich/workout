@@ -33,16 +33,6 @@ class ScreenCalendar extends React.Component {
     this.setState({
       lastRenderedMonth: this.state.lastRenderedMonth-1
     })
-    this.getLastMonthWorkouts(this.state.lastRenderedMonth-1)
-  }
-
-  getLastMonthWorkouts(month: number): void {
-    const date: Date = new Date()
-    date.setDate(1)
-    date.setMonth(month)
-    cloudData.getMonthWorkouts(date).then(() => {
-      this.setState({})
-    })
   }
 
   highlightCurrentDay(): void {
@@ -56,7 +46,6 @@ class ScreenCalendar extends React.Component {
 
   componentDidMount(): void {
     this.highlightCurrentDay()
-    this.getLastMonthWorkouts(this.state.lastRenderedMonth)
   }
 
   componentDidUpdate(): void {
