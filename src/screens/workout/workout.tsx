@@ -201,7 +201,6 @@ class ScreenWorkout extends React.Component {
     lastWorkouts[workout.name] = dateString
     localStorage.setItem('last-workouts', JSON.stringify(lastWorkouts))
     // переключаю экран
-    this.props.dispatch(renderMessage('Тренировка записана', 'green'))
     this.props.dispatch(closeModal())
     this.props.dispatch(switchScreen('index'))
     // make backup and append workout to firestore

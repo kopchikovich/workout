@@ -98,7 +98,7 @@ class CloudData {
         .then((docRef: any) => {
           console.log('Workout written with ID: ', docRef.id)
           // @ts-ignore
-          dispatch(renderMessage(`Тренировка записана в облако`, 'green'))
+          dispatch(renderMessage(`Тренировка записана`, 'green'))
           // write last workout id and string
           this.user.update({
             lastWorkoutId: docRef.id,

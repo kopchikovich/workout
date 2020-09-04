@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import cloudData from '../../data/CloudData'
 import Button from '../button/button'
 import { closeModal } from '../../store/actions'
 
@@ -11,7 +12,25 @@ type propTypes = {
 const ModalForm = ({ workoutTemplate, dispatch }: propTypes) => {
   const submit = (e: any): void => {
     e.preventDefault()
-    // props.recordCardioWorkout(e, props.workoutTemplate)
+    const workout = {
+      name: workoutTemplate.name,
+      type: workoutTemplate.type,
+      timeStop: new Date(),
+      duration: e.target[0].value,
+      distance: e.target[1].value
+    }
+    const dateString: string = `${workout.timeStop.getFullYear()}-${workout.timeStop.getMonth()+1}-${workout.timeStop.getDate()}`
+    if (!localStorage.getItem(dateString)) {
+      localStorage.setItem(dateString, JSON.stringify([workout]))
+    } else {
+      // @ts-ignore
+      const array = JSON.parse(localStorage.getItem(dateString))
+      array.push(workout)
+      localStorage.setItem(dateString, JSON.stringify(array))
+    }
+    // make backup and append workout to firestore
+    localStorage.setItem('workout-backup', JSON.stringify(workout))
+    cloudData.recordWorkout(workout)
     dispatch(closeModal())
   }
 
