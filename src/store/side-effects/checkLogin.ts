@@ -2,7 +2,7 @@ import { dispatch } from '../store'
 import cloudData from '../../data/CloudData'
 import { setIsLogin, switchScreen, openWorkoutScreen } from '../actions'
 
-export default function checkLogin() {
+export default function() {
   const CHECK_NUMBER: number = 10
   const CHECK_INTERVAL: number = 1000
   let checkCounter: number = 0

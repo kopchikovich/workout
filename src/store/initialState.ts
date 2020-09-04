@@ -1,7 +1,7 @@
 export const initialState = {
-  isLogin: false,
   screen: 'login',
-  darkTheme: true,
+  isLogin: false,
+  darkTheme: false,
   headerText: '',
   workoutTemplateKey: '',
   modal: {

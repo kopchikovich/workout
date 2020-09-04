@@ -1,9 +1,10 @@
 import { initialState } from './initialState'
 import { actionType } from './actions'
 import * as types from './types'
-import renderMessage from './side-effects/renderMessage'
 import cloudData from '../data/CloudData'
+import renderMessage from './side-effects/renderMessage'
 import checkLogin from './side-effects/checkLogin'
+import useTheme from './side-effects/useTheme'
 
 export const rootReducer = (state = initialState, action: actionType) => {
   console.log('dispatch action: ', action)
@@ -41,6 +42,7 @@ export const rootReducer = (state = initialState, action: actionType) => {
       return { ...state, headerText: action.payload }
     }
     case types.SET_DARK_THEME: {
+      useTheme(action.payload, state.isLogin)
       return { ...state, darkTheme: action.payload }
     }
     case types.SET_RECORD_WORKOUT_LINK: {

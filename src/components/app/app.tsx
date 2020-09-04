@@ -8,17 +8,24 @@ import Footer from '../../components/footer/footer'
 import ModalWindow from '../../components/modal-window/modal-window'
 import ScreenLogin from '../../screens/login/login'
 import { initialState } from '../../store/initialState'
-import { switchScreen, checkLogin } from '../../store/actions'
+import { switchScreen, checkLogin, setDarkTheme } from '../../store/actions'
 
 type propTypes = {
   isLogin: boolean
+  darkTheme: boolean
   dispatch: any
 }
 
-const App = ({ isLogin, dispatch }: propTypes) => {
+const App = ({ isLogin, darkTheme, dispatch }: propTypes) => {
   useEffect(() => {
     if (!isLogin) dispatch(switchScreen('login'))
     dispatch(checkLogin())
+
+    if (localStorage.getItem('dark-theme') === 'true') {
+      dispatch(setDarkTheme(true))
+    } else {
+      dispatch(setDarkTheme(darkTheme))
+    }
   }, [])
 
   return (
@@ -38,7 +45,8 @@ const App = ({ isLogin, dispatch }: propTypes) => {
 
 const mapStateToProps = (state: typeof initialState) => {
   return {
-    isLogin: state.isLogin
+    isLogin: state.isLogin,
+    darkTheme: state.darkTheme
   }
 }
 
