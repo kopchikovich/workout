@@ -1,19 +1,20 @@
 import React, { useState } from 'react'
-import './exercise.css'
+import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import './exercise.css'
 import localData from '../../data/LocalData'
 import ButtonList from '../../components/button-list/button-list'
 import Button from '../../components/button/button'
 import { writeHeader, switchScreen } from '../../store/actions'
 
 type propTypes = {
-  dispatch: any
+  dispatch: Dispatch
 }
 
 const ScreenExercise = ({ dispatch }: propTypes) => {
   const [ description, setDescription ] = useState<any>(null)
 
-  const makeDescription = (e: any): void => {
+  const makeDescription: React.ReactEventHandler<HTMLUListElement> = (e) => {
     // @ts-ignore
     const workoutTemplate: any = localData('workout-templates').open()[e.target.value]
     const exerciseDb: any = localData('exercises').open()
@@ -26,7 +27,7 @@ const ScreenExercise = ({ dispatch }: propTypes) => {
         )
       })
     }
-    const clearDescription = (): void => {
+    const clearDescription = () => {
       setDescription(null)
       dispatch(writeHeader('Тренировки'))
     }

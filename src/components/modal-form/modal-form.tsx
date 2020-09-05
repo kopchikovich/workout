@@ -1,22 +1,28 @@
 import React from 'react'
+import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
 import cloudData from '../../data/CloudData'
 import Button from '../button/button'
 import { closeModal } from '../../store/actions'
 
 type propTypes = {
-  workoutTemplate: any
-  dispatch: any
+  workoutTemplate: {
+    name: string
+    type: string
+  }
+  dispatch: Dispatch
 }
 
 const ModalForm = ({ workoutTemplate, dispatch }: propTypes) => {
-  const submit = (e: any): void => {
+  const submit: React.ReactEventHandler<HTMLFormElement> = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const workout = {
       name: workoutTemplate.name,
       type: workoutTemplate.type,
       timeStop: new Date(),
+      // @ts-ignore
       duration: e.target[0].value,
+      // @ts-ignore
       distance: e.target[1].value
     }
     const dateString: string = `${workout.timeStop.getFullYear()}-${workout.timeStop.getMonth()+1}-${workout.timeStop.getDate()}`

@@ -23,9 +23,10 @@ const List = ({ target, setCurrentView }: propTypes) => {
     )
   })
 
-  const clickHandler = (e: any): void => {
+  const clickHandler: React.ReactEventHandler<HTMLUListElement> = (e) => {
     setCurrentView(
       <EditorForm
+        // @ts-ignore
         target={e.target.value}
         targetObj={targetObj}
       />)

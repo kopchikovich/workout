@@ -1,8 +1,8 @@
 import React from 'react'
-import './timer.css'
+import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import './timer.css'
 import { initialState } from '../../store/initialState'
-import { defaultCipherList } from 'constants'
 import { setResetTimerLink } from '../../store/actions'
 
 type propTypes = {
@@ -10,7 +10,7 @@ type propTypes = {
   seconds?: number | string
   control?: any
   resetTimerLink: any
-  dispatch: any
+  dispatch: Dispatch
 }
 
 class Timer extends React.Component {

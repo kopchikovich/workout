@@ -1,12 +1,12 @@
 import React from 'react'
 import './sets.css'
 
-type propsTypes = {
+type propTypes = {
   deleteSet?: any
   exercise: any
 }
 
-const Sets = (props: propsTypes) => {
+const Sets = (props: propTypes) => {
   const makeSetString = (set: any) => {
     const options: Array<string> = Object.keys(set)
     const GRAM_IN_KILOGRAM = 1000
@@ -27,23 +27,25 @@ const Sets = (props: propsTypes) => {
     return 'error'
   }
 
-  const toggleDeleteButton = (e: any): void => {
+  const toggleDeleteButton = (e: React.MouseEvent<HTMLSpanElement>) => {
     if (props.deleteSet) {
+      // @ts-ignore
       const parent: HTMLElement = e.target.parentNode
       const deleteButtonNode: HTMLElement | null = parent.querySelector('.sets__btn')
-
       if (deleteButtonNode) {
         parent.removeChild(deleteButtonNode)
       } else {
         const deleteButton: HTMLElement = document.createElement('button')
         deleteButton.className = 'sets__btn'
+        // @ts-ignore
         deleteButton.addEventListener('click', clickHandler)
         parent.appendChild(deleteButton)
       }
     }
   }
 
-  const clickHandler = (e: any) => {
+  const clickHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // @ts-ignore
     const parent = e.target.parentNode
 
     parent.removeChild(e.target)

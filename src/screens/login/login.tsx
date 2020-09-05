@@ -1,16 +1,18 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './login.css'
 import Button from '../../components/button/button'
 import { login } from '../../store/actions'
-import { connect } from 'react-redux'
 
 type propTypes = {
-  dispatch: any
+  dispatch: Dispatch
 }
 
 const ScreenLogin = ({ dispatch }: propTypes) => {
-  const submitHandler = (e: any): void => {
+  const submitHandler: React.ReactEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
+    // @ts-ignore
     dispatch(login(e.target.email.value, e.target.password.value))
   }
 

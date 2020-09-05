@@ -8,8 +8,8 @@ type propTypes = {
   screen: string
 }
 
-const Header = ({headerText, screen}: propTypes) => {
-  const headerNames: any = {
+const Header = ({ headerText, screen }: propTypes) => {
+  const headerNames = {
     index: 'Начать тренировку',
     calendar: 'Календарь',
     exercise: 'Тренировки',
@@ -22,6 +22,7 @@ const Header = ({headerText, screen}: propTypes) => {
   if (headerText) {
     renderedText = headerText
   } else {
+    // @ts-ignore
     renderedText = headerNames[screen] || 'Where i am'
   }
 

@@ -7,9 +7,10 @@ type propTypes = {
 }
 
 const Selection = ({ setCurrentView }: propTypes) => {
-  const selectHandler = (e: any): void => {
+  const selectHandler: React.ReactEventHandler<HTMLButtonElement> = (e) => {
     setCurrentView((
       <List
+        // @ts-ignore
         target={e.target.value}
         setCurrentView={setCurrentView}
       />

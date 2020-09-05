@@ -1,10 +1,10 @@
 import React from 'react'
 
-type propsTypes = {
+type propTypes = {
   value?: string
 }
 
-const InputSets = (props: propsTypes) => {
+const InputSets = (props: propTypes) => {
   return (
     <input
       className='editor-form__text-input'

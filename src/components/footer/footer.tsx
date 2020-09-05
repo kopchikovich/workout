@@ -1,14 +1,15 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './footer.css'
 import Button from '../../components/button/button'
 import { switchScreen } from '../../store/actions'
 import { initialState } from '../../store/initialState'
-import { connect } from 'react-redux'
 
 type propTypes = {
   screen: string
   recordWorkout: any
-  dispatch: any
+  dispatch: Dispatch
 }
 
 const Footer = ({ screen, recordWorkout, dispatch }: propTypes) => {
@@ -30,7 +31,7 @@ const Footer = ({ screen, recordWorkout, dispatch }: propTypes) => {
           className='footer-list__button'
           title='Закончить тренировку'
           value='index'
-          onClickHandler={(e: any) => recordWorkout(e, true)}
+          onClickHandler={(e: React.MouseEvent<HTMLButtonElement>) => recordWorkout(e, true)}
         />
       </li>
     )

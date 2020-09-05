@@ -1,6 +1,5 @@
 import React from 'react'
 import './calendar.css'
-import cloudData from '../../data/CloudData'
 import Button from '../../components/button/button'
 import Month from '../../components/month/month'
 
@@ -11,7 +10,7 @@ class ScreenCalendar extends React.Component {
     lastRenderedMonth: new Date().getMonth()
   }
 
-  render(): any {
+  render() {
     const months = []
     for (let i = this.state.lastRenderedMonth; i <= this.state.currentMonth; i++ ) {
       months.push((

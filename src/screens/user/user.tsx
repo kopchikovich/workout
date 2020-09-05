@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './user.css'
 import cloudData from '../../data/CloudData'
 import Button from '../../components/button/button'
 import Checkbox from '../../components/checkbox/checkbox'
 import { switchScreen, setIsLogin, setDarkTheme, renderMessage } from '../../store/actions'
-import { connect } from 'react-redux'
 import { initialState } from '../../store/initialState'
 
-type propsTypes = {
-  dispatch: any
+type propTypes = {
+  dispatch: Dispatch
   darkTheme: boolean
   workoutPromiseLink: any
 }
 
-const ScreenUser = ({ dispatch, darkTheme, workoutPromiseLink }: propsTypes) => {
+const ScreenUser = ({ dispatch, darkTheme, workoutPromiseLink }: propTypes) => {
   const [ mileage, setMileage ]: any = useState('0')
   const [ lastWorkout, setLastWorkout ]: any = useState(<i>Ещё впереди</i>)
 
@@ -38,11 +39,12 @@ const ScreenUser = ({ dispatch, darkTheme, workoutPromiseLink }: propsTypes) => 
   // BACKUP
   // @ts-ignore
   const backupWorkout: any = JSON.parse(localStorage.getItem('workout-backup'))
-  const sendBackup = (e: any): void => {
+  const sendBackup: React.ReactEventHandler<HTMLButtonElement> = (e) => {
+    // @ts-ignore
     e.target.parentNode.style.display = 'none'
     cloudData.recordWorkout(backupWorkout)
   }
-  const backupMessage: any = (
+  const backupMessage = (
     <p className='user__text user__text--column user__text--warning'>
       <span>Найдена несохранённа тренировка: <i>{backupWorkout? backupWorkout.name : null}</i></span>
       <Button className='user__button user__button--send' title='Отправить' onClickHandler={sendBackup} />

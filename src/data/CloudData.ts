@@ -6,8 +6,8 @@ import { Calendar } from '../components/month/month'
 import { dispatch } from '../store/store'
 import { renderMessage, setWorkoutPromiseLink, setIsLogin, switchScreen, setDarkTheme } from '../store/actions'
 
-// const dbName: string = 'users'
-const dbName: string = 'test'
+const dbName: string = 'users'
+// const dbName: string = 'test'
 
 class CloudData {
   cloudDb: any

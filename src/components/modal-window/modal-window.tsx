@@ -1,22 +1,23 @@
 import React from 'react'
-import './modal-window.css'
+import { Dispatch } from 'redux'
 import { connect } from 'react-redux'
+import './modal-window.css'
 import { initialState } from '../../store/initialState'
 import { closeModal } from '../../store/actions'
 
 
-type propsTypes = {
+type propTypes = {
   isVisible: boolean
   header: string
   content: string
-  dispatch: any
+  dispatch: Dispatch
 }
 
-const ModalWindow = ({ isVisible, header, content, dispatch }: propsTypes) => {
+const ModalWindow = ({ isVisible, header, content, dispatch }: propTypes) => {
   const display = isVisible? 'flex' : 'none'
   const displayHeader = header? 'flex' : 'none'
 
-  const closeHandler = (e: any) => {
+  const closeHandler = (e: React.MouseEvent<HTMLDivElement>) => {
     if (e.target === e.currentTarget) {
       dispatch(closeModal())
     }
@@ -26,7 +27,7 @@ const ModalWindow = ({ isVisible, header, content, dispatch }: propsTypes) => {
     <div
       className='modal__wrapper'
       style={{display: display}}
-      onClick={(e: any) => closeHandler(e)}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => closeHandler(e)}
     >
       <section className='modal'>
         <header className='modal__header' style={{display: displayHeader}}>

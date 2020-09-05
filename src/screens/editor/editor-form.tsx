@@ -1,4 +1,6 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './editor-form.css'
 import cloudData from '../../data/CloudData'
 import localData from '../../data/LocalData'
@@ -9,13 +11,12 @@ import InputSets from './editor-inputs/sets'
 import InputType from './editor-inputs/type'
 import InputOptions from './editor-inputs/options'
 import InputExercises from './editor-inputs/exercises'
-import { connect } from 'react-redux'
 import { switchScreen, renderMessage } from '../../store/actions'
 
 type propTypes = {
   targetObj: any
   target: string
-  dispatch: any
+  dispatch: Dispatch
 }
 
 const EditorForm = ({ targetObj, target, dispatch }: propTypes) => {
@@ -29,10 +30,11 @@ const EditorForm = ({ targetObj, target, dispatch }: propTypes) => {
     exercises = newExercises
   }
 
-  const submitHandler = (e: any) => {
+  const submitHandler: React.ReactEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
     let db: any = null
+    // @ts-ignore
     const inputs: any = e.target.elements
 
     if (editableItem.exercises) {

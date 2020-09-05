@@ -1,4 +1,6 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './exercise.css'
 import Button from '../../components/button/button'
 import OptionWeight from './options/weight'
@@ -6,7 +8,6 @@ import OptionRepeats from './options/repeats'
 import OptionRepeatsOneHand from './options/repeats-one-hand'
 import OptionTime from './options/time'
 import OptionTimeOneHand from './options/time-one-hand'
-import { connect } from 'react-redux'
 import { openModal } from '../../store/actions'
 
 type propTypes = {
@@ -14,7 +15,7 @@ type propTypes = {
   workoutTemplate: any
   switchExercise: any
   recordSet: any
-  dispatch: any
+  dispatch: Dispatch
 }
 
 const Exercise = (props: propTypes) => {

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './month.css'
 import Sets from '../sets/sets'
-import { connect } from 'react-redux'
 import { openModal } from '../../store/actions'
 import cloudData from '../../data/CloudData'
 
@@ -51,9 +52,11 @@ class Calendar {
     return monthNames[monthNum]
   }
 
-  openWorkoutData(e: any, dispatch: any) {
+  openWorkoutData(e: React.MouseEvent<HTMLDivElement>, dispatch: Dispatch) {
+    // @ts-ignore
     if (localStorage.getItem(e.target.id)) {
-      const workouts: any = JSON.parse(localStorage[e.target.id])
+      // @ts-ignore
+      const workouts = JSON.parse(localStorage[e.target.id])
       const dataToRender: Array<any> = []
       workouts.forEach((workout: any, index: number) => {
         if (workout.type !== 'power') {
@@ -113,7 +116,7 @@ class Calendar {
 
 type propTypes = {
   monthNum: number
-  dispatch: any
+  dispatch: Dispatch
 }
 
 // Component

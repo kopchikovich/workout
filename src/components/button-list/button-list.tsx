@@ -3,12 +3,12 @@ import './button-list.css'
 import localData from '../../data/LocalData'
 import Button from '../button/button'
 
-type propsTypes = {
-  onClickHandler?: any
+type propTypes = {
+  onClickHandler?: React.ReactEventHandler<HTMLUListElement>
   className?: string
 }
 
-const ButtonList = (props: propsTypes) => {
+const ButtonList = (props: propTypes) => {
   const workoutTemplateDb = localData('workout-templates').open()
   const compare = (a: {type: string}, b: {type: string}) => {
     if (a.type === 'power' && b.type !== 'power') {

@@ -1,4 +1,6 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './workout.css'
 import cloudData from '../../data/CloudData'
 import localData from '../../data/LocalData'
@@ -6,15 +8,14 @@ import Button from '../../components/button/button'
 import Sets from '../../components/sets/sets'
 import Timer from './timer'
 import Exercise from './exercise'
-import { connect } from 'react-redux'
 import { initialState } from '../../store/initialState'
-import { openModal, closeModal, switchScreen, renderMessage, setRecordWorkoutLink } from '../../store/actions'
+import { openModal, closeModal, switchScreen, setRecordWorkoutLink } from '../../store/actions'
 
 // workoutTemplate это шаблон тренировки (тренировка в базе данных)
 // workout это практическая тренировка, действие. Запись которой и происходит
 
 type propTypes = {
-  dispatch: any
+  dispatch: Dispatch
   workoutTemplateKey: string
   resetRestTimer: any
 }
@@ -117,6 +118,7 @@ class ScreenWorkout extends React.Component {
         <Button
           className='description__button button--arrow'
           title='<'
+          // @ts-ignore
           onClickHandler={this.confirmExit.bind(this)}
           value='index'
         />
