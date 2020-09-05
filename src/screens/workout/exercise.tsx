@@ -1,4 +1,6 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './exercise.css'
 import Button from '../../components/button/button'
 import OptionWeight from './options/weight'
@@ -6,16 +8,17 @@ import OptionRepeats from './options/repeats'
 import OptionRepeatsOneHand from './options/repeats-one-hand'
 import OptionTime from './options/time'
 import OptionTimeOneHand from './options/time-one-hand'
+import { openModal } from '../../store/actions'
 
-type propsTypes = {
+type propTypes = {
   state: any
   workoutTemplate: any
-  openModal: any
   switchExercise: any
   recordSet: any
+  dispatch: Dispatch
 }
 
-const Exercise = (props: propsTypes) => {
+const Exercise = (props: propTypes) => {
   const exercise = props.state.currentExs
   const options = exercise.options
 
@@ -36,7 +39,7 @@ const Exercise = (props: propsTypes) => {
   }
 
   const openExerciseDescription = () => {
-    props.openModal(exercise.name, exercise.description)
+    props.dispatch(openModal(exercise.name, exercise.description))
   }
 
   return (
@@ -63,4 +66,4 @@ const Exercise = (props: propsTypes) => {
   )
 }
 
-export default Exercise
+export default connect()(Exercise)

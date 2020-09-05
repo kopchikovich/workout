@@ -1,24 +1,30 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './timer.css'
+import { initialState } from '../../store/initialState'
+import { setResetTimerLink } from '../../store/actions'
 
-type propsTypes = {
+type propTypes = {
   minutes?: number | string
   seconds?: number | string
-  control?: boolean
+  control?: any
+  resetTimerLink: any
+  dispatch: Dispatch
 }
 
 class Timer extends React.Component {
-  state: propsTypes
+  state: any
+  props: any
   timerInterval: any
 
-  constructor(props: propsTypes) {
+  constructor(props: propTypes) {
     // @ts-ignore
     super()
-    const initialState: propsTypes = {
-      minutes: props.minutes? props.minutes : '00',
-      seconds: props.seconds? props.seconds : '00'
+    this.state = {
+      minutes: props.minutes || '00',
+      seconds: props.seconds || '00'
     }
-    this.state = initialState
   }
 
   render() {
@@ -36,9 +42,7 @@ class Timer extends React.Component {
   }
 
   tick() {
-    // @ts-ignore
     let minutes = +this.state.minutes
-    // @ts-ignore
     let seconds = +this.state.seconds
     seconds++
     if (seconds === 60) {
@@ -50,7 +54,6 @@ class Timer extends React.Component {
       minutes: minutes < 10? '0' + minutes: minutes,
       seconds: seconds < 10? '0' + seconds: seconds
     })
-    // @ts-ignore
     if (this.props.control) {
       localStorage.setItem('backup-rest-timer', JSON.stringify(this.state))
     } else {
@@ -67,20 +70,15 @@ class Timer extends React.Component {
 
   componentDidMount() {
     this.timerInterval = setInterval(this.tick.bind(this), 1000)
-    // @ts-ignore
     if (this.props.control) {
-      document.controller.resetRestTimer = this.reset.bind(this)
+      this.props.dispatch(setResetTimerLink(this.reset.bind(this)))
     }
   }
 
   componentWillUnmount() {
     clearInterval(this.timerInterval)
-    // @ts-ignore
     if (this.props.control) {
-      delete document.controller.resetRestTimer
-    }
-    // @ts-ignore
-    if (this.props.control) {
+      this.props.dispatch(setResetTimerLink(null))
       localStorage.removeItem('backup-rest-timer')
     } else {
       localStorage.removeItem('backup-timer')
@@ -88,4 +86,11 @@ class Timer extends React.Component {
   }
 }
 
-export default Timer
+const mapStateToProps = (state: typeof initialState) => {
+  return {
+    resetTimerLink: state.resetTimerLink
+  }
+}
+
+// @ts-ignore
+export default connect(mapStateToProps)(Timer)

@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import localData from '../../../data/LocalData'
 
-type propsTypes = {
+type propTypes = {
   value: any
   setExercises: any
 }
 
-const InputExercises = (props: propsTypes) => {
+const InputExercises = (props: propTypes) => {
   const [ state, setState ] = useState(props.value)
   const exercises_db: any = localData('exercises').open()
 
@@ -39,7 +39,8 @@ const InputExercises = (props: propsTypes) => {
     )
   })
 
-  const changeHandler = (e: any) => {
+  const changeHandler: React.ReactEventHandler<HTMLDivElement> = (e) => {
+    // @ts-ignore
     const value: string = e.target.value? e.target.value : e.target.firstChild.value
     let newState: any = null
 

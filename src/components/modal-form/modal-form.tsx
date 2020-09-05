@@ -1,17 +1,43 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
+import cloudData from '../../data/CloudData'
 import Button from '../button/button'
+import { closeModal } from '../../store/actions'
 
-type propsTypes = {
-  recordCardioWorkout: any
-  closeModal: any
-  workoutTemplate: object
+type propTypes = {
+  workoutTemplate: {
+    name: string
+    type: string
+  }
+  dispatch: Dispatch
 }
 
-const ModalForm = (props: propsTypes) => {
-  const submit = (e: any): void => {
+const ModalForm = ({ workoutTemplate, dispatch }: propTypes) => {
+  const submit: React.ReactEventHandler<HTMLFormElement> = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    props.recordCardioWorkout(e, props.workoutTemplate)
-    props.closeModal(e, true)
+    const workout = {
+      name: workoutTemplate.name,
+      type: workoutTemplate.type,
+      timeStop: new Date(),
+      // @ts-ignore
+      duration: e.target[0].value,
+      // @ts-ignore
+      distance: e.target[1].value
+    }
+    const dateString: string = `${workout.timeStop.getFullYear()}-${workout.timeStop.getMonth()+1}-${workout.timeStop.getDate()}`
+    if (!localStorage.getItem(dateString)) {
+      localStorage.setItem(dateString, JSON.stringify([workout]))
+    } else {
+      // @ts-ignore
+      const array = JSON.parse(localStorage.getItem(dateString))
+      array.push(workout)
+      localStorage.setItem(dateString, JSON.stringify(array))
+    }
+    // make backup and append workout to firestore
+    localStorage.setItem('workout-backup', JSON.stringify(workout))
+    cloudData.recordWorkout(workout)
+    dispatch(closeModal())
   }
 
   return (
@@ -29,4 +55,6 @@ const ModalForm = (props: propsTypes) => {
   )
 }
 
-export default ModalForm
+
+
+export default connect()(ModalForm)

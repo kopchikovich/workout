@@ -1,10 +1,10 @@
 import React from 'react'
 
-type propsTypes = {
+type propTypes = {
   value: any
 }
 
-const InputOptions = (props: propsTypes) => {
+const InputOptions = (props: propTypes) => {
   const names: any = {
     'weight': 'Вес',
     'repeats': 'Повторения',

@@ -1,29 +1,52 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './modal-window.css'
+import { initialState } from '../../store/initialState'
+import { closeModal } from '../../store/actions'
 
-type propsTypes = {
+
+type propTypes = {
   isVisible: boolean
   header: string
   content: string
-  closeModal: any
+  dispatch: Dispatch
 }
 
-const ModalWindow = (props: propsTypes) => {
-  const display = props.isVisible? 'flex' : 'none';
-  const displayHeader = props.header? 'flex' : 'none';
+const ModalWindow = ({ isVisible, header, content, dispatch }: propTypes) => {
+  const display = isVisible? 'flex' : 'none'
+  const displayHeader = header? 'flex' : 'none'
+
+  const closeHandler = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) {
+      dispatch(closeModal())
+    }
+  }
 
   return (
-    <div className='modal__wrapper' style={{display: display}} onClick={props.closeModal}>
+    <div
+      className='modal__wrapper'
+      style={{display: display}}
+      onClick={(e: React.MouseEvent<HTMLDivElement>) => closeHandler(e)}
+    >
       <section className='modal'>
         <header className='modal__header' style={{display: displayHeader}}>
-          {props.header}
+          {header}
         </header>
         <article className='modal__content'>
-          {props.content}
+          {content}
         </article>
       </section>
     </div>
   )
 }
 
-export default ModalWindow
+const mapStateToProps = (state: typeof initialState) => {
+  return {
+    isVisible: state.modal.isVisible,
+    header: state.modal.header,
+    content: state.modal.content
+  }
+}
+
+export default connect(mapStateToProps)(ModalWindow)

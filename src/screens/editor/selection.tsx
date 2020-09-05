@@ -2,18 +2,17 @@ import React from 'react'
 import Button from '../../components/button/button'
 import List from './list'
 
-type propsTypes = {
+type propTypes = {
   setCurrentView: any
-  switchScreen: any
 }
 
-const Selection = (props: propsTypes) => {
-  const selectHandler = (e: any): void => {
-    props.setCurrentView((
+const Selection = ({ setCurrentView }: propTypes) => {
+  const selectHandler: React.ReactEventHandler<HTMLButtonElement> = (e) => {
+    setCurrentView((
       <List
+        // @ts-ignore
         target={e.target.value}
-        switchScreen={props.switchScreen}
-        setCurrentView={props.setCurrentView}
+        setCurrentView={setCurrentView}
       />
     ))
   }

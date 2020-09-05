@@ -1,31 +1,41 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './footer.css'
 import Button from '../../components/button/button'
+import { switchScreen } from '../../store/actions'
+import { initialState } from '../../store/initialState'
 
-type propsTypes = {
+type propTypes = {
   screen: string
-  switchScreen: any
+  recordWorkout: any
+  dispatch: Dispatch
 }
 
-const Footer = (props: propsTypes) => {
-  const footerTitles: Array<Array<string>> = [['index', 'Начать'], ['calendar', 'Календарь'], ['exercise', 'Тренировки'], ['user', 'Аккаунт']]
-  const isCurrent = (screen: string) => {
-    return props.screen === screen
+const Footer = ({ screen, recordWorkout, dispatch }: propTypes) => {
+  const footerTitles: Array<Array<string>> = [
+    ['index', 'Начать'],
+    ['calendar', 'Календарь'],
+    ['exercise', 'Тренировки'],
+    ['user', 'Аккаунт']
+  ]
+  const isCurrent = (testedScreen: string) => {
+    return screen === testedScreen
   }
 
   let footerList: any = []
-  if (props.screen === 'workout') {
+  if (screen === 'workout') {
     footerList = (
       <li>
         <Button
           className='footer-list__button'
           title='Закончить тренировку'
           value='index'
-          onClickHandler={(e: any) => document.controller.recordWorkout(e, true)}
+          onClickHandler={(e: React.MouseEvent<HTMLButtonElement>) => recordWorkout(e, true)}
         />
       </li>
     )
-  } else if (props.screen === 'login') {
+  } else if (screen === 'login') {
     footerList = []
   } else {
     footerList = footerTitles.map((title: Array<string>, key: number) => {
@@ -35,7 +45,7 @@ const Footer = (props: propsTypes) => {
             className={isCurrent(title[0])? 'footer-list__button footer-list__button--current' : 'footer-list__button'}
             value={title[0]}
             title={title[1]}
-            onClickHandler={props.switchScreen}
+            onClickHandler={() => dispatch(switchScreen(title[0]))}
             disabled={isCurrent(title[0])}
           />
         </li>
@@ -52,4 +62,11 @@ const Footer = (props: propsTypes) => {
   )
 }
 
-export default Footer
+const mapStateToProps = (state: typeof initialState) => {
+  return {
+    screen: state.screen,
+    recordWorkout: state.recordWorkoutLink
+  }
+}
+
+export default connect(mapStateToProps)(Footer)

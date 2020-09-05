@@ -18,22 +18,25 @@ class LocalDb {
   }
 
   add(item: object): string {
-    const db: any = this.open()
+    const db = this.open()
     const id: string = this._makeId()
+    // @ts-ignore
     db[id] = Object.assign(item, {id: id})
     this.save(db)
     return id
   }
 
   edit(item: object, id: string) {
-    const db: any = this.open()
+    const db = this.open()
+    // @ts-ignore
     db[id] = Object.assign(db[id], item)
     this.save(db)
     return id
   }
 
   delete(id: string): void {
-    const db: any = this.open()
+    const db = this.open()
+    // @ts-ignore
     delete db[id]
     this.save(db)
   }

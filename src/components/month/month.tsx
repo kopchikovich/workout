@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './month.css'
 import Sets from '../sets/sets'
+import { openModal } from '../../store/actions'
+import cloudData from '../../data/CloudData'
 
 // class with helping methods
 class Calendar {
@@ -48,37 +52,11 @@ class Calendar {
     return monthNames[monthNum]
   }
 
-  _getAmountOfDaysInMonth(date: Date): number {
-    return 33 - new Date(date.getFullYear(), date.getMonth(), 33).getDate()
-  }
-
-  _getFirstEmptyWeekDays(date: Date): number {
-    const weekday: number = date.getDay()
-    switch (weekday) {
-      case 0: return 6 // Sunday
-      case 1: return 0 // Monday
-      case 2: return 1 // Tuesday
-      case 3: return 2 // Wednesday
-      case 4: return 3 // Thursday
-      case 5: return 4 // Friday
-      case 6: return 5 // Saturday
-      default: return -1 // Error
-    }
-  }
-}
-
-type propsTypes = {
-  monthNum: number
-  openModal: any
-}
-
-// Component
-const Month = (props: propsTypes) => {
-  const days = Calendar.prototype.getMonth(props.monthNum)
-
-  const openWorkoutData = (e: any) => {
+  openWorkoutData(e: React.MouseEvent<HTMLDivElement>, dispatch: Dispatch) {
+    // @ts-ignore
     if (localStorage.getItem(e.target.id)) {
-      const workouts: any = JSON.parse(localStorage[e.target.id])
+      // @ts-ignore
+      const workouts = JSON.parse(localStorage[e.target.id])
       const dataToRender: Array<any> = []
       workouts.forEach((workout: any, index: number) => {
         if (workout.type !== 'power') {
@@ -113,17 +91,54 @@ const Month = (props: propsTypes) => {
           dataToRender.push('Error reading workout from localStorage')
         }
       })
-
-      props.openModal(false, dataToRender)
+      dispatch(openModal('', dataToRender))
     }
   }
+
+  _getAmountOfDaysInMonth(date: Date): number {
+    return 33 - new Date(date.getFullYear(), date.getMonth(), 33).getDate()
+  }
+
+  _getFirstEmptyWeekDays(date: Date): number {
+    const weekday: number = date.getDay()
+    switch (weekday) {
+      case 0: return 6 // Sunday
+      case 1: return 0 // Monday
+      case 2: return 1 // Tuesday
+      case 3: return 2 // Wednesday
+      case 4: return 3 // Thursday
+      case 5: return 4 // Friday
+      case 6: return 5 // Saturday
+      default: return -1 // Error
+    }
+  }
+}
+
+type propTypes = {
+  monthNum: number
+  dispatch: Dispatch
+}
+
+// Component
+const Month = ({ monthNum, dispatch }: propTypes) => {
+  const days = Calendar.prototype.getMonth(monthNum)
+  const [ needUpdate, setNeedUpdate ] = useState(false)
+
+  useEffect(() => {
+    const date: Date = new Date()
+    date.setDate(1)
+    date.setMonth(monthNum)
+    cloudData.getMonthWorkouts(date).then(() => {
+      if (!needUpdate) setNeedUpdate(true)
+    })
+  }, [])
 
   return (
     <article className='calendar__month'>
       <h3 className='calendar__header'>
-        {Calendar.prototype.getMonthName(props.monthNum)}
+        {Calendar.prototype.getMonthName(monthNum)}
       </h3>
-      <div className='calendar__days' onClick={openWorkoutData}>
+      <div className='calendar__days' onClick={(e) => Calendar.prototype.openWorkoutData(e, dispatch)}>
         {days}
       </div>
     </article>
@@ -131,4 +146,4 @@ const Month = (props: propsTypes) => {
 }
 
 export { Calendar }
-export default Month
+export default connect()(Month)

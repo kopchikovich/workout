@@ -1,12 +1,12 @@
 import React from 'react'
 
-type propsTypes = {
+type propTypes = {
   className?: string
   onChangeHandler?: () => {}
   isChecked?: boolean
 }
 
-const Checkbox = (props: propsTypes) => {
+const Checkbox = (props: propTypes) => {
   return (
     <input
       type='checkbox'

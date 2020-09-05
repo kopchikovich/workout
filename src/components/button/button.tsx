@@ -1,21 +1,23 @@
 import React from 'react'
 import './button.css'
 
-type propsTypes = {
+type propTypes = {
   className?: string
-  onClickHandler?: any
+  onClickHandler?: React.ReactEventHandler<HTMLButtonElement>
   value?: string
   disabled?: boolean
-  title?: string
+  title: string
+  id?: string
 }
 
-const Button = (props: propsTypes) => {
+const Button = (props: propTypes) => {
   return (
     <button
       className={props.className}
       onClick={props.onClickHandler}
       value={props.value}
       disabled={props.disabled}
+      id={props.id}
     >
       {props.title}
     </button>

@@ -2,17 +2,17 @@ import React, { useState } from 'react'
 import './input-number.css'
 import Button from '../../components/button/button'
 
-type propsTypes = {
+type propTypes = {
   name: string
   id?: string
 }
 
-const InputNumber = (props: propsTypes) => {
+const InputNumber = (props: propTypes) => {
   const [ state, setState ]: any = useState('0')
   const MIN_VALUE: number = 0
   const MAX_VALUE: number = 100
 
-  const increment = (e: any) => {
+  const increment: React.ReactEventHandler<HTMLButtonElement> = (e) => {
     const value: number = +state
     e.preventDefault()
     if (value >= MAX_VALUE) {
@@ -23,7 +23,7 @@ const InputNumber = (props: propsTypes) => {
       setState(value+1)
     }
   }
-  const decrement = (e: any) => {
+  const decrement: React.ReactEventHandler<HTMLButtonElement> = (e) => {
     const value: number = +state
     e.preventDefault()
     if (value <= MIN_VALUE) {

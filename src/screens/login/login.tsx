@@ -1,15 +1,24 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './login.css'
 import Button from '../../components/button/button'
+import { login } from '../../store/actions'
 
-type propsTypes = {
-  login: any
+type propTypes = {
+  dispatch: Dispatch
 }
 
-const ScreenLogin = (props: propsTypes) => {
+const ScreenLogin = ({ dispatch }: propTypes) => {
+  const submitHandler: React.ReactEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault()
+    // @ts-ignore
+    dispatch(login(e.target.email.value, e.target.password.value))
+  }
+
   return (
     <div className='login__wrapper'>
-      <form className='login' onSubmit={props.login}>
+      <form className='login' onSubmit={submitHandler}>
         <label className='login__block'>
           <span className='login__text'>Почта</span>
           <input type='email' name='email' id='email' className='login__input' />
@@ -24,4 +33,4 @@ const ScreenLogin = (props: propsTypes) => {
   )
 }
 
-export default ScreenLogin
+export default connect()(ScreenLogin)

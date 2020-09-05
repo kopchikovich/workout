@@ -1,4 +1,6 @@
 import React from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './editor-form.css'
 import cloudData from '../../data/CloudData'
 import localData from '../../data/LocalData'
@@ -9,25 +11,30 @@ import InputSets from './editor-inputs/sets'
 import InputType from './editor-inputs/type'
 import InputOptions from './editor-inputs/options'
 import InputExercises from './editor-inputs/exercises'
+import { switchScreen, renderMessage } from '../../store/actions'
 
-type propsTypes = {
+type propTypes = {
   targetObj: any
   target: string
-  switchScreen: any
+  dispatch: Dispatch
 }
 
-const EditorForm = (props: propsTypes) => {
-  let [ editableItemId, editableItem ]: any = Object.entries(props.targetObj).find((el: Array<any>) => el[1].name === props.target)
+const EditorForm = ({ targetObj, target, dispatch }: propTypes) => {
+  let [ editableItemId, editableItem ]: any = Object.entries(targetObj)
+      .find((el: Array<any>) => {
+        return el[1].name === target
+      })
 
   let exercises: any = editableItem.exercises
   const setExercises = (newExercises: any) => {
     exercises = newExercises
   }
 
-  const submitHandler = (e: any) => {
+  const submitHandler: React.ReactEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault()
 
     let db: any = null
+    // @ts-ignore
     const inputs: any = e.target.elements
 
     if (editableItem.exercises) {
@@ -57,8 +64,8 @@ const EditorForm = (props: propsTypes) => {
       db.edit(editableItem, editableItemId)
       cloudData.setUserExercises()
     }
-    document.controller.renderMessage('Сохранено', 'green')
-    props.switchScreen({target: {value: 'exercise'}})
+    dispatch(switchScreen('exercise'))
+    dispatch(renderMessage('Сохранено', 'green'))
   }
 
   const names: any = {
@@ -108,4 +115,4 @@ const EditorForm = (props: propsTypes) => {
   )
 }
 
-export default EditorForm
+export default connect()(EditorForm)

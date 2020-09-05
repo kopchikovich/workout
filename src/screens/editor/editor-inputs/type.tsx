@@ -1,10 +1,10 @@
 import React from 'react'
 
-type propsTypes = {
+type propTypes = {
   value: any
 }
 
-const InputType = (props: propsTypes) => {
+const InputType = (props: propTypes) => {
   const names: any = {
     power: 'Силовая',
     running: 'Бег',

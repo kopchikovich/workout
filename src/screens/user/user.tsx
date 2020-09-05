@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from 'react'
+import { Dispatch } from 'redux'
+import { connect } from 'react-redux'
 import './user.css'
 import cloudData from '../../data/CloudData'
 import Button from '../../components/button/button'
 import Checkbox from '../../components/checkbox/checkbox'
+import { switchScreen, setIsLogin, setDarkTheme, renderMessage } from '../../store/actions'
+import { initialState } from '../../store/initialState'
 
-type propsTypes = {
-  switchTheme: any
-  darkTheme: any
-  logout: any
+type propTypes = {
+  dispatch: Dispatch
+  darkTheme: boolean
+  workoutPromiseLink: any
 }
 
-const ScreenUser = (props: propsTypes) => {
+const ScreenUser = ({ dispatch, darkTheme, workoutPromiseLink }: propTypes) => {
   const [ mileage, setMileage ]: any = useState('0')
   const [ lastWorkout, setLastWorkout ]: any = useState(<i>Ещё впереди</i>)
 
@@ -28,22 +32,30 @@ const ScreenUser = (props: propsTypes) => {
     })
     cloudData.getUserWorkoutTemplates()
     cloudData.getUserExercises()
-    document.controller.renderMessage('Синхронизируем..', 'green')
+    // @ts-ignore
+    dispatch(renderMessage('Синхронизируем..', 'green'))
   }
 
   // BACKUP
   // @ts-ignore
   const backupWorkout: any = JSON.parse(localStorage.getItem('workout-backup'))
-  const sendBackup = (e: any): void => {
+  const sendBackup: React.ReactEventHandler<HTMLButtonElement> = (e) => {
+    // @ts-ignore
     e.target.parentNode.style.display = 'none'
     cloudData.recordWorkout(backupWorkout)
   }
-  const backupMessage: any = (
+  const backupMessage = (
     <p className='user__text user__text--column user__text--warning'>
       <span>Найдена несохранённа тренировка: <i>{backupWorkout? backupWorkout.name : null}</i></span>
       <Button className='user__button user__button--send' title='Отправить' onClickHandler={sendBackup} />
     </p>
   )
+
+  const logout = () => {
+    cloudData.signOut()
+    dispatch(setIsLogin(false))
+    dispatch(switchScreen('login'))
+  }
 
   return (
     <section>
@@ -66,17 +78,30 @@ const ScreenUser = (props: propsTypes) => {
         </p>
         <p className='user__text'>
           Тёмная тема
-          <Checkbox className='user__checkbox' onChangeHandler={() => props.switchTheme(false)} isChecked={props.darkTheme} />
+          <Checkbox
+            className='user__checkbox'
+            onChangeHandler={() => dispatch(setDarkTheme(!darkTheme))}
+            isChecked={darkTheme}
+          />
         </p>
 
-        {/* если есть бэкап, написать об этом и отправить */}
-        {!document.controller.workoutAppendPromise && localStorage.getItem('workout-backup') ? backupMessage : null}
+        {
+          /* если есть бэкап, написать об этом и отправить */
+          !workoutPromiseLink && localStorage.getItem('workout-backup') ? backupMessage : null
+        }
 
         <Button className='user__button' title='Синхронизировать с облаком' onClickHandler={updateUserData} />
-        <Button className='user__button' title='Выйти' onClickHandler={props.logout} />
+        <Button className='user__button' title='Выйти' onClickHandler={logout} />
       </div>
     </section>
   )
 }
 
-export default ScreenUser
+const mapStateToProps = (state: typeof initialState) => {
+  return {
+    darkTheme: state.darkTheme,
+    workoutPromiseLink: state.workoutPromiseLink
+  }
+}
+
+export default connect(mapStateToProps)(ScreenUser)

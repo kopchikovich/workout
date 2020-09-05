@@ -1,10 +1,10 @@
 import React from 'react'
 
-type propsTypes = {
+type propTypes = {
   value?: string
 }
 
-const InputName = (props: propsTypes) => {
+const InputName = (props: propTypes) => {
   return (
     <label className='editor-form__label'>
       <span className='editor-form__text'>
