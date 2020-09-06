@@ -38,6 +38,12 @@
   margin-top: 20px;
   padding: 5px 10px;
 }
+.login__submit--demo {
+  margin-top: 20px;
+  padding: 5px 10px;
+  font-size: 26px;
+  color: #f55;
+}
 
 /******** shake ********/
 .shake {

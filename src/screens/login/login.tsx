@@ -15,6 +15,10 @@ const ScreenLogin = ({ dispatch }: propTypes) => {
     // @ts-ignore
     dispatch(login(e.target.email.value, e.target.password.value))
   }
+  const demoLogin = (e: React.SyntheticEvent<HTMLButtonElement, Event>) => {
+    e.preventDefault()
+    dispatch(login('demo@mail.ru', 'demodemo'))
+  }
 
   return (
     <div className='login__wrapper'>
@@ -28,6 +32,11 @@ const ScreenLogin = ({ dispatch }: propTypes) => {
           <input type='password' name='password' id='password' className='login__input' />
         </label>
         <Button className='login__submit' title='Войти' />
+        <Button
+          className='login__submit login__submit--demo'
+          title='DEMO'
+          onClickHandler={(e: React.SyntheticEvent<HTMLButtonElement, Event>) => demoLogin(e)}
+        />
       </form>
     </div>
   )

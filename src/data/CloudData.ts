@@ -33,8 +33,11 @@ class CloudData {
   signIn(email: string, password: string) {
     return firebase.auth().signInWithEmailAndPassword(email, password).then(() => {
       // @ts-ignore
-      const USER_NAME: string = firebase.auth().currentUser.displayName
+      const USER_NAME: string = email.includes('demo')? 'demo-user' : firebase.auth().currentUser.displayName
       this.user = this.cloudDb.doc(`${dbName}/${USER_NAME}`)
+      this.getUserWorkoutTemplates().then(
+        dispatch(switchScreen('index'))
+      )
       localStorage.setItem('user-name', USER_NAME)
       console.log('Sign in as', localStorage.getItem('user-name'))
       dispatch(renderMessage(`Привет, ${USER_NAME}!`, 'green'))
@@ -63,7 +66,7 @@ class CloudData {
 
   getUserData() {
     // @ts-ignore
-    localStorage.setItem('user-name', firebase.auth().currentUser.displayName)
+    localStorage.setItem('user-name', firebase.auth().currentUser.displayName || 'demo-user')
     return this.user.get().then((doc: any) => {
       if (doc.exists) {
         const userData = doc.data()

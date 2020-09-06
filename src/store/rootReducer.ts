@@ -7,7 +7,7 @@ import checkLogin from './side-effects/checkLogin'
 import useTheme from './side-effects/useTheme'
 
 export const rootReducer = (state = initialState, action: actionType) => {
-  console.log('dispatch action: ', action)
+  // console.log('dispatch action: ', action)
   switch (action.type) {
     case types.SWITCH_SCREEN:
       return { ...state, screen: action.payload }
