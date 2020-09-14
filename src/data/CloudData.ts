@@ -4,7 +4,7 @@ import 'firebase/firestore'
 import localData from './LocalData'
 import { Calendar } from '../components/month/month'
 import { dispatch } from '../store/store'
-import { renderMessage, setWorkoutPromiseLink, setIsLogin, switchScreen, setDarkTheme } from '../store/actions'
+import { renderMessage, setWorkoutPromiseLink, setIsLogin } from '../store/actions'
 
 const dbName: string = 'users'
 // const dbName: string = 'test'
@@ -35,26 +35,20 @@ class CloudData {
       // @ts-ignore
       const USER_NAME: string = email.includes('demo')? 'demo-user' : firebase.auth().currentUser.displayName
       this.user = this.cloudDb.doc(`${dbName}/${USER_NAME}`)
-      this.getUserWorkoutTemplates().then(
-        dispatch(switchScreen('index'))
-      )
       localStorage.setItem('user-name', USER_NAME)
-      console.log('Sign in as', localStorage.getItem('user-name'))
       dispatch(renderMessage(`Привет, ${USER_NAME}!`, 'green'))
       dispatch(setIsLogin(true))
-      this.getUserWorkoutTemplates().then(
-        dispatch(switchScreen('index'))
-      )
-      this.getUserData().then(() => {
-        dispatch(setDarkTheme(localStorage.getItem('dark-theme') === 'true'))
-      })
       this.getUserExercises()
-    }).catch(this._printError)
+    }).catch((er) => {
+      const form: any = document.querySelector('.login')
+      form.classList.add('shake')
+        setTimeout(() => form.classList.remove('shake'), 300);
+      this._printError(er)
+    })
   }
 
   signOut() {
     firebase.auth().signOut().then(() => {
-      console.log('Sign out')
       dispatch(renderMessage(`До свидания, ${localStorage.getItem('user-name')}`, 'green'))
       localStorage.clear()
     }).catch(this._printError)
