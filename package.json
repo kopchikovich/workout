@@ -1,6 +1,6 @@
 {
   "name": "workout",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "author": "kopchikovich <kopchikovich@yandex.ru>",
   "private": true,
   "scripts": {
@@ -16,7 +16,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.1",
-    "redux": "^4.0.5"
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

@@ -1,4 +1,4 @@
-import { dispatch } from '../store'
+import { dispatch, getState } from '../store'
 import cloudData from '../../data/CloudData'
 import { setIsLogin, switchScreen, openWorkoutScreen } from '../actions'
 
@@ -9,7 +9,7 @@ export default function() {
 
   const loginCheckTimeout = setInterval(() => {
     checkCounter++
-    if (checkCounter >= CHECK_NUMBER) {
+    if (checkCounter >= CHECK_NUMBER || getState().isLogin) {
       clearInterval(loginCheckTimeout)
       return null
     }

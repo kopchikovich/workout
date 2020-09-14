@@ -58,10 +58,6 @@ export const rootReducer = (state = initialState, action: actionType) => {
     case types.SET_IS_LOGIN: {
       return { ...state, isLogin: action.payload }
     }
-    case types.LOGIN: {
-      cloudData.signIn(action.payload.email, action.payload.password)
-      return state
-    }
     case types.LOGOUT: {
       cloudData.signOut()
       return {

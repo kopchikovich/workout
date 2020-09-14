@@ -1,3 +1,5 @@
+import { Dispatch } from 'redux'
+import cloudData from '../data/CloudData'
 import * as types from './types'
 
 export type actionType = {
@@ -81,13 +83,6 @@ export const setIsLogin = (isLogin: boolean): actionType => {
   }
 }
 
-export const login = (email: string, password: string): actionType => {
-  return {
-    type: types.LOGIN,
-    payload: { email, password }
-  }
-}
-
 export const logout = (): actionType => {
   return {
     type: types.LOGOUT
@@ -97,5 +92,20 @@ export const logout = (): actionType => {
 export const checkLogin = (): actionType => {
   return {
     type: types.CHECK_LOGIN
+  }
+}
+
+// async thunk
+export const login: any = (email: string, password: string) => {
+  return (dispatch: Dispatch) => {
+    cloudData.signIn(email, password).then(() => {
+      cloudData.getUserWorkoutTemplates().then(() => {
+        dispatch(switchScreen('index'))
+      }
+      )
+      cloudData.getUserData().then(() => {
+        dispatch(setDarkTheme(localStorage.getItem('dark-theme') === 'true'))
+      })
+    })
   }
 }
