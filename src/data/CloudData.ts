@@ -2,7 +2,7 @@ import * as firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/firestore'
 import localData from './LocalData'
-import { Calendar } from '../components/month/month'
+import calendar from '../components/month/calendar.functions'
 import { dispatch } from '../store/store'
 import { renderMessage, setWorkoutPromiseLink, setIsLogin } from '../store/actions'
 
@@ -78,9 +78,9 @@ class CloudData {
     const workoutDate = typeof workout.timeStop === 'string'? new Date(workout.timeStop) : workout.timeStop
     const workoutMonth = workoutDate.getMonth()
     const workoutYear = workoutDate.getFullYear()
-    const workoutMonthNameEng = Calendar.prototype.getMonthNameInEng(workoutMonth)
+    const workoutMonthNameEng = calendar.getMonthNameInEng(workoutMonth)
     // record last workout string
-    let workoutMonthName = Calendar.prototype.getMonthName(workoutMonth).toLowerCase()
+    let workoutMonthName = calendar.getMonthName(workoutMonth).toLowerCase()
     workoutMonthName = workoutMonth === 2 || workoutMonth === 7 ? workoutMonthName + 'а' : workoutMonthName.slice(0, -1) + 'я'
     const lastWorkoutString = `${workout.name} - ${workoutDate.getDate()} ${workoutMonthName}`
     localStorage.setItem('user-last-workout', lastWorkoutString)
@@ -115,7 +115,7 @@ class CloudData {
 
   getMonthWorkouts(date: Date) {
     const year = date.getFullYear()
-    const monthNameEng = Calendar.prototype.getMonthNameInEng(date.getMonth())
+    const monthNameEng = calendar.getMonthNameInEng(date.getMonth())
     return this.user.collection(`workouts/${year}/${monthNameEng}`).get().then((querySnapshot: any) => {
       if (querySnapshot.docs.length > 0) {
         querySnapshot.forEach((doc: any) => {
@@ -139,7 +139,7 @@ class CloudData {
         })
       } else {
         const monthNum = +date.getMonth()
-        let monthName = Calendar.prototype.getMonthName(monthNum).toLowerCase()
+        let monthName = calendar.getMonthName(monthNum).toLowerCase()
         monthName = monthNum === 2 || monthNum === 7 ? monthName + 'е' : monthName.slice(0, -1) + 'е'
         dispatch(renderMessage(`В ${monthName} нет тренировок записанных в облако`, 'green'))
       }

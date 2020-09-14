@@ -2,6 +2,7 @@ import React from 'react'
 import './calendar.css'
 import Button from '../../components/button/button'
 import Month from '../../components/month/month'
+import calendar from '../../components/month/calendar.functions'
 
 class ScreenCalendar extends React.Component {
   state = {
@@ -28,27 +29,14 @@ class ScreenCalendar extends React.Component {
     )
   }
 
-  setLastRenderedMonth(): void {
+  setLastRenderedMonth() {
     this.setState({
       lastRenderedMonth: this.state.lastRenderedMonth-1
     })
   }
 
-  highlightCurrentDay(): void {
-    const date: Date = new Date()
-    const dateString: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-    const currentDay: HTMLElement | null = document.getElementById(dateString)
-    if (currentDay) {
-      currentDay.classList.add('calendar__day--current')
-    }
-  }
-
-  componentDidMount(): void {
-    this.highlightCurrentDay()
-  }
-
-  componentDidUpdate(): void {
-    this.highlightCurrentDay()
+  componentDidMount() {
+    calendar.highlightCurrentDay()
   }
 }
 
