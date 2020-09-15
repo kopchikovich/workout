@@ -6,27 +6,26 @@ type propTypes = {
   exercise: any
 }
 
-const Sets = (props: propTypes) => {
-  const makeSetString = (set: any) => {
-    const options: Array<string> = Object.keys(set)
-    const GRAM_IN_KILOGRAM = 1000
-
-    if (options.includes('time-left') && options.includes('time-right')) {
-      return `лев - ${set['time-left']} / прав - ${set['time-right']}`
-    } else if (options.includes('weight') && options.includes('repeats-left') && options.includes('repeats-right')) {
-      return `${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)}кг лев - ${set['repeats-left']} / прав - ${set['repeats-right']}`
-    } else if (options.includes('repeats-left') && options.includes('repeats-right')) {
-      return `лев - ${set['repeats-left']} / прав - ${set['repeats-right']}`
-    } else if (options.includes('time')) {
-      return `${set.time}`
-    } else if (options.includes('weight') && options.includes('repeats')) {
-      return `${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)} кг - ${set.repeats}`
-    } else if (options.includes('repeats')) {
-      return `${set.repeats}`
-    }
-    return 'error'
+const makeSetString = (set: any) => {
+  const options: Array<string> = Object.keys(set)
+  const GRAM_IN_KILOGRAM = 1000
+  if (options.includes('time-left') && options.includes('time-right')) {
+    return `лев - ${set['time-left']} / прав - ${set['time-right']}`
+  } else if (options.includes('weight') && options.includes('repeats-left') && options.includes('repeats-right')) {
+    return `${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)}кг лев - ${set['repeats-left']} / прав - ${set['repeats-right']}`
+  } else if (options.includes('repeats-left') && options.includes('repeats-right')) {
+    return `лев - ${set['repeats-left']} / прав - ${set['repeats-right']}`
+  } else if (options.includes('time')) {
+    return `${set.time}`
+  } else if (options.includes('weight') && options.includes('repeats')) {
+    return `${(set.weight/GRAM_IN_KILOGRAM).toFixed(1)} кг - ${set.repeats}`
+  } else if (options.includes('repeats')) {
+    return `${set.repeats}`
   }
+  return null
+}
 
+const Sets = (props: propTypes) => {
   const toggleDeleteButton = (e: React.MouseEvent<HTMLSpanElement>) => {
     if (props.deleteSet) {
       // @ts-ignore
@@ -69,3 +68,4 @@ const Sets = (props: propTypes) => {
 }
 
 export default Sets
+export { makeSetString }

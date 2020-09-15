@@ -5,11 +5,13 @@ import './workout.css'
 import cloudData from '../../data/CloudData'
 import localData from '../../data/LocalData'
 import Button from '../../components/button/button'
-import Sets from '../../components/sets/sets'
+import Sets, { makeSetString } from '../../components/sets/sets'
 import Timer from './timer'
 import Exercise from './exercise'
+import BestSet from '../../components/best-set/best-set'
 import { initialState } from '../../store/initialState'
-import { openModal, closeModal, switchScreen, setRecordWorkoutLink } from '../../store/actions'
+import { openModal, closeModal, switchScreen, setRecordWorkoutLink, writeHeader } from '../../store/actions'
+import { dispatch } from '../../store/store'
 
 // workoutTemplate это шаблон тренировки (тренировка в базе данных)
 // workout это практическая тренировка, действие. Запись которой и происходит
@@ -30,12 +32,10 @@ class ScreenWorkout extends React.Component {
 
   constructor(props: propTypes) {
     super(props)
-
     // @ts-ignore
     this.workoutTemplate = localData('workout-templates').open()[this.props.workoutTemplateKey]
     this.exerciseDb = localData('exercises').open()
     this.backup = !!localStorage.getItem('backup-workout-template-key')
-
     if (this.backup) {
       // @ts-ignore
       const backupData = JSON.parse(localStorage.getItem('backup-workout-data'))
@@ -48,6 +48,7 @@ class ScreenWorkout extends React.Component {
       }
       // @ts-ignore
       this.state = {...JSON.parse(localStorage.getItem('backup-workout-state'))}
+      dispatch(writeHeader(backupData.name))
     } else {
       this.workout = {
         name: this.workoutTemplate.name,
@@ -59,6 +60,7 @@ class ScreenWorkout extends React.Component {
       this.state = {
         currentExs: this.exerciseDb[this.workoutTemplate.exercises[0]],
         currentExsIndex: 0,
+        bestSet: this.getBestSet(this.exerciseDb[this.workoutTemplate.exercises[0]]),
         exercises: {}
       }
     }
@@ -78,19 +80,19 @@ class ScreenWorkout extends React.Component {
         <section className='training-table__cell training-table__cell--timers'>
           <article className='timer'>
             {
-              backupRestTimer ?
+              backupRestTimer
                 // @ts-ignore
-                <Timer control={true} minutes={backupRestTimer.minutes} seconds={backupRestTimer.seconds} /> :
+                ? <Timer control={true} minutes={backupRestTimer.minutes} seconds={backupRestTimer.seconds} />
                 // @ts-ignore
-                <Timer control={true} />
+                : <Timer control={true} />
             }
           </article>
           <article className='timer'>
             {
-              backupTimer ?
+              backupTimer
                 // @ts-ignore
-                <Timer minutes={backupTimer.minutes} seconds={backupTimer.seconds} /> :
-                <Timer />
+                ? <Timer minutes={backupTimer.minutes} seconds={backupTimer.seconds} />
+                : <Timer />
             }
           </article>
         </section>
@@ -101,6 +103,7 @@ class ScreenWorkout extends React.Component {
             switchExercise={this.switchExercise.bind(this)}
             recordSet={this.recordSet.bind(this)}
           />
+          <BestSet set={this.state.bestSet} />
         </article>
         <article className='training-table__cell training-table__cell--sets sets'>
           <h3 className='sets__header'>Выполнено</h3>
@@ -129,7 +132,6 @@ class ScreenWorkout extends React.Component {
   switchExercise(e: any) {
     let newExs = null
     let newExsIndex = 0
-
     if (e.target.value === 'prev') {
       newExsIndex = this.state.currentExsIndex-1 <= 0? 0 : this.state.currentExsIndex-1
     } else if (e.target.value === 'next') {
@@ -138,10 +140,10 @@ class ScreenWorkout extends React.Component {
       return null
     }
     newExs = this.exerciseDb[this.workoutTemplate.exercises[newExsIndex]]
-
     this.setState({
       currentExs: newExs,
-      currentExsIndex: newExsIndex
+      currentExsIndex: newExsIndex,
+      bestSet: this.getBestSet(newExs)
     })
     // save backup
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
@@ -154,7 +156,6 @@ class ScreenWorkout extends React.Component {
     for (let i = 0; i < options.length; i++) {
       set[options[i].name] = options[i].value
     }
-
     const currentExsLink: any = this.state.exercises[this.state.currentExs.name]
     let sets: any = null
     if (currentExsLink) {
@@ -182,13 +183,94 @@ class ScreenWorkout extends React.Component {
     localStorage.setItem('backup-workout-state', JSON.stringify(this.state))
   }
 
+  getBestSet(exercise: any) {
+    if (exercise.bestSet) {
+      return makeSetString(exercise.bestSet)
+    }
+    return null
+  }
+
+  recordBestSets() {
+    const findBestSet = (sets: Array<any>) => {
+      if (sets.length === 1) {
+        return sets[0]
+      }
+      let bestSetIndex = 0
+      sets.forEach((el, i) => {
+        if (bestSetIndex === i) return null
+        if (el['time'] || el['time-left']) {
+          const TIME_NAME = el['time']? 'time' : 'time-left'
+          const bestTime = sets[bestSetIndex][TIME_NAME].split(':')
+          const setTime = el[TIME_NAME].split(':')
+          if (bestTime[0] > setTime[0]) {
+            return null
+          } else if (bestTime[0] === setTime[0]) {
+            if (bestTime[1] > setTime[1]) {
+              return null
+            } else if (bestTime[1] === setTime[1]) {
+              return null
+            }
+          }
+          bestSetIndex = i
+        } else if (el['weight']) {
+          const bestWeight = +sets[bestSetIndex]['weight']
+          const setWeight = +el['weight']
+          if (bestWeight < setWeight) {
+            bestSetIndex = i
+          } else if (bestWeight === setWeight) {
+            const REPEATS_NAME = el['repeats']? 'repeats' : 'repeats-left'
+            if (+sets[bestSetIndex][REPEATS_NAME] < +el[REPEATS_NAME]) {
+              bestSetIndex = i
+            }
+          }
+        } else if (el['repeats'] || el['repeats-left']) {
+          const REPEATS_NAME = el['repeats']? 'repeats' : 'repeats-left'
+            if (+sets[bestSetIndex][REPEATS_NAME] < +el[REPEATS_NAME]) {
+              bestSetIndex = i
+            }
+        }
+      })
+      return sets[bestSetIndex]
+    }
+    Object.keys(this.state.exercises).forEach((name: string) => {
+      const exercise: any = Object.values(this.exerciseDb).find((el: any) => el.name === name)
+      const bestSet = findBestSet(this.state.exercises[exercise.name])
+      if (!exercise.bestSet) {
+        exercise.bestSet = bestSet
+      } else {
+        exercise.bestSet = findBestSet([exercise.bestSet, bestSet])
+      }
+    })
+    localData('exercises').save(this.exerciseDb)
+    cloudData.setUserExercises()
+  }
+
+  getLastWorkoutSets() {
+    let lastSets: any = null
+    // @ts-ignore
+    const lastAllWorkouts: any = JSON.parse(localStorage.getItem('last-workouts'))
+    const isLastWorkoutExist: boolean = lastAllWorkouts && lastAllWorkouts[this.workout.name]
+    // @ts-ignore
+    const lastWorkout: any = isLastWorkoutExist? JSON.parse(localStorage.getItem(lastAllWorkouts[this.workout.name])) : null
+    if (lastWorkout) {
+      const lastWorkoutData: any = lastWorkout.find((el: any) => {
+        return el.name === this.workout.name
+      })
+      if (Object.keys(lastWorkoutData.exercises).includes(this.state.currentExs.name)) {
+        lastSets = lastWorkoutData.exercises[this.state.currentExs.name]
+      }
+    } else if (isLastWorkoutExist) {
+      cloudData.getMonthWorkouts(new Date(lastAllWorkouts[this.workout.name]))
+    }
+    return lastSets
+  }
+
   recordWorkout(e: any) {
     const MILLISECONDS_IN_MINUTE: number = 60000
     const date: Date = this.workout.timeStop = new Date()
     this.workout.durationInMinutes = Math.floor((this.workout.timeStop - this.workout.timeStart)/MILLISECONDS_IN_MINUTE)
     const workout: any = Object.assign(this.workout, {exercises: this.state.exercises})
     const dateString: string = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`
-
     if (!localStorage.getItem(dateString)) {
       localStorage.setItem(dateString, JSON.stringify([workout]))
     } else {
@@ -208,32 +290,11 @@ class ScreenWorkout extends React.Component {
     // make backup and append workout to firestore
     localStorage.setItem('workout-backup', JSON.stringify(workout))
     cloudData.recordWorkout(workout)
-  }
-
-  getLastWorkoutSets() {
-    let lastSets: any = null
-    // @ts-ignore
-    const lastAllWorkouts: any = JSON.parse(localStorage.getItem('last-workouts'))
-    const isLastWorkoutExist: boolean = lastAllWorkouts && lastAllWorkouts[this.workout.name]
-    // @ts-ignore
-    const lastWorkout: any = isLastWorkoutExist? JSON.parse(localStorage.getItem(lastAllWorkouts[this.workout.name])) : null
-
-    if (lastWorkout) {
-      const lastWorkoutData: any = lastWorkout.find((el: any) => {
-        return el.name === this.workout.name
-      })
-      if (Object.keys(lastWorkoutData.exercises).includes(this.state.currentExs.name)) {
-        lastSets = lastWorkoutData.exercises[this.state.currentExs.name]
-      }
-    } else if (isLastWorkoutExist) {
-      cloudData.getMonthWorkouts(new Date(lastAllWorkouts[this.workout.name]))
-    }
-    return lastSets
+    this.recordBestSets()
   }
 
   confirmExit(e: any, isWorkoutEnd: boolean) {
     let content: any = null
-
     if (isWorkoutEnd) {
       content = (
         <>
