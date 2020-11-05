@@ -1,12 +1,13 @@
 .footer {
   width: 100%;
   max-width: inherit;
-  height: var(--header-footer-height);
+  height: var(--footer-height);
   background-color: var(--second-bg-color);
   color: var(--second-text-color);
   position: fixed;
   bottom: 0;
-  z-index: 1
+  z-index: 1;
+  padding-bottom: 15px;
 }
 .footer-list {
   width: 100%;

@@ -5,5 +5,5 @@
   max-height: 100%;
   background-color: var(--main-bg-color);
   color: var(--main-text-color);
-  padding: var(--header-footer-height) 5px;
+  padding: var(--header-height) 5px var(--footer-height);
 }
