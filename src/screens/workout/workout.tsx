@@ -333,6 +333,7 @@ class ScreenWorkout extends React.Component {
 
   componentWillUnmount() {
     this.props.dispatch(setRecordWorkoutLink(null))
+    this.props.dispatch(writeHeader(''))
     // remove backup
     localStorage.removeItem('backup-workout-state')
     localStorage.removeItem('backup-workout-data')
